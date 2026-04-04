@@ -1,8 +1,22 @@
 # Legacy of the Fallen
 
+A dark fantasy RPG set in the late 19th century — where Victorian-era society hides a world of fallen angels, demonic powers, and ancient magic. Navigate a story of alliances and corruption, building your character through combat and affinity.
+
+## Combat & Affinities
+
+Characters draw power from three affinities that shape their abilities and unlock class-specific options:
+
+- **Heavenfire** — divine radiance, healing, and sacred destruction
+- **Chaos** — wild magic, unpredictable surges, and entropic force
+- **Lust** — seductive power, mind control, and cold domination
+
+Your chosen affinity determines which spells and abilities are available as you level up.
+
+---
+
 ## Class Guides
 
-- [Barbarian](barbarian.md)
-- [Cleric](cleric.md)
-- [Fighter](fighter.md)
-- [Sorcerer](sorcerer.md)
+- [Barbarian](barbarian.md) — Rage-fueled melee fighter with Storm Herald elemental abilities
+- [Cleric](cleric.md) — Divine healer and radiation damage caster scaled on Wisdom
+- [Fighter](fighter.md) — Martial master with superior action economy and no resource limits
+- [Sorcerer](sorcerer.md) — Innate Charisma-based spellcaster with affinity infusions and metamagic
