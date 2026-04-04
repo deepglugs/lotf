@@ -99,7 +99,7 @@ Spells are chosen on level up and added to your action list.
 
 | Affinity | Icon | Spell | Description |
 |----------|------|-------|-------------|
-| Heavenfire | — | Sacred Temptation | Divine temptation spell. |
+| Heavenfire | ![](assets/sacred_temptation_icon.webp) | Sacred Temptation | Divine temptation spell. |
 | Lust | ![](assets/lustful_blessing_icon.webp) | Lust Blessing | Lust-based blessing ability. |
 | Chaos | ![](assets/chaos_rage_icon.webp) | Chaos Rage Action | Chaos-infused rage ability. |
 

@@ -11,9 +11,9 @@ These are automatically granted at the listed level.
 | Level | Icon | Feature |
 |-------|------|---------|
 | 1 | ![Font of Magic](assets/font_of_magic_icon.webp) | Font of Magic |
-| 2 | Spell Sniper | |
+| 2 | ![Spell Sniper](assets/spell_sniper_icon.webp) | Spell Sniper |
 | 3 | ![Metamagic: Empowered](assets/metamagic_empowered_icon.webp) | Metamagic: Empowered |
-| 5 | Spell Sniper Mastery | |
+| 5 | ![Spell Sniper Mastery](assets/spell_sniper_mastery_icon.webp) | Spell Sniper Mastery |
 | 7 | ![Arcane Deflection](assets/arcane_deflection_icon.webp) | Arcane Deflection |
 | 9 | ![Empowered Spells](assets/empowered_spells_icon.webp) | Empowered Spells |
 | 11 | ![Sorcerous Resilience](assets/sorcerous_resilience_icon.webp) | Sorcerous Resilience |
@@ -24,13 +24,13 @@ These are automatically granted at the listed level.
 ### ![](assets/font_of_magic_icon.webp) Font of Magic *(L1 — Ability, once per rest)*
 Draw upon the magic in your blood to recover energy. Recovers **1d4 + Charisma modifier** energy to a randomly selected affinity pool (Lust, Chaos, or Heavenfire). Resets on rest.
 
-### Spell Sniper *(L2)*
+### ![](assets/spell_sniper_icon.webp) Spell Sniper *(L2)*
 Passive. Extends spell range and improves spell accuracy.
 
 ### ![](assets/metamagic_empowered_icon.webp) Metamagic: Empowered *(L3)*
 Passive. Damage dice that roll 1 or 2 are automatically rerolled. Applies to all spell damage.
 
-### Spell Sniper Mastery *(L5)*
+### ![](assets/spell_sniper_mastery_icon.webp) Spell Sniper Mastery *(L5)*
 Passive. An upgraded form of Spell Sniper granting further range and accuracy bonuses.
 
 ### ![](assets/arcane_deflection_icon.webp) Arcane Deflection *(L7)*
@@ -80,7 +80,7 @@ Spells are chosen on level up and added to your action list.
 | Icon | Spell | Energy | Description |
 |------|-------|--------|-------------|
 | ![](assets/fireball_icon.webp) | Fireball | — | Large area fire damage. |
-| Web Barrage | — | Ensnares enemies. |
+| ![](assets/web_barrage_icon.webp) | Web Barrage | — | Ensnares enemies. |
 | ![](assets/chain_lightning_icon.webp) | Chain Lightning | 5 | Arcs to all enemies. Primary target takes **10d6** electric damage; others take **5d6**. Dexterity save for half. |
 
 ---
