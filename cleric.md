@@ -74,7 +74,6 @@ Spells are chosen on level up and added to your action list.
 | Icon | Spell | Energy | Description |
 |------|-------|--------|-------------|
 | ![](assets/smite_icon.webp) | Divine Smite | 5 (Heavenfire) | Powerful melee strike with divine damage. |
-| ![](assets/lustful_blessing_icon.webp) | Lust Blessing *(Lust affinity)* | — (Lust) | Affinity-based lust spell. |
 
 ### Level 5
 | Icon | Spell | Energy | Description |
@@ -100,7 +99,6 @@ Spells are chosen on level up and added to your action list.
 | Affinity | Icon | Spell | Energy | Description |
 |----------|------|-------|--------|-------------|
 | Heavenfire | ![](assets/sacred_temptation_icon.webp) | Sacred Temptation | 0 (Lust) | Divine temptation that inflicts Horny. Charisma save to resist. |
-| Lust | ![](assets/lustful_blessing_icon.webp) | Lust Blessing | 0 (Lust) | Lust-based blessing ability. |
 | Chaos | ![](assets/chaos_rage_icon.webp) | Chaos Rage Action | 2 (Chaos) | Chaos-infused rage ability. |
 
 ---
