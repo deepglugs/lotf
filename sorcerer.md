@@ -63,8 +63,8 @@ Spells are chosen on level up and added to your action list.
 ### Level 1
 | Icon | Spell | Energy | Description |
 |------|-------|--------|-------------|
-| ![](assets/firebolt_icon.webp) | Firebolt | — | Standard fire damage spell. |
-| ![](assets/frost_breath_icon.webp) | Frost Breath | — | Cold damage cone attack. |
+| ![](assets/firebolt_icon.webp) | Firebolt | 1 | Standard fire damage spell. |
+| ![](assets/frost_breath_icon.webp) | Frost Breath | 1 | Cold damage cone attack. |
 
 ### Level 2
 | Icon | Spell | Energy | Description |
@@ -74,13 +74,13 @@ Spells are chosen on level up and added to your action list.
 ### Level 3
 | Icon | Spell | Energy | Description |
 |------|-------|--------|-------------|
-| ![](assets/command_icon.webp) | Command | — | A spell that issues a magical command to an enemy. |
+| ![](assets/command_icon.webp) | Command | 1 | A spell that issues a magical command to an enemy. |
 
 ### Level 5
 | Icon | Spell | Energy | Description |
 |------|-------|--------|-------------|
-| ![](assets/fireball_icon.webp) | Fireball | — | Large area fire damage. |
-| ![](assets/web_barrage_icon.webp) | Web Barrage | — | Ensnares enemies. |
+| ![](assets/fireball_icon.webp) | Fireball | 3 | Large area fire damage. |
+| ![](assets/web_barrage_icon.webp) | Web Barrage | 2 | Ensnares enemies. |
 | ![](assets/chain_lightning_icon.webp) | Chain Lightning | 5 | Arcs to all enemies. Primary target takes **10d6** electric damage; others take **5d6**. Dexterity save for half. |
 
 ---

@@ -61,9 +61,9 @@ Spells are chosen on level up and added to your action list.
 | Icon | Spell | Energy | Description |
 |------|-------|--------|-------------|
 | ![](assets/aid_icon.webp) | Aid | 3 (Heavenfire) | Grants target temporary HP equal to **1d6 + Wisdom modifier + 1 per spell level**, lasting until rest. |
-| ![](assets/firebolt_icon.webp) | Firebolt | — | Standard fire damage spell. |
-| ![](assets/slap_icon.webp) | Divine Bitch Slap | — | Divine melee strike. |
-| ![](assets/holy_rage_icon.webp) | Holy Rage Action | — | Affinity-based divine rage ability. |
+| ![](assets/firebolt_icon.webp) | Firebolt | 1 | Standard fire damage spell. |
+| ![](assets/slap_icon.webp) | Divine Bitch Slap | 5 (Heavenfire) | Divine melee strike. |
+| ![](assets/holy_rage_icon.webp) | Holy Rage Action | 1 (Heavenfire) | Affinity-based divine rage ability. |
 
 ### Level 2
 | Icon | Spell | Energy | Description |
@@ -73,8 +73,8 @@ Spells are chosen on level up and added to your action list.
 ### Level 3
 | Icon | Spell | Energy | Description |
 |------|-------|--------|-------------|
-| ![](assets/smite_icon.webp) | Divine Smite | — | Powerful melee strike with divine damage. |
-| ![](assets/lustful_blessing_icon.webp) | Lust Blessing *(Lust affinity)* | — | Affinity-based lust spell. |
+| ![](assets/smite_icon.webp) | Divine Smite | 5 (Heavenfire) | Powerful melee strike with divine damage. |
+| ![](assets/lustful_blessing_icon.webp) | Lust Blessing *(Lust affinity)* | — (Lust) | Affinity-based lust spell. |
 
 ### Level 5
 | Icon | Spell | Energy | Description |
@@ -97,11 +97,11 @@ Spells are chosen on level up and added to your action list.
 
 ## Affinity Spell Options *(L6+ — Affinity-Gated)*
 
-| Affinity | Icon | Spell | Description |
-|----------|------|-------|-------------|
-| Heavenfire | ![](assets/sacred_temptation_icon.webp) | Sacred Temptation | Divine temptation spell. |
-| Lust | ![](assets/lustful_blessing_icon.webp) | Lust Blessing | Lust-based blessing ability. |
-| Chaos | ![](assets/chaos_rage_icon.webp) | Chaos Rage Action | Chaos-infused rage ability. |
+| Affinity | Icon | Spell | Energy | Description |
+|----------|------|-------|--------|-------------|
+| Heavenfire | ![](assets/sacred_temptation_icon.webp) | Sacred Temptation | 0 (Lust) | Divine temptation that inflicts Horny. Charisma save to resist. |
+| Lust | ![](assets/lustful_blessing_icon.webp) | Lust Blessing | 0 (Lust) | Lust-based blessing ability. |
+| Chaos | ![](assets/chaos_rage_icon.webp) | Chaos Rage Action | 2 (Chaos) | Chaos-infused rage ability. |
 
 ---
 
