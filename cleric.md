@@ -63,7 +63,6 @@ Spells are chosen on level up and added to your action list.
 | ![](assets/aid_icon.webp) | Aid | 3 (Heavenfire) | Grants target temporary HP equal to **1d6 + Wisdom modifier + 1 per spell level**, lasting until rest. |
 | ![](assets/firebolt_icon.webp) | Firebolt | 1 | Standard fire damage spell. |
 | ![](assets/slap_icon.webp) | Divine Bitch Slap | 5 (Heavenfire) | Divine melee strike. |
-| ![](assets/holy_rage_icon.webp) | Holy Rage Action | 1 (Heavenfire) | Affinity-based divine rage ability. |
 
 ### Level 2
 | Icon | Spell | Energy | Description |
@@ -99,7 +98,6 @@ Spells are chosen on level up and added to your action list.
 | Affinity | Icon | Spell | Energy | Description |
 |----------|------|-------|--------|-------------|
 | Heavenfire | ![](assets/sacred_temptation_icon.webp) | Sacred Temptation | 0 (Lust) | Divine temptation that inflicts Horny. Charisma save to resist. |
-| Chaos | ![](assets/chaos_rage_icon.webp) | Chaos Rage Action | 2 (Chaos) | Chaos-infused rage ability. |
 
 ---
 
