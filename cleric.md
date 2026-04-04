@@ -60,7 +60,7 @@ Spells are chosen on level up and added to your action list.
 ### Level 1
 | Icon | Spell | Energy | Description |
 |------|-------|--------|-------------|
-| ![](assets/aid_icon.webp) | Aid | — | Support/healing ability for allies. |
+| ![](assets/aid_icon.webp) | Aid | 3 (Heavenfire) | Grants target temporary HP equal to **1d6 + Wisdom modifier + 1 per spell level**, lasting until rest. |
 | ![](assets/firebolt_icon.webp) | Firebolt | — | Standard fire damage spell. |
 | ![](assets/slap_icon.webp) | Divine Bitch Slap | — | Divine melee strike. |
 | ![](assets/holy_rage_icon.webp) | Holy Rage Action | — | Affinity-based divine rage ability. |
@@ -80,7 +80,7 @@ Spells are chosen on level up and added to your action list.
 | Icon | Spell | Energy | Description |
 |------|-------|--------|-------------|
 | ![](assets/fireball_icon.webp) | Fireball | — | Large area fire damage. |
-| ![](assets/greater_heal_icon.webp) | Greater Heal | — | A more powerful healing spell. |
+| ![](assets/greater_heal_icon.webp) | Greater Heal | 6 (Heavenfire) | Heals target for **4d8 + Wisdom modifier x2**. Scaling with level. |
 | ![](assets/blessed_strike_icon.webp) | Blessed Strike | 2 (Heavenfire) | Melee weapon hit + self-heal for **1d6 + Wisdom modifier**. |
 
 ### Level 7
@@ -91,7 +91,7 @@ Spells are chosen on level up and added to your action list.
 ### Level 9
 | Icon | Spell | Energy | Description |
 |------|-------|--------|-------------|
-| ![](assets/greater_heal_icon.webp) | Mass Heal | — | Heals all allies. |
+| ![](assets/greater_heal_icon.webp) | Mass Heal | 8 (Heavenfire) | Heals all allies (including self) for **3d6 + Wisdom modifier**. |
 
 ---
 
