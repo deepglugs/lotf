@@ -7,7 +7,7 @@ A dark fantasy RPG set in the late 19th century — where Victorian-era society 
 Characters draw power from three affinities that shape their abilities and unlock class-specific options:
 
 - **Heavenfire** — divine radiance, healing, and sacred destruction
-- **Chaos** — wild magic, unpredictable surges, and entropic force
+- **Chaos** — the dark affinity of demons; dominion over others, inflicting pain, and bending weaker minds to your will
 - **Lust** — seductive power, mind control, and cold domination
 
 Your chosen affinity determines which spells and abilities are available as you level up.
