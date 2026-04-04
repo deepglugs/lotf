@@ -62,7 +62,7 @@ Spells are chosen on level up and added to your action list.
 |------|-------|--------|-------------|
 | ![](assets/aid_icon.webp) | Aid | — | Support/healing ability for allies. |
 | ![](assets/firebolt_icon.webp) | Firebolt | — | Standard fire damage spell. |
-| ![](assets/smite_icon.webp) | Divine Smite | — | Melee strike with divine damage. |
+| ![](assets/slap_icon.webp) | Divine Bitch Slap | — | Divine melee strike. |
 | ![](assets/holy_rage_icon.webp) | Holy Rage Action | — | Affinity-based divine rage ability. |
 
 ### Level 2
@@ -73,7 +73,7 @@ Spells are chosen on level up and added to your action list.
 ### Level 3
 | Icon | Spell | Energy | Description |
 |------|-------|--------|-------------|
-| ![](assets/slap_icon.webp) | Divine Bitch Slap | — | Divine melee strike. |
+| ![](assets/smite_icon.webp) | Divine Smite | — | Powerful melee strike with divine damage. |
 | ![](assets/lustful_blessing_icon.webp) | Lust Blessing *(Lust affinity)* | — | Affinity-based lust spell. |
 
 ### Level 5
