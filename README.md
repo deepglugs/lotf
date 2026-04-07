@@ -19,4 +19,11 @@ Your chosen affinity determines which spells and abilities are available as you 
 - [Barbarian](barbarian.md) — Rage-fueled melee fighter with Storm Herald elemental abilities
 - [Cleric](cleric.md) — Divine healer and radiation damage caster scaled on Wisdom
 - [Fighter](fighter.md) — Martial master with superior action economy and no resource limits
+- [Paladin](paladin.md) — Holy warrior combining divine smites and protecting auras scaled on Charisma
+- [Rogue](rogue.md) — Lethal assassin with sneak attacks and shadow abilities scaled on Dexterity
 - [Sorcerer](sorcerer.md) — Innate Charisma-based spellcaster with affinity infusions and metamagic
+
+## Game Systems
+
+- [Rest & Camp](rest_system.md) — Rest mechanics and food-based camp recovery
+- [Food & Consumables](food.md) — Consumable items and their effects
