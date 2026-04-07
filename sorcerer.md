@@ -97,7 +97,7 @@ Unlocked at level 6 if your character has the matching affinity.
 ### Lust Affinity
 | Icon | Feature | Description |
 |------|---------|-------------|
-| ![](assets/sorcerous_charm_icon.webp) | Sorcerous Charm | Your spells carry seductive power. Spell hits have a chance to inflict **Horny** on targets (Wisdom save to resist). |
+| ![](assets/sorcerous_charm_icon.webp) | Sorcerous Charm | Your spells carry seductive power. Spell hits have a chance to inflict **Horny** on targets (Charisma save to resist, DC 8 + Cha mod + L/4). |
 
 ### Chaos Affinity
 | Icon | Feature | Description |
@@ -127,6 +127,38 @@ Upgraded affinity abilities, also chosen as level options at level 14+.
 
 ---
 
+## The Horny Condition (Lust Affinity Mechanic)
+
+When a target is inflicted with **Horny**, they enter a multi-turn battle of lust:
+
+### Horny Mechanics:
+- **Disadvantage on attack rolls** — Overwhelming distraction
+- **+1 Lust energy per turn** — Passive lust energy recovery (benefits enemies too!)
+- **Wisdom saving throw each turn** — DC 10 + horny_level. Success reduces horny_level by 1.
+- **Horny level stacks** — Reapplying Horny increases the level instead of resetting it
+
+### Masturbate (Forced Action at Low Horny Levels)
+When horny, the target has a chance each turn to be forced to **Masturbate** (becomes their action):
+- **Grants 1d3 lust energy** to the affected character
+- No energy cost
+- Chance decreases at higher horny levels (1/1 at level 1, 1/2 at level 2, etc.)
+
+### Orgasm (Forced Action at Horny Level 5+)
+When horny_level reaches **5+**, the target is **forced to Orgasm** instead of their normal action:
+- **Restores 2-5 lust energy** for the affected character
+- **Restores 5-10 lust energy** for ALL allies and enemies nearby
+- **Inflicts Post Nut Clarity** on the affected character
+- **50% chance to inflict Wet** on a random nearby character
+
+### Post Nut Clarity (Condition)
+After Orgasm, the affected character gains Post Nut Clarity:
+- **Disadvantage on Constitution checks**
+- **Advantage on Intelligence checks**
+- **Permanent until rest** — doesn't clear between turns
+- Clears naturally when resting
+
+---
+
 ## Feat Levels
 
 Generic feats are available at levels **4, 8, 12, and 16**.
@@ -139,5 +171,7 @@ Generic feats are available at levels **4, 8, 12, and 16**.
 - **Font of Magic** is your energy lifeline in long fights — use it early if you need spell resources.
 - **Chaos Bolt** is deceptively strong: the random damage type can bypass resistances, and matching dice trigger a free bounce for double the damage.
 - **Chain Lightning** (L5) is your best multi-enemy nuke at 5 energy — save it for grouped enemies.
-- **Affinity choices matter.** Pick your affinity infusion (L6) and mastery (L14) based on your playstyle: Heavenfire for sustained damage/lifesteal, Lust for crowd control, Chaos for high-variance burst.
+- **Affinity choices matter.** Pick your affinity infusion (L6) and mastery (L14) based on your playstyle: Heavenfire for sustained damage/lifesteal, Lust for crowd control and lust energy generation, Chaos for high-variance burst.
+- **Sorcerous Charm stacking** (L6 Lust) is powerful — stack Horny high enough and enemies are forced to Orgasm, restoring energy for the whole battlefield. Use it when you need to disrupt enemy actions and gain lust energy.
+- **Post Nut Clarity is a setup tool** — After an Orgasm, affected enemies have disadvantage on Constitution checks, making them vulnerable to crowd control. Exploit this window.
 - **Metamagic: Empowered** (L3) quietly improves every spell you cast for the rest of the game — its reroll effect prevents wasted low dice rolls.
