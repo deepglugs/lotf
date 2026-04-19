@@ -141,12 +141,14 @@ When a target is inflicted with **Horny**, they enter a multi-turn battle of lus
 When horny, the target has a chance each turn to be forced to **Masturbate** (becomes their action):
 - **Grants 1d3 lust energy** to the affected character
 - No energy cost
-- Chance decreases at higher horny levels (1/1 at level 1, 1/2 at level 2, etc.)
+- Chance **increases** with horny level: 1/5 at level 1, 1/4 at level 2, 1/3 at level 3, 1/2 at level 4
+- Also makes a Charisma-based saving throw (DC 8 + Cha mod + L/4) against **all enemies** — failures inflict Horny on them
 
 ### Orgasm (Forced Action at Horny Level 5+)
 When horny_level reaches **5+**, the target is **forced to Orgasm** instead of their normal action:
 - **Restores 2-5 lust energy** for the affected character
 - **Restores 5-10 lust energy** for ALL allies and enemies nearby
+- **Removes Horny** from the affected character
 - **Inflicts Post Nut Clarity** on the affected character
 - **50% chance to inflict Wet** on a random nearby character
 

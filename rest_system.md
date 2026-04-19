@@ -32,18 +32,20 @@ Camp rest is a partial recovery system that scales based on available food. It a
 
 Camp rest restores resources based on a **calorie ratio** (0.0 to 1.0), where 1.0 represents 1000 kcal of food:
 
-- **Calorie Ratio 0.0** (no food): Only conditions/actions reset; no HP or energy recovery
-- **Calorie Ratio 1.0** (full meal): Maximum recovery (50% HP, 25% energy per type)
-- **Values in between** (0.0–1.0): Scaled recovery
+- **Calorie Ratio 0.0** (no food): Conditions/actions reset and HP fully restored; no energy recovery
+- **Calorie Ratio 1.0** (full meal): Maximum recovery (100% HP, 25% energy per type)
+- **Values in between** (0.0–1.0): HP always fully restored; energy scaled by ratio
+
+On **Easy** difficulty, all energy types are fully restored regardless of food ratio.
 
 ### Recovery Formula:
 
 | Resource | Maximum Restore | Calculation |
 |----------|-----------------|-------------|
-| HP | 50% of max | `old_hp + (max_hp × 0.50 × ratio)` |
-| Lust Energy | 25% of max | `old_lust + (max_lust × 0.25 × ratio)` |
-| Chaos Energy | 25% of max | `old_chaos + (max_chaos × 0.25 × ratio)` |
-| Heavenfire Energy | 25% of max | `old_heavenfire + (max_heavenfire × 0.25 × ratio)` |
+| HP | 100% of max | `max_hp` (always full) |
+| Lust Energy | Easy: 100%, Medium: 75%, Hard: 25% | `old + (max × pct × ratio)` |
+| Chaos Energy | Easy: 100%, Medium: 75%, Hard: 25% | `old + (max × pct × ratio)` |
+| Heavenfire Energy | Easy: 100%, Medium: 75%, Hard: 25% | `old + (max × pct × ratio)` |
 
 ### Always Restored:
 - All transient conditions cleared
@@ -69,15 +71,15 @@ character.rest_at_camp(0.0)
 **Half ration (0.5):**
 ```
 character.rest_at_camp(0.5)
-# Output: Rests at camp (50% ration): +25 HP restored (example).
-# Recovery scales: 25% of 50% = 12.5% max HP, 12.5% of 25% = 6.25% max energy, etc.
+# Output: Rests at camp (50% ration): +X HP restored.
+# HP always fully restored; energy scales: 12.5% of each energy type.
 ```
 
 **Full meal (1.0):**
 ```
 character.rest_at_camp(1.0)
-# Output: Rests at camp (100% ration): +50 HP restored (example).
-# Maximum recovery: 50% HP, 25% of each energy type.
+# Output: Rests at camp (100% ration): +X HP restored.
+# Maximum recovery: 100% HP, 25% of each energy type.
 ```
 
 ---
@@ -102,6 +104,6 @@ character.rest()  # Recalculate HP and energy
 | Type | Usage | HP Restore | Energy Restore | Clears Conditions |
 |------|-------|-----------|----------------|--------------------|
 | **Full Rest** | Safe location | 100% | 100% | ✓ |
-| **Camp Rest** | Exploration | 0–50% | 0–25% each | ✓ |
+| **Camp Rest** | Exploration | 100% | 0–25% each | ✓ |
 
 Choose the right rest type based on your situation: use full rest in safe zones and camp rest with food during exploration for resource management and risk/reward gameplay.
