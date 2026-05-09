@@ -1,5 +1,7 @@
 # Rogue Class Guide
 
+**Version:** 0.3.6
+
 The Rogue is a Dexterity-based assassin and shadow master who excels at precision strikes and battlefield control. They specialize in sneak attacks with scaling damage, defensive evasion, and tactical mobility. Rogues reward smart positioning and exploiting advantages.
 
 ---
@@ -53,6 +55,7 @@ Attacks are chosen on level up and added to your action list. Most require advan
 | Icon | Attack | Energy | Description |
 |------|--------|--------|-------------|
 | ![](assets/sneak_attack_icon.webp) | Sneak Attack | 0 | A precise strike exploiting gaps in defenses. **Requires advantage on attacks.** Deals weapon damage plus **((L+1)/2)d6 bonus** (max 10d6 at L20). |
+| ![](assets/hide_icon.webp) | Hide | 0 | Slip into concealment, becoming **Hidden** for up to 5 turns. Grants advantage on attack rolls until an enemy spots you (Intelligence check). |
 
 ### Level 3
 | Icon | Attack | Energy | Description |

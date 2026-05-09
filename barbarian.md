@@ -1,5 +1,7 @@
 # Barbarian Class Guide
 
+**Version:** 0.3.6
+
 The Barbarian is a Strength/Constitution-based melee class built around Rage. While raging they hit harder, resist physical damage, and can layer elemental damage through Storm Herald abilities. They have strong survivability tools and snowball significantly in the late game.
 
 ---

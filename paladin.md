@@ -1,5 +1,7 @@
 # Paladin Class Guide
 
+**Version:** 0.3.6
+
 The Paladin is a Charisma-based holy warrior who channels divine smites and protective auras. They excel in melee combat with scaling radiant damage and support abilities, combining the durability of a warrior with the magic of a caster.
 
 ---

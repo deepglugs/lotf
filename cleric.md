@@ -1,5 +1,7 @@
 # Cleric Class Guide
 
+**Version:** 0.3.6
+
 The Cleric is a Wisdom-based divine caster focused on healing, radiation damage, and sustain. They excel in longer fights where their passive regeneration and party healing can turn the tide.
 
 ---

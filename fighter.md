@@ -1,5 +1,7 @@
 # Fighter Class Guide
 
+**Version:** 0.3.6
+
 The Fighter is a Strength-based martial class with no spells. They compensate with superior action economy — more attacks per turn than any other class, and the ability to surge beyond their normal action limit. Simple to play, powerful at sustained damage.
 
 ---

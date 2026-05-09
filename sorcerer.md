@@ -1,5 +1,7 @@
 # Sorcerer Class Guide
 
+**Version:** 0.3.6
+
 The Sorcerer is a charisma-based spellcaster who draws on innate magic tied to their blood. Their power scales with Charisma, and they unlock affinity-specific abilities based on their character's chosen affinities (Lust, Chaos, or Heavenfire).
 
 ---
