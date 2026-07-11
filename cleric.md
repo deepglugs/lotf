@@ -70,12 +70,13 @@ Spells are chosen on level up and added to your action list.
 | Icon | Spell | Energy | Description |
 |------|-------|--------|-------------|
 | ![](assets/sacred_flame_icon.webp) | Sacred Flame | 3 (Heavenfire) | Calls down sacred flame on a target. Deals **Nd8 + Wisdom modifier** radiation damage (N scales as `1 + level/3`). Dexterity save for half. |
-| ![](assets/heat_icon.webp) | Heat | 1 | Kindles magical warmth in a target. Constitution save or become **Hot**: 1d5 heat damage per turn for 5 turns. |
+| ![](assets/heat_icon.webp) | Heat | 2 | Kindles magical warmth in a target. Constitution save or become **Hot**: 1d5 heat damage per turn for 5 turns. |
 
 ### Level 3
 | Icon | Spell | Energy | Description |
 |------|-------|--------|-------------|
 | ![](assets/smite_icon.webp) | Divine Smite | 5 (Heavenfire) | Powerful melee strike with divine damage. |
+| ![](assets/glacial_strike_icon.webp) | Glacial Strike | 2 | Channel cold through your weapon: weapon + scaling cold damage (1d10, +1d10 at L5/11/17). Failed enemy Con save grants you **Glacial Shield**. |
 
 ### Level 5
 | Icon | Spell | Energy | Description |
@@ -83,6 +84,7 @@ Spells are chosen on level up and added to your action list.
 | ![](assets/fireball_icon.webp) | Fireball | — | Large area fire damage. |
 | ![](assets/greater_heal_icon.webp) | Greater Heal | 6 (Heavenfire) | Heals target for **4d8 + Wisdom modifier x2**. Scaling with level. |
 | ![](assets/blessed_strike_icon.webp) | Blessed Strike | 2 (Heavenfire) | Melee weapon hit + self-heal for **1d6 + Wisdom modifier**. |
+| ![](assets/sleet_storm_icon.webp) | Sleet Storm | 4 | AoE control: all enemies gain **Icy** + **Wet** for 5 turns. Icy = 30% chance to slip and lose a turn; Wet doubles Cold/Lightning damage taken. |
 
 ### Level 7
 | Icon | Spell | Energy | Description |
@@ -93,6 +95,7 @@ Spells are chosen on level up and added to your action list.
 | Icon | Spell | Energy | Description |
 |------|-------|--------|-------------|
 | ![](assets/greater_heal_icon.webp) | Mass Heal | 8 (Heavenfire) | Heals all allies (including self) for **3d6 + Wisdom modifier**. |
+| ![](assets/blizzard_icon.webp) | Blizzard | 8 | AoE nuke: **8d8** cold damage to all enemies (Constitution save for half; scales +1d8 per 3 levels past 9). Those who fail are left **Icy** for 3 turns. Devastating after Sleet Storm's Wet. |
 
 ---
 

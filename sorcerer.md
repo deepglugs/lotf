@@ -72,12 +72,13 @@ Spells are chosen on level up and added to your action list.
 | Icon | Spell | Energy | Description |
 |------|-------|--------|-------------|
 | ![](assets/chaos_bolt_icon.webp) | Chaos Bolt | 1 | Roll 2d8 + Charisma. The higher die sets the damage type. If both dice match, the bolt **leaps to a second enemy**. |
-| ![](assets/heat_icon.webp) | Heat | 1 | Kindles magical warmth in a target. Constitution save or become **Hot**: 1d5 heat damage per turn for 5 turns. |
+| ![](assets/heat_icon.webp) | Heat | 2 | Kindles magical warmth in a target. Constitution save or become **Hot**: 1d5 heat damage per turn for 5 turns. |
 
 ### Level 3
 | Icon | Spell | Energy | Description |
 |------|-------|--------|-------------|
 | ![](assets/command_icon.webp) | Command | 1 | A spell that issues a magical command to an enemy. |
+| ![](assets/glacial_strike_icon.webp) | Glacial Strike | 2 | Channel cold through your weapon: weapon + scaling cold damage (1d10, +1d10 at L5/11/17). Failed enemy Con save grants you **Glacial Shield**. |
 
 ### Level 5
 | Icon | Spell | Energy | Description |
@@ -85,6 +86,12 @@ Spells are chosen on level up and added to your action list.
 | ![](assets/fireball_icon.webp) | Fireball | 3 | Large area fire damage. |
 | ![](assets/web_barrage_icon.webp) | Web Barrage | 2 | Ensnares enemies. |
 | ![](assets/chain_lightning_icon.webp) | Chain Lightning | 5 | Arcs to all enemies. Primary target takes **10d6** electric damage; others take **5d6**. Dexterity save for half. |
+| ![](assets/sleet_storm_icon.webp) | Sleet Storm | 4 | AoE control: all enemies gain **Icy** + **Wet** for 5 turns. Icy = 30% chance to slip and lose a turn; Wet doubles Cold/Lightning damage taken. |
+
+### Level 9
+| Icon | Spell | Energy | Description |
+|------|-------|--------|-------------|
+| ![](assets/blizzard_icon.webp) | Blizzard | 8 | AoE nuke: **8d8** cold damage to all enemies (Constitution save for half; scales +1d8 per 3 levels past 9). Those who fail are left **Icy** for 3 turns. Devastating after Sleet Storm's Wet. |
 
 ---
 
