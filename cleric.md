@@ -70,6 +70,7 @@ Spells are chosen on level up and added to your action list.
 | Icon | Spell | Energy | Description |
 |------|-------|--------|-------------|
 | ![](assets/sacred_flame_icon.webp) | Sacred Flame | 3 (Heavenfire) | Calls down sacred flame on a target. Deals **Nd8 + Wisdom modifier** radiation damage (N scales as `1 + level/3`). Dexterity save for half. |
+| ![](assets/heat_icon.webp) | Heat | 1 | Kindles magical warmth in a target. Constitution save or become **Hot**: 1d5 heat damage per turn for 5 turns. |
 
 ### Level 3
 | Icon | Spell | Energy | Description |

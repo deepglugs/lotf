@@ -72,6 +72,7 @@ Spells are chosen on level up and added to your action list.
 | Icon | Spell | Energy | Description |
 |------|-------|--------|-------------|
 | ![](assets/chaos_bolt_icon.webp) | Chaos Bolt | 1 | Roll 2d8 + Charisma. The higher die sets the damage type. If both dice match, the bolt **leaps to a second enemy**. |
+| ![](assets/heat_icon.webp) | Heat | 1 | Kindles magical warmth in a target. Constitution save or become **Hot**: 1d5 heat damage per turn for 5 turns. |
 
 ### Level 3
 | Icon | Spell | Energy | Description |
