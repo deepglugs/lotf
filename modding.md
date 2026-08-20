@@ -1,0 +1,344 @@
+# Modding Guide
+
+Legacy of the Fallen ships a small **mod framework** that lets you add content —
+items, enemies, whole new areas — **without editing a single existing game
+file**. This keeps mods self-contained, easy to distribute, and safe against
+game updates.
+
+This guide walks through the architecture and the complete example mod that
+ships in `game/mods/example_mod/`.
+
+---
+
+## 1. How mods load
+
+Ren'Py automatically compiles **every `.rpy` file anywhere under `game/`**,
+including subfolders. That's the whole loading mechanism — there is no manifest
+and nothing to register a mod with. Drop a folder under `game/mods/` and its
+scripts are compiled and run at launch alongside the core game.
+
+```
+game/
+  mods/
+    _mod_framework.rpy      <- the extension layer (ships with the game)
+    example_mod/
+      example_mod.rpy       <- a complete example mod
+    your_mod/
+      your_mod.rpy          <- your content goes here
+```
+
+Because mods share the one global namespace with the core game, follow two
+rules to stay collision-free:
+
+- **Prefix your names.** Labels, `image` names, `default` variables, Python
+  classes and functions all live in one namespace. Prefix everything with your
+  mod's name (`yourmod_...`).
+- **Use `default`, not `define` or bare assignment, for anything that must
+  persist in a save** (area state, "cleared" flags, unlocked toggles). Plain
+  store variables — and especially names starting with `_` — are **not saved**.
+
+### Load order
+
+The framework's registration functions must exist before your mod calls them.
+The framework runs its setup at `init -10`; register your content at the
+default `init` phase or later (`init python:` / `init 1 python:`). Lower init
+numbers run first.
+
+---
+
+## 2. The extension hooks
+
+Everything is driven by three functions defined in `_mod_framework.rpy`. Call
+them from an `init python` block in your mod.
+
+| Function | Purpose |
+|---|---|
+| `register_mod(mod_id, display_name=None, enabled_by_default=True)` | Declares your mod to the **Mod Manager** (see below) and sets whether it ships enabled. Call once at init. |
+| `register_mod_area(name, entry_label, icon=…, tooltip=…)` | Adds a travel node to the floating **Mods** portal that appears on world maps. |
+| `register_mod_vendor_stock(vendor_id, item_factory, max_stock=1)` | Injects an item into an **existing** vendor's inventory (e.g. Thalassa) with no edit to that vendor. |
+| `register_mod_vendor(vendor_id, setup_label, vendor_var_name)` | Teaches the framework about a vendor it doesn't already know, so you can inject stock into it. |
+
+### The Mod Manager
+
+The framework adds a **Mods** item to the main menu that opens a manager listing
+every installed mod (auto-discovered from the folders under `game/mods/`) with an
+on/off toggle. State is stored in `persistent.mod_enabled` and takes effect
+immediately — a disabled mod's portal areas and vendor injections are hidden live
+(its content is gated at the point of effect, not un-loaded).
+
+Each registration is auto-tagged with its owning mod by inspecting the call
+stack for the `/mods/<id>/` path, so `register_mod_area` / `register_mod_vendor_stock`
+need no extra argument — but you should still call `register_mod(...)` once to
+give your mod a friendly display name and default-enabled state. Ship a mod
+**disabled by default** with `enabled_by_default=False` (the bundled
+`example_mod` does this).
+
+The framework ships knowing two vendors: `"thalassa"` (the Ch2 pirate vendor)
+and `"melitta"` (the Ch2 Athens vendor). Add more with `register_mod_vendor`.
+
+---
+
+## 3. Custom items
+
+An item is a Python class. Consumables subclass `Consumable` and implement
+`consume(self, target)`, which returns an **effects dict**. Decorating the class
+with `@item` registers it in `item.py`'s `ITEM_REGISTRY` (used by tooling; a
+vendor only needs the class itself).
+
+```python
+init 1 python:
+    from item import item, Consumable, ItemRarity
+    from utils import roll_dice
+
+    @item
+    class RiptideTonic(Consumable):
+        def __init__(self):
+            super().__init__(name="Riptide Tonic", modifiers={})
+            self.description = "A cold, brackish draught. Restores 3d4+3 HP."
+            self.rarity = ItemRarity.UNCOMMON
+            self.sell_price = 80              # buy AND sell use this one value
+            self.icon = "minor_healing_potion_icon"   # an image name
+            self.image = "minor_healing_potion_icon"
+            self.damage_desc = "Restores 3d4+3 HP"
+
+        def consume(self, target):
+            return {"heal": roll_dice("3d4") + 3}
+```
+
+**Effect keys** understood by `DCharacter.consume_item` (in `characters.py`):
+`heal`, `energy`, `lust_energy`, `chaos_energy`, `heavenfire_energy`, and
+`condition` (a condition instance from `conditions.py`, e.g.
+`{"condition": Horny()}`). If you invent a **new** effect key you must add a
+handler branch to `consume_item` — but that means editing a core file, so
+prefer reusing the existing keys.
+
+Non-consumable items (weapons, armor) subclass `Item`; see `weapons.py` /
+`armors.py` for the pattern (`self.type`, `self.modifiers`, `grants_actions`).
+
+### Putting an item in a vendor — with no edit to the vendor
+
+Every vendor is just a `DCharacter` whose `inventory` list *is* its stock, (re)
+built by a `setup_*` label on each visit. The framework hooks label entry: when
+a known vendor's setup label runs, it tops that vendor up with your registered
+items (de-duped by name, so revisits don't pile up duplicates).
+
+```python
+    register_mod_vendor_stock("thalassa", RiptideTonic, max_stock=2)
+```
+
+That's it — the Riptide Tonic now appears on Captain Thalassa's shelf, and
+`ch2_pirate_vendor.rpy` is untouched.
+
+To stock a vendor the framework doesn't know yet, first register it. You need
+the label it runs to rebuild stock and the store global holding its DCharacter:
+
+```python
+    register_mod_vendor("vespera", "setup_outfit_vendor", "vespera_dc")
+    register_mod_vendor_stock("vespera", MyItem, max_stock=1)
+```
+
+---
+
+## 4. Custom enemies
+
+There is **no separate Enemy class** — an enemy is a `DCharacter`, the same
+class used for the player and party. What makes it an enemy is landing in
+`current_area.enemies` when combat runs. Build one in a factory function:
+
+```python
+init 1 python:
+    def create_brine_lurker(elite=False):
+        from characters import DCharacter
+        from species import Species
+        from combat_attacks import MeleeAttack, Bite
+
+        level = 6 if not elite else 8
+        e = DCharacter("Brine Lurker", species=Species.beast, level=level)
+        e.base_strength = 15
+        e.base_dexterity = 13
+        e.base_intelligence = 4
+        e.base_wisdom = 8
+        e.base_charisma = 6
+        e.base_constitution = 26 if not elite else 40   # <- drives HP
+
+        e.available_actions = [MeleeAttack(e), Bite(e)]  # the moveset
+        e.add_health_images("brine_lurker_battle_1",     # healthy / mid / low
+                            "brine_lurker_battle_2",
+                            "brine_lurker_battle_3")
+        e.add_to_inventory(RiptideTonic())               # loot on defeat
+        e.rest()                                         # top off HP/energy
+        return e
+```
+
+Key points:
+
+- **HP is derived, not set directly.** `max_hp()` is computed from level, the
+  class hit die (4 for a classless monster), and the Constitution modifier.
+  Crank `base_constitution` and `level` to make an enemy tanky.
+- **Always finish with `e.rest()`** so current HP/energy are recalculated to
+  full after you've set the stats.
+- **`available_actions`** is the moveset — a list of attack *instances* bound to
+  the caster. Reuse attacks from `combat_attacks.py` (`MeleeAttack`, `Bite`,
+  `VenomousBite`, `HyenaSnarl`, …) or the `*_movesets.py` modules, or write your
+  own `@attack` subclass. The AI picks from this list on the enemy's turn.
+- **`species`** is a flavor/classification string from `species.py`
+  (`mortal`, `beast`, `undead`, `demon`, `god`, …). It doesn't grant stats — you
+  set those yourself.
+- **`add_health_images(healthy, mid, low)`** wires the three damage-stage battle
+  sprites (image names). See the combat sprite conventions in the art docs.
+
+Reference template: `chapter_2_gnolls.rpy` (`create_gnoll_girl`).
+
+---
+
+## 5. Custom areas
+
+An `Area` (`area.py`) is a lightweight bundle: which map image to show, the
+combat background, and three combatant groups (`allies`, `enemies`,
+`third_party`) plus victory rules. Declare it as a `default` global so it
+persists in saves:
+
+```python
+default yourmod_area = Area(name="Tidepool Hollow", allies=[], enemies=[],
+                            area_map="tidepool_bg")
+default yourmod_cleared = False
+```
+
+Then write an **entry label**. This is where dialog, a vendor, or a fight
+happens. To start combat, populate the area and call the shared `combat_loop`:
+
+```python
+label yourmod_enter():
+    $ current_area = yourmod_area
+    scene tidepool_bg with dissolve
+
+    if yourmod_cleared:
+        "The hollow is quiet now."
+        return
+
+    "Two shapes rise from the water."
+    $ yourmod_area.enemies = [create_brine_lurker(), create_brine_lurker(elite=True)]
+    $ yourmod_area.allies  = chrys_dc.allies()   # the current party
+    $ yourmod_area.background = "tidepool_bg"
+    $ current_area = yourmod_area
+    $ combat_result = renpy.call("combat_loop")
+
+    if combat_result == "Defeat":
+        "You are overwhelmed and retreat."   # a mod shouldn't force game_over
+        return
+    if combat_result == "Run":
+        return
+
+    # combat_loop returns "Success" on victory
+    $ yourmod_cleared = True
+    $ chrys_dc.add_to_inventory(RiptideTonic())
+    "Victory! You find a Riptide Tonic among the kelp."
+    return
+```
+
+`combat_loop` returns one of `"Success"`, `"Defeat"`, or `"Run"`. It reads the
+global `current_area`, wires each ally's `.enemies` to the enemy group (and vice
+versa), rolls initiative, and runs turns. **You must set `allies`** — with an
+empty party the loop instantly reports defeat. For advanced fights (multiple
+hostile factions, boss-flees-when-defeated, uncontrolled NPC combatants) see
+`current_area.factions`, `current_area.third_party`,
+`current_area.victory_when_defeated` / `victory_result`, worked out fully in
+`chapter_2_perseus_kallir.rpy`.
+
+### Hooking the area into the game — with no edit to any map
+
+This is the crux. Core maps are hard-coded screens, so instead of editing one,
+register your entry label with the framework:
+
+```python
+init 1 python:
+    register_mod_area("Tidepool Hollow", "yourmod_enter",
+                      tooltip="A mod-added tidepool cave.")
+```
+
+The framework adds a floating **Mods** portal (a compass button, top-left) that
+appears on world maps via Ren'Py's `config.overlay_screens`. Clicking it opens a
+menu of every registered mod area. Selecting one runs your entry label in an
+**isolated new context** (`renpy.call_in_new_context`) — the same mechanism the
+crafting bench uses. That's why your entry label must end in `return`: when it
+returns, the player is dropped **right back onto the map they left**, with no
+knowledge of which hub they came from and no changes to that hub's code.
+
+By default the portal shows on the Chapter 2 Greek mainland map
+(`ch2_mainland_greece_screen`). To surface it on other maps, append their screen
+names to `MOD_PORTAL_SCREENS` from your mod's `init python`:
+
+```python
+    MOD_PORTAL_SCREENS.append("ch2_repair_island_screen")
+```
+
+---
+
+## 6. Assets
+
+Ren'Py auto-defines image names only for files under `game/images/`. Art that
+lives inside your mod folder must be declared explicitly (paths are relative to
+`game/`):
+
+```python
+image tidepool_bg = "mods/your_mod/tidepool_bg.webp"
+```
+
+The example mod ships its own art inside `example_mod/` — a background, three
+combat sprites, and an item icon — each declared with an explicit path at the
+top of `example_mod.rpy`. Follow the game's conventions: **backgrounds** are
+2560×1080; **combat sprites** are 2560×1080 transparent canvases with the figure
+framed head-to-thigh and bottom-aligned; **item icons** are 96×96 with the
+background removed. For prompt conventions and the generation/rmbg/composite
+pipeline, see the image-generation docs and the project's asset skills.
+
+---
+
+## 7. The example mod
+
+`game/mods/example_mod/example_mod.rpy` — **"Tidepool Hollow"** — is a complete,
+runnable mod that exercises every hook above:
+
+- a custom consumable, **Riptide Tonic** (heals 3d4+3);
+- that item **injected into Captain Thalassa's shelf** (no edit to her file);
+- a custom enemy, the **Brine Lurker** (a `DCharacter` monster, elite variant);
+- a custom area, **Tidepool Hollow**, a combat encounter reachable from the
+  **Mods** portal that rewards a Riptide Tonic on victory.
+
+**To see it in game:** load a save on the Chapter 2 Greek mainland map and click
+the compass **Mods** button at the top-left; or trade with Captain Thalassa on
+Shipwreck Island and find the Riptide Tonic for sale.
+
+Read that file top to bottom — it's the fastest way to start your own mod. Copy
+the folder, rename it, re-prefix the names, and swap in your content.
+
+### A larger example — Descent to Hell
+
+`mods.in/mod_decent_to_hell/` (a mod source folder under `mods.in/`, installed
+into `game/mods/` by `make mods`) is a full-scale mod: a 100-floor procedurally-generated roguelike
+descent with 10 biomes, a monster roster that changes every 5 floors, mini-bosses
+every 10, drops, on-loss CG scenes, and a story that ties into the main plot. It
+shows how far the same hooks scale — it registers exactly one area
+(`register_mod_area("Descent to Hell", "dth_enter")`) and builds everything else
+(procedural floor graphs, a custom map screen, the monster factory) as ordinary
+mod code. See its own `README.md` for the architecture. It also demonstrates the
+**placeholder-fallback** pattern: images are registered with `renpy.image` guarded
+by `renpy.loadable`, and resolver helpers fall back to placeholders, so a partly-
+arted mod is fully playable and lint-clean while art is filled in biome-by-biome.
+
+---
+
+## 8. Checklist for a new mod
+
+1. Create `game/mods/<your_mod>/<your_mod>.rpy`.
+2. Prefix every name with your mod's name.
+3. Define items with `@item` / `Consumable`; register stock with
+   `register_mod_vendor_stock`.
+4. Define enemies as `DCharacter` factories (set stats, `available_actions`,
+   `add_health_images`, `rest()`).
+5. Declare areas as `default … = Area(...)` and `default …_cleared = False`.
+6. Write an entry `label` that ends in `return`; drive combat with
+   `renpy.call("combat_loop")`.
+7. Register the area with `register_mod_area`.
+8. Declare mod-local `image`s; drop art in your mod folder.
+9. Run `renpy <project> lint` to catch script errors before playtesting.

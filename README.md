@@ -27,3 +27,7 @@ Your chosen affinity determines which spells and abilities are available as you 
 
 - [Rest & Camp](rest_system.md) — Rest mechanics and food-based camp recovery
 - [Food & Consumables](food.md) — Consumable items and their effects
+
+## Extending the Game
+
+- [Modding Guide](modding.md) — Add custom items, enemies, and areas via `game/mods/` without editing core files
