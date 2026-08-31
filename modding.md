@@ -312,6 +312,11 @@ Shipwreck Island and find the Riptide Tonic for sale.
 Read that file top to bottom — it's the fastest way to start your own mod. Copy
 the folder, rename it, re-prefix the names, and swap in your content.
 
+> **See also:** [`modding_content_and_shipping.md`](modding_content_and_shipping.md)
+> — authoring **wardrobe outfit** mods (`register_outfit`, tier gating, emote
+> sprite naming), the **asset-production traps** that cost real time on the
+> shipped mods, and how to **ship** a mod free, dev-only, or as paid Steam DLC.
+
 ### A larger example — Descent to Hell
 
 `mods.in/mod_decent_to_hell/` (a mod source folder under `mods.in/`, installed
@@ -328,7 +333,87 @@ arted mod is fully playable and lint-clean while art is filled in biome-by-biome
 
 ---
 
-## 8. Checklist for a new mod
+## 8. Art models — LOTF character LoRAs & merges
+
+Mods that add character art need the game's own likenesses. Rather than
+retraining from scratch, this project publishes the models it uses so mod
+authors can generate art that matches the base game.
+
+> **Availability:** these are large files (a merged checkpoint is several GB).
+> See the project's model repository for downloads; the reference below is the
+> trigger/usage contract, which is what matters when writing prompts.
+
+### The two families
+
+| Family | Base | Use it for |
+|---|---|---|
+| **Illustrious / SDXL** | `waiNSFWIllustrious_v140` | Fast anime/illustrated-style generation. The usual first pass. |
+| **Flux.2 Klein** | Klein 9B | Photoreal-leaning renders and true masked inpainting. |
+
+Each family ships in two forms:
+
+- a **merged checkpoint** — the character LoKr baked into the base model. Use
+  this for straight identity/style generation; **no LoRA tag needed**, the
+  trigger words alone drive it.
+- a **runtime LoRA** — the same training as a separate file. Reach for this only
+  when stacking with *other* concept LoRAs the merge doesn't include.
+
+Prefer the merge when you just want in-style character art.
+
+### Triggers
+
+All LOTF character models use the same two-part trigger:
+
+```
+lotf, <character>, <description of the character>, ...
+```
+
+`lotf` selects the house style; the character token selects the likeness. Per-character tokens:
+
+| Character | Token | Canonical look — state these explicitly |
+|---|---|---|
+| **Pegasus** | `pegasus` | long blonde hair, two dark horse ears, large white feathered angel wings |
+| **Ceraphina** | `ceraphina` | fair ivory skin, glowing pale blue eyes, long silver-white hair in a low ponytail with a thin gold band, slim red tribal streak face tattoo on both cheeks |
+| **Chrys** (male) | `chrys, 1boy` | shoulder-length dark brown hair, blue-gray eyes, muscular tan athletic build, light stubble |
+| **Chrys** (female/futa) | `chrys, 1girl` | long silver-white hair, blue-gray eyes, sun-tanned golden bronze skin, athletic build |
+| **Nashoba** | `nashoba` | long white hair, fluffy white wolf ears, one large bushy white tail, fair skin, blue eyes |
+| **Kallirhoe** | `kallirhoe` | — |
+
+**Always describe the character, don't rely on the token alone.** The tokens
+bind likeness, not every attribute, and several have base-model priors working
+against them.
+
+### Known traps
+
+- **`pegasus` collides with the "winged horse" prior.** A bare trigger can
+  render a literal horse. Anchor it: `pegasus, a human woman with long blonde
+  hair, two dark horse ears, large white feathered angel wings`.
+- **`nashoba` can render an animal head** on terse close-up prompts. Lead with
+  `nashoba, 1girl, woman, human face` and negative-prompt `animal head, wolf
+  muzzle, snout`. If the tail duplicates, add `single bushy tail` + negative
+  `multiple tails, extra tails`.
+- **Ceraphina and female-Chrys blend together** — both are silver-haired. The
+  reliable separator is **skin tone** (Ceraphina = fair ivory, Chrys-f = tanned
+  bronze), not markings or hair.
+- **On the Illustrious models specifically, Ceraphina renders tan-skinned with a
+  short bob.** Rescue with `ceraphina, 1girl, solo, pale ivory white skin, fair
+  skin, long silver-white hair` plus negative `dark skin, tan, bronze skin,
+  short hair`.
+- **Multi-character scenes bleed features** between characters. Klein separates
+  pairs better than Illustrious; for 3+ characters, render each solo and
+  composite.
+
+### Matching the game's look
+
+The base game's art is 2560×1080. For sprites and pose art, generate at or above
+that and downscale — never upscale into it. See
+[`modding_content_and_shipping.md`](modding_content_and_shipping.md) for the
+asset contract, cutout pitfalls, and the pipeline-order rules that matter when
+combining a character pass with other edits.
+
+---
+
+## 9. Checklist for a new mod
 
 1. Create `game/mods/<your_mod>/<your_mod>.rpy`.
 2. Prefix every name with your mod's name.
