@@ -403,6 +403,26 @@ against them.
   pairs better than Illustrious; for 3+ characters, render each solo and
   composite.
 
+### Example workflows
+
+Ready-to-run ComfyUI pipelines live in [`workflows/`](workflows) — text-to-image
+and masked inpaint for both merges, plus LoRA-stacking variants. They use only
+core ComfyUI nodes, and each one has been executed and verified to run to a
+saved image.
+
+| Workflow | What it does |
+|---|---|
+| `illustrious_lotf_txt2img.json` | Illustrious merge → image. Simplest starting point. |
+| `klein_lotf_txt2img.json` | Klein merge → image. |
+| `klein_lotf_inpaint.json` | Klein merge → masked inpaint. |
+| `illustrious_base_plus_lotf_lora.json` | Stock Illustrious + the LoRA (stackable). |
+| `klein_base_plus_lotf_lora.json` | Stock Klein + the LoRA (stackable). |
+
+The Illustrious checkpoint is self-contained. The **Klein** workflows also need
+a VAE and a Qwen3 text encoder, neither of which is part of this project —
+[`workflows/README.md`](workflows/README.md) has the download links and the
+folder layout.
+
 ### Matching the game's look
 
 The base game's art is 2560×1080. For sprites and pose art, generate at or above
