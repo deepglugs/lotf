@@ -339,9 +339,17 @@ Mods that add character art need the game's own likenesses. Rather than
 retraining from scratch, this project publishes the models it uses so mod
 authors can generate art that matches the base game.
 
-> **Availability:** these are large files (a merged checkpoint is several GB).
-> See the project's model repository for downloads; the reference below is the
-> trigger/usage contract, which is what matters when writing prompts.
+**Download:** [huggingface.co/deepglugs/lotf-models](https://huggingface.co/deepglugs/lotf-models)
+
+| File | Size | Base | Type |
+|---|---|---|---|
+| `illustrious_lotf_v1.safetensors` | 6.9 GB | `waiNSFWIllustrious_v140` | merged checkpoint |
+| `klein_lotf_v1_fp8.safetensors` | 9.1 GB | Flux.2 Klein 9B | merged checkpoint (fp8) |
+| `lora/lotf_sdxl_v1.safetensors` | 320 MB | Illustrious / SDXL | runtime LoRA |
+| `lora/lotf_v2_klein.safetensors` | 1.1 GB | Flux.2 Klein | runtime LoRA |
+
+The same repo carries the [example workflows](https://huggingface.co/deepglugs/lotf-models/tree/main/workflows)
+mirrored from [`workflows/`](workflows) here.
 
 ### The two families
 
