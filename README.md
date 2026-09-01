@@ -30,4 +30,6 @@ Your chosen affinity determines which spells and abilities are available as you 
 
 ## Extending the Game
 
-- [Modding Guide](modding.md) — Add custom items, enemies, and areas via `game/mods/` without editing core files
+- [Modding Guide](modding.md) — Add custom items, enemies, and areas via `game/mods/` without editing core files. Also documents the published [character art models](https://huggingface.co/deepglugs/lotf-models) and their prompt triggers.
+- [Content & Shipping](modding_content_and_shipping.md) — Wardrobe outfit mods, asset-production pitfalls, and packaging a mod for distribution
+- [ComfyUI Workflows](workflows/) — Ready-to-run pipelines for generating art that matches the game
