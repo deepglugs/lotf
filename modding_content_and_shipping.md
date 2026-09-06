@@ -10,9 +10,8 @@ This guide covers what comes *after* that:
   character art for a mod;
 - how to **package and distribute** a finished mod.
 
-The advice here is drawn from building two full-size mods against this
-framework — a 100-floor roguelike and a multi-character wardrobe pack — and is
-written for anyone building their own.
+The advice here is drawn from building full-size mods against this framework,
+and is written for anyone building their own.
 
 ---
 

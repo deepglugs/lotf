@@ -314,22 +314,30 @@ the folder, rename it, re-prefix the names, and swap in your content.
 
 > **See also:** [`modding_content_and_shipping.md`](modding_content_and_shipping.md)
 > — authoring **wardrobe outfit** mods (`register_outfit`, tier gating, emote
-> sprite naming), the **asset-production traps** that cost real time on the
-> shipped mods, and how to **ship** a mod free, dev-only, or as paid Steam DLC.
+> sprite naming), the **asset-production traps** that cost real time in
+> practice, and how to **package and distribute** a finished mod.
 
-### A larger example — Descent to Hell
+### Scaling up
 
-`mods.in/mod_decent_to_hell/` (a mod source folder under `mods.in/`, installed
-into `game/mods/` by `make mods`) is a full-scale mod: a 100-floor procedurally-generated roguelike
-descent with 10 biomes, a monster roster that changes every 5 floors, mini-bosses
-every 10, drops, on-loss CG scenes, and a story that ties into the main plot. It
-shows how far the same hooks scale — it registers exactly one area
-(`register_mod_area("Descent to Hell", "dth_enter")`) and builds everything else
-(procedural floor graphs, a custom map screen, the monster factory) as ordinary
-mod code. See its own `README.md` for the architecture. It also demonstrates the
-**placeholder-fallback** pattern: images are registered with `renpy.image` guarded
-by `renpy.loadable`, and resolver helpers fall back to placeholders, so a partly-
-arted mod is fully playable and lint-clean while art is filled in biome-by-biome.
+Nothing about these hooks is limited to small mods. The same registration
+surface supports a mod that adds a whole game mode: a single
+`register_mod_area()` call is enough of a foothold, and everything past that
+point — procedural level generation, a custom map screen, a monster factory,
+its own progression and drops — is ordinary mod code that never touches a
+base-game file.
+
+Two patterns matter once a mod gets big enough that its art lands over weeks
+rather than in one pass:
+
+- **Placeholder fallback.** Register images with `renpy.image` guarded by
+  `renpy.loadable`, and have your resolver helpers fall back to a placeholder
+  when a specific image is not there yet. A partly-arted mod then stays fully
+  playable and lint-clean while the art is filled in area by area, instead of
+  crashing on the first missing file.
+- **Keep the content data-driven.** If enemies, areas and drops are described
+  by tables your code walks rather than by hand-written labels, adding content
+  later is a data edit, and the fallback above covers the art that has not
+  caught up yet.
 
 ---
 
