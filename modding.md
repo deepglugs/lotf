@@ -1,5 +1,7 @@
 # Modding Guide
 
+![Legacy of the Fallen — Modding Guide](images/modding_hero.webp)
+
 Legacy of the Fallen ships a small **mod framework** that lets you add content —
 items, enemies, whole new areas — **without editing a single existing game
 file**. This keeps mods self-contained, easy to distribute, and safe against
