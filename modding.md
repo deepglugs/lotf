@@ -154,6 +154,9 @@ init 1 python:
         from species import Species
         from combat_attacks import MeleeAttack, Bite
 
+        from conditions import TempHP
+        from utils import get_difficulty
+
         level = 6 if not elite else 8
         e = DCharacter("Brine Lurker", species=Species.beast, level=level)
         e.base_strength = 15
@@ -161,7 +164,7 @@ init 1 python:
         e.base_intelligence = 4
         e.base_wisdom = 8
         e.base_charisma = 6
-        e.base_constitution = 26 if not elite else 40   # <- drives HP
+        e.base_constitution = 16       # sane: Con SAVES stay beatable
 
         e.available_actions = [MeleeAttack(e), Bite(e)]  # the moveset
         e.add_health_images("brine_lurker_battle_1",     # healthy / mid / low
@@ -169,6 +172,15 @@ init 1 python:
                             "brine_lurker_battle_3")
         e.add_to_inventory(RiptideTonic())               # loot on defeat
         e.rest()                                         # top off HP/energy
+
+        # Bulk goes here, not in Con. rest() clears TempHP, so apply it after.
+        bonus = 30 if not elite else 96
+        difficulty = get_difficulty()
+        if difficulty == 'easy':
+            bonus = int(bonus * 0.8)
+        elif difficulty == 'hard':
+            bonus = int(bonus * 1.3)
+        e.apply_condition(TempHP(bonus))
         return e
 ```
 
@@ -176,7 +188,26 @@ Key points:
 
 - **HP is derived, not set directly.** `max_hp()` is computed from level, the
   class hit die (4 for a classless monster), and the Constitution modifier.
-  Crank `base_constitution` and `level` to make an enemy tanky.
+- **Don't make an enemy tanky by inflating Constitution.** Con drives HP, but it
+  also drives the Constitution *saving throw*. A Con of 40 is a +15 to every
+  Con save, which makes the enemy effectively immune to poison, stun, disease
+  and every other effect that calls for one — the fight stops responding to
+  what the player does. Keep Con in a sane range and grant the extra bulk as a
+  **`TempHP` condition** instead: it is spent before real HP, so the enemy is
+  exactly as durable without touching a single save.
+  `combat_loop` does run `sanitize_con_hp()` over every enemy as a safety net
+  (capping Con at 30 and converting the excess to TempHP), but a Con of 30 is
+  still +10 — author it correctly rather than relying on the net.
+- **Apply `TempHP` *after* `rest()`.** `rest()` clears temporary HP, so
+  granting it first silently does nothing.
+- **`elite` is a content switch, not a difficulty switch.** Use a flag like
+  `elite` for a genuinely different, nastier creature — its own name, level,
+  moveset or weapon. Player-facing difficulty is a separate axis: read it with
+  `get_difficulty()` (`'easy'` / `'medium'` / `'hard'`) and scale the TempHP
+  pool by it. Conflating the two means players cannot tune the fight, and your
+  "hard mode" arrives as a surprise reskin. The base game keeps them apart —
+  see `create_cultist` in `chapter_2_cult.rpy`, where `elite` picks the weapon
+  and moveset while `get_difficulty()` scales durability separately.
 - **Always finish with `e.rest()`** so current HP/energy are recalculated to
   full after you've set the stats.
 - **`available_actions`** is the moveset — a list of attack *instances* bound to
@@ -458,7 +489,9 @@ combining a character pass with other edits.
 3. Define items with `@item` / `Consumable`; register stock with
    `register_mod_vendor_stock`.
 4. Define enemies as `DCharacter` factories (set stats, `available_actions`,
-   `add_health_images`, `rest()`).
+   `add_health_images`, `rest()`). Keep Constitution sane and put the bulk in a
+   `TempHP` condition applied *after* `rest()`; scale that pool with
+   `get_difficulty()`, not with a content flag.
 5. Declare areas as `default … = Area(...)` and `default …_cleared = False`.
 6. Write an entry `label` that ends in `return`; drive combat with
    `renpy.call("combat_loop")`.
