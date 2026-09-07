@@ -188,16 +188,51 @@ Key points:
 
 - **HP is derived, not set directly.** `max_hp()` is computed from level, the
   class hit die (4 for a classless monster), and the Constitution modifier.
-- **Don't make an enemy tanky by inflating Constitution.** Con drives HP, but it
-  also drives the Constitution *saving throw*. A Con of 40 is a +15 to every
-  Con save, which makes the enemy effectively immune to poison, stun, disease
-  and every other effect that calls for one — the fight stops responding to
-  what the player does. Keep Con in a sane range and grant the extra bulk as a
-  **`TempHP` condition** instead: it is spent before real HP, so the enemy is
-  exactly as durable without touching a single save.
-  `combat_loop` does run `sanitize_con_hp()` over every enemy as a safety net
-  (capping Con at 30 and converting the excess to TempHP), but a Con of 30 is
-  still +10 — author it correctly rather than relying on the net.
+- **Never make an enemy tanky by inflating Constitution.** Con drives HP, but it
+  also drives the Constitution *saving throw*, and every Con-save DC in the game
+  is **10 or 12**. Against those numbers an inflated Con doesn't bend the odds,
+  it removes them:
+
+  | Con | modifier | passes DC 10 | passes DC 12 |
+  |---:|---:|---:|---:|
+  | 10 | +0 | 55% | 45% |
+  | 14 | +2 | 65% | 55% |
+  | 16 | +3 | 70% | 60% |
+  | 18 | +4 | 75% | 65% |
+  | 20 | +5 | 80% | 70% |
+  | 26 | +8 | 95% | 85% |
+  | 30 | +10 | **100%** | **95%** |
+  | 40 | +15 | **100%** | **100%** |
+
+  An enemy above Con 20 is effectively immune to poison, stun, disease and
+  every other effect that calls for a Con save, and the fight stops responding
+  to what the player does.
+
+  **Treat Constitution as what it is — an ability score describing the
+  creature.** Keep it in the normal band (roughly **8–18**, with **20** as a
+  ceiling reserved for a boss), and put *all* the extra bulk in a **`TempHP`
+  condition**. TempHP is spent before real HP, so the enemy is exactly as
+  durable while every save stays live.
+
+  > `combat_loop` does call `sanitize_con_hp()` on each enemy, which caps Con at
+  > 30 and converts the excess to TempHP. **That is a legacy backstop for older
+  > content, not a design tool.** As the table shows, Con 30 still passes a
+  > DC-10 save every single time. New content should never trip it — author the
+  > Con you want and add the TempHP yourself.
+
+- **Sizing the TempHP pool.** Pick the Constitution that describes the creature,
+  then work out the gap to the HP you actually want:
+
+  ```python
+  e.base_constitution = 16     # what the creature IS
+  e.rest()
+  target_hp = 145              # what the fight NEEDS
+  e.apply_condition(TempHP(max(0, target_hp - e.max_hp())))
+  ```
+
+  `max_hp()` is `(hit_die + con_mod) + (level - 1) * (hit_die // 2 + 1 +
+  con_mod)`, with `hit_die = 4` for a classless monster. Sizing it this way
+  means you can retune durability later without ever touching a save.
 - **Apply `TempHP` *after* `rest()`.** `rest()` clears temporary HP, so
   granting it first silently does nothing.
 - **`elite` is a content switch, not a difficulty switch.** Use a flag like
