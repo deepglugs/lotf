@@ -55,7 +55,7 @@ them from an `init python` block in your mod.
 
 | Function | Purpose |
 |---|---|
-| `register_mod(mod_id, display_name=None, enabled_by_default=True)` | Declares your mod to the **Mod Manager** (see below) and sets whether it ships enabled. Call once at init. |
+| `register_mod(mod_id, display_name=None, enabled_by_default=True, version=None)` | Declares your mod to the **Mod Manager** (see below), sets whether it ships enabled, and supplies the version string the manager displays. Call once at init. |
 | `register_mod_area(name, entry_label, icon=…, tooltip=…)` | Adds a travel node to the floating **Mods** portal that appears on world maps. |
 | `register_mod_vendor_stock(vendor_id, item_factory, max_stock=1)` | Injects an item into an **existing** vendor's inventory (e.g. Thalassa) with no edit to that vendor. |
 | `register_mod_vendor(vendor_id, setup_label, vendor_var_name)` | Teaches the framework about a vendor it doesn't already know, so you can inject stock into it. |
@@ -74,6 +74,14 @@ need no extra argument — but you should still call `register_mod(...)` once to
 give your mod a friendly display name and default-enabled state. Ship a mod
 **disabled by default** with `enabled_by_default=False` (the bundled
 `example_mod` does this).
+
+Pass `version="1.2"` to have the manager show a version beside your mod's name.
+It is a free-form string and is **independent of the game's `config.version`** —
+bump it once per public drop of the mod, so a player can tell you which build
+they are running. Keep it in a single `define` at the top of your mod's entry
+file (`define mymod_version = "1.2"`) and reference that, rather than repeating
+the literal; the bundled mods do this with `dth_version` / `modout_version`.
+Mods that omit `version` simply show no version rather than a placeholder.
 
 The framework ships knowing two vendors: `"thalassa"` (the Ch2 pirate vendor)
 and `"melitta"` (the Ch2 Athens vendor). Add more with `register_mod_vendor`.
