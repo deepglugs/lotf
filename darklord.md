@@ -26,7 +26,7 @@ Chosen on level up and added to your action list.
 | Icon | Ability | Level | Energy | Description |
 |------|---------|-------|--------|-------------|
 | ![](assets/heat_icon.webp) | Heat | 2 | 2 | Kindles magical warmth in a target. Constitution save or become **Hot**: 1d5 heat damage/turn for 5 turns. |
-| — | Black Hole | 14 | — | Tri-affinity capstone (requires all three affinities). |
+| ![](assets/black_hole_icon.webp) | Black Hole | 14 | — | Tri-affinity capstone (requires all three affinities). |
 
 ---
 

@@ -18,10 +18,12 @@ Your chosen affinity determines which spells and abilities are available as you 
 
 - [Barbarian](barbarian.md) — Rage-fueled melee fighter with Storm Herald elemental abilities
 - [Cleric](cleric.md) — Divine healer and radiation damage caster scaled on Wisdom
+- [Darklord](darklord.md) — Chaos-aligned dark caster whose signature is summoning demons and beasts to fight beside you
 - [Fighter](fighter.md) — Martial master with superior action economy and no resource limits
 - [Paladin](paladin.md) — Holy warrior combining divine smites and protecting auras scaled on Charisma
 - [Rogue](rogue.md) — Lethal assassin with sneak attacks and shadow abilities scaled on Dexterity
 - [Sorcerer](sorcerer.md) — Innate Charisma-based spellcaster with affinity infusions and metamagic
+- [Succubus](succubus.md) — Lust-aligned controller who stuns, distracts and vanishes, with cold spells for damage; scaled on Charisma
 
 ## Game Systems
 
