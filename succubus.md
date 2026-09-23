@@ -49,6 +49,7 @@ paid from any affinity pool.
 | — | Golden Shower | 3 | 1 Lust | Leaves the target **Wet**: double damage from cold and lightning, but resistant to heat. |
 | ![](assets/command_icon.webp) | Command | 3 | 1 Any | Wisdom save or be **Stunned** for 2 turns. |
 | ![](assets/glacial_strike_icon.webp) | Glacial Strike | 3 | 2 Any | Weapon attack with added scaling cold damage. If the target fails a Constitution save you gain a **Glacial Shield**. |
+| ![](assets/transform_icon.webp) | Transform | 3 | — | Change your own sex — male, female or futa. **Camp only**: cast between fights, never in combat (see below). |
 | ![](assets/sleet_storm_icon.webp) | Sleet Storm | 5 | 5 Any | Every enemy makes a Wisdom save or is **Wet** and **Icy** for 5 turns (2 turns on a success). Icy targets have a 30% chance each turn to slip and lose their action. |
 | ![](assets/succubus_invisibility_icon.webp) | Succubus Invisibility | 5 | 2 Lust | Become **Invisible** for 2 turns (see below). |
 | ![](assets/blizzard_icon.webp) | Blizzard | 9 | 8 Any | 8d8 cold damage to every enemy (Constitution save for half). Those who fail are **Icy** for 3 turns. |
@@ -75,6 +76,20 @@ of her own presence in until nothing can find her.
 **Pegasus's version.** Pegasus learns this ability from Igret in Chapter 3,
 before she has any lust to spend. Her copy costs nothing but can only be used
 **once per rest**. The Succubus class version costs 2 Lust and has no limit.
+
+---
+
+## Transform
+
+![](assets/transform_icon.webp)
+
+A utility spell rather than a combat one. It can only be cast in camp, and
+never appears in the combat action bar.
+
+- **Chrys** gets a *Transform* button in camp once Chrys knows it.
+- **Pegasus** receives it at the end of Igret's Final Lesson. Ask her to use it
+  from her camp conversation menu. She is female and can only switch between
+  female and futa.
 
 ---
 
