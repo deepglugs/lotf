@@ -58,7 +58,7 @@ adapt the garments:
 | ~110 | top garment off, breasts revealed / cupped | generate from a **chest crop** of the topless tier |
 | ~160 | breast close-up | generate from the chest crop + icon |
 | ~215 | lower garment being pushed down | generate (all three tiers + icon) |
-| ~265 | hips / vulva close-up | **re-extract** hip crop of nude tier → Qwen rescale → SDXL vulva inpaint → Qwen refine |
+| ~265 | hips / vulva close-up | **re-extract** hip crop of nude tier → lanczos → SDXL vulva inpaint, box pasted back (see Fixing a guide) |
 | ~315 | low legs shot for the upward sweep | **re-extract** legs crop of the tier whose footwear you want → Qwen rescale |
 | 361 | nude medium/close, final pose | generate from a nude torso crop + icon; fix slips with a Dev blob pass |
 
@@ -120,10 +120,25 @@ SDXL or Dev patch to pull the patch back into one style.
 
 ### Fixing a guide
 
-- **Vulva.** Qwen draws the mound smooth, or oversized when pushed. Use the SDXL
-  Illustrious inpaint on the rescaled hip crop with a small box over the crotch
-  and booru tags, two seeds, then the Qwen refine pass:
-  `gin.py --provider sdxl --inpaint --image <guide> --box X,Y,W,H --denoise 0.9 --prompt "1girl, solo, pussy, bald pussy, labia, cleft of venus, ..."`.
+- **Vulva.** Qwen draws the mound smooth, or oversized when pushed. **Always
+  double-check the vulva guide frames at 1:1 before rendering** (crop the box
+  region, do not judge from the full frame) and refine if necessary; the H3
+  render dwells on this beat and the guide is what it will reproduce. Two
+  routes, both validated on the Halloween set (2026-09-25):
+  - *Hips beat:* lanczos-upscale the raw hip crop to the canvas (no Qwen
+    rescale), SDXL Illustrious inpaint with a small box over the crotch and
+    booru tags, two seeds, then paste back ONLY the box through a feathered
+    mask: `gin.py --provider sdxl --inpaint --image <lanczos crop> --box X,Y,W,H --denoise 0.9 --prompt "lotf <char>, 1girl, solo, nude, pussy, bald pussy, labia, cleft of venus, ..."`.
+    The Qwen rescale + Qwen refine around the inpaint shifts skin tan and the
+    background blue on every pass, so the guide no longer matches the tier
+    art; the lanczos route keeps the tier's colours exactly.
+  - *Legs beat (re-extracted, vulva missing or soft):* Qwen with TWO refs, the
+    legs guide as image 1 and a ~160 px crop of the approved hips vulva as
+    image 2: "Keep image 1 exactly as it is ... The only change: at the top of
+    her thighs where they meet, add her bare vulva exactly like the one shown
+    in image 2 ..." — adds a matching cleft without touching anything else.
+  Verify the box coordinates with a grid crop first: a box placed from a
+  coarse grid missed the crotch entirely on three of five characters.
   Futa characters: see the futa recipe in the create-outfit skill instead.
 - **Small slips** (a nipple under a hand, a finger): paint a green blob in ivp
   and run `gin.py --provider dev --image <guide> --prompt "Replace ONLY the solid bright green block in this image with <content>. ... Do NOT alter anything outside the block. No green should remain."`.
@@ -131,7 +146,14 @@ SDXL or Dev patch to pull the patch back into one style.
   loose strands). A generic description flips or deletes ponytails and invents
   headbands.
 - **Footwear and straps.** Generated legs invent garters and boots. Re-extract
-  from the tier whose footwear should appear at that beat.
+  from the tier whose footwear should appear at that beat. If the strip ends
+  fully nude (boots off), take the legs crop from the NUDE tier and put the
+  boot removal in the prompt.
+- **Props.** A prop carried in the plain tier (lantern, pumpkin) has to go
+  somewhere: either write it into the opening beat (tossed, set down) and drop
+  it from every later guide, or keep it throughout. A Qwen edit on the final
+  torso guide removes it cleanly ("remove the X from her hand: her raised hand
+  now rests open against her collarbone").
 - **Wings, ears, horns, tails.** Same rule: name them in every guide prompt and
   keep the icon as a ref, or they vanish on close-ups.
 
@@ -200,8 +222,15 @@ uv run tools/gen_video.py --engine h3_turbo \
 - About 15 minutes and ~56 GB peak for 15 s. Guides re-anchor at the refine
   resolution, so identity holds; poses can shift a touch as the last steps
   re-author detail. `--h3-upscale-refine-steps 2` if that matters for a shot.
-- **2x does not work** for a 15 s clip: ComfyUI aborts on the first refine step
-  every time. 1.5x is the ceiling until the refine can be chunked in time.
+- **Anything above 1.5x fails on a 15 s clip.** Tested 2026-09-25 on a
+  362-frame clip: 2.0, 1.9 (2560x1088), 1.875 (2528x1088) and 1.833
+  (2464x1056) all abort server-side on the refine; the queue empties and
+  `gen_video.py` then hangs forever on a 0-byte log waiting for history, so
+  kill the client or the batch never advances. **It is length, not scale:**
+  the same 1.875 refine succeeds on a 243-frame (10 s) clip — the Pegasus
+  wedding pose clip was rendered that way at 2528x1088. So either keep 15 s
+  clips at 1.5x + lanczos, or cut the clip to ~10 s and refine natively.
+  A real fix needs the refine chunked in time.
 
 ## 6. Deliver
 
