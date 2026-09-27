@@ -2,24 +2,26 @@
 
 A repeatable recipe for a ~15 s striptease video of any character in any
 registered outfit, driven by the outfit's own pose art. Validated 2026-09-24 on
-Cera's corset (worked example at the end).
+Cera's corset (worked example at the end), reworked 2026-09-26 on Pegasus's
+futa corset and swimwear.
 
 The idea in one line: **the outfit's own tier art pins identity and wardrobe,
-Qwen makes the in-between key poses, H3 animates between them, and H3 refines
-its own output at 1.5x.** No reference-to-video, no cloud upscalers.
+the prompt carries the choreography, H3 animates between two or three guide
+frames, and H3 refines its own output at 1.9x in chunked windows.** No
+reference-to-video, no cloud upscalers.
 
 ```
-<char>_<outfit>_{plain,topless,nude}_<n>  ─┐
-                                            ├─► guide frames (Qwen + crops)
-<char> face icon                           ─┘        │
+<char>_<outfit>_plain_<n>   ──► frame 0
+one close-up guide (Qwen)   ──► mid                  ─┐
+<char>_<outfit>_nude_<n>    ──► last frame            │
                                                       ▼
-prompt (hand-led camera, one take) ───► H3 fl2v turbo, native canvas, 362 frames
+prompt (hand-led camera, one take) ───► H3 SparseRef15, 20 steps, 362 frames
                                                       │
                                                       ▼
-                          --h3-upscale 1.5 --h3-attention kitchen  →  1.5x canvas
+        --h3-upscale 1.9 --h3-attention kitchen (split refine) → 2560x1088
                                                       │
                                                       ▼
-                     lanczos → 2560x1080, AV1 webm → mods.in/mod_outfits/video/
+                     crop → 2560x1080, AV1 webm → mods.in/mod_outfits/video/
 ```
 
 Conventions below: `<char>` is the character's lotf trigger (`ceraphina`,
@@ -45,11 +47,63 @@ tier (the nude tier can have different shoes from the plain tier), harness or
 straps, tattoos, wings, ears, horns. Every prompt and guide must describe these
 exactly as drawn. Most guide failures were the prompt contradicting the art.
 
-## 2. Storyboard → guide frames
+## 2. Guide frames
 
-A 15 s clip is 362 frames at 24 fps. Six interior guides plus a last frame is a
-good density (~50 frames apart). The beats of a strip are always the same shape;
-adapt the garments:
+### The default: three guides
+
+**Use as few guides as the clip will tolerate.** A dense storyboard was the
+first-generation recipe and it costs more than it buys: every generated guide is
+another chance to contradict the art, and the clip visibly settles onto each one.
+The prompt already carries the choreography. Since 2026-09-26 the default set is
+three frames:
+
+| Frame | Guide | Source |
+|---|---|---|
+| 0 | full body, outfit on | `ch2_<char>_<outfit>_plain_<n>.webp`, untouched |
+| ~216 | the reveal close-up | crop of the nude tier, Qwen super-rez (below) |
+| 361 | full body, nude | `ch2_<char>_<outfit>_nude_<n>.webp`, untouched |
+
+The first and last frames come straight from shipped art, so identity, wardrobe
+and setting are pinned for free and cannot drift. The single interior guide goes
+where the camera dwells longest and where the model is weakest on its own — for
+a futa clip that is the moment the lower garment comes off and the penis is in
+close-up; for a female clip it is the hips-and-vulva beat. That is also the
+frame the model has the least prior for, which is exactly why it is worth a
+guide and the other five beats are not.
+
+Everything else — the unfastening, the top coming off, the breast close-up, the
+upward sweep — the prompt handles. Validated on Pegasus's corset
+(`sparse20_guided216`, the user's pick out of a field that included unguided and
+densely-guided takes) and reused unchanged for her swimwear.
+
+### The reveal close-up (crop → Qwen super-rez)
+
+Do not generate this frame. **Cut it out of the nude tier art** so the anatomy
+is the anatomy that actually ships, then rez it up:
+
+1. Grid-overlay the nude tier image and read off the crotch box — never guess
+   coordinates (see `feedback_klein_box_verify_large_images`).
+2. Crop at the clip's aspect (2.333:1 for a 1344x576 canvas), framed like a
+   held close-up: thighs filling the sides, the penis or vulva top-centre,
+   nothing of the face. On a 2560x1080 source a box around 532x228 lands right.
+3. Qwen super-rez the raw crop to the full canvas — feed the small crop and ask
+   for the output size; the rescale is the upscale:
+
+```bash
+uv run python tools/gin.py --provider qwen --url http://192.168.69.44:8188   --size 1344x576 --seed <N> --image <crop>.png   --prompt "Reproduce image 1 exactly at higher resolution: identical framing, composition, pose, anatomy, proportions, colors, lighting and background. Do not change, add or remove anything. Only render it sharper, with finer skin texture and crisper anatomical detail. <lora:Qwen/lotf_qwen_v3.safetensors:1.0>"   --output final/216_penis.png
+```
+
+Run three seeds and pick in ivp. **Qwen shifts the grade** — expect the skin to
+come back warmer than the source. It usually does not matter enough to fix, but
+check it against frames 0 and 361 before committing, because H3 interpolates
+toward this frame and a tone step mid-clip reads as a colour pop. If it is off,
+match per-channel mean and std back to the lanczos crop rather than re-rolling.
+
+### The dense route (first-generation recipe)
+
+Kept for reference. Use it only when a clip genuinely needs a beat the prompt
+cannot hold — an unusual garment order, a prop that must leave frame at a
+specific moment. Six interior guides plus a last frame is ~50 frames apart:
 
 | Frame | Beat | Guide source |
 |---|---|---|
@@ -191,8 +245,9 @@ them.
 ## 4. Base render
 
 ```bash
-uv run tools/gen_video.py --engine h3_turbo \
-  -i <plain tier> guides/<beat1>.png:60 guides/<beat2>.png:110 ... guides/<last>.png \
+export H3_UNET_FULL=minimaxH3Sparseref15_prunedPartialINT8V10.safetensors
+uv run tools/gen_video.py --engine h3 --h3-steps 20 \
+  -i <plain tier> final/216_penis.png:216 <nude tier> \
   -p <prompt>.txt -o <name>_base.mp4 --seed <seed> --length 360
 ```
 
@@ -200,53 +255,78 @@ uv run tools/gen_video.py --engine h3_turbo \
   waypoint with an explicit `:frame`. The canvas is derived from the first
   image's aspect (768 short edge, 1344 max long edge; 2560x1080 art → 1344x576).
   Generate guides at that canvas size.
-- About 7 minutes on .51. Iterate here: it is cheap, and the refine keeps the
-  seed, so the motion you approve is the motion you ship.
+- **Base model: SparseRef15 at 20 steps**, not the 4-step turbo GGUF. Turbo is
+  fine for blocking out motion, but it is visibly weaker on anatomy at the beats
+  that matter, and the difference survives the refine. Set it via
+  `H3_UNET_FULL`; `--engine h3` picks the full-checkpoint path.
+- About 28 minutes on .51 at 20 steps (turbo is ~7). Iterate here: the refine
+  keeps the seed, so the motion you approve is the motion you ship.
 - Contact-sheet it (`ffmpeg -ss T -frames:v 1` at each guide time, `xstack`)
   and open sheet + mp4 in ivp. Check that each sampled frame matches its guide,
   that garments stay off once removed, and that hair, footwear and markings do
   not flicker between beats.
 
-## 5. Refine to 1.5x
+## 5. Refine to 1.9x (chunked)
 
 ```bash
-... same command ... -o <name>_up15.mp4 --h3-upscale 1.5 --h3-attention kitchen
+... same command ... -o <name>_19.mp4 --h3-upscale 1.9 --h3-attention kitchen
 ```
 
-- Same seed, same guides. The default refine is the **split schedule**: the last
-  3 of the 4 turbo steps re-run at the upscaled size (`--h3-upscale-refine-steps`
-  to change). `--h3-upscale-denoise 0` decodes the raw upscaled latent, which is
-  softer than a lanczos resize, so never ship that.
-- `--h3-attention kitchen` (comfy-kitchen INT8 attention) is required at this
-  size on .51.
-- About 15 minutes and ~56 GB peak for 15 s. Guides re-anchor at the refine
-  resolution, so identity holds; poses can shift a touch as the last steps
-  re-author detail. `--h3-upscale-refine-steps 2` if that matters for a shot.
-- **Anything above 1.5x fails on a 15 s clip.** Tested 2026-09-25 on a
-  362-frame clip: 2.0, 1.9 (2560x1088), 1.875 (2528x1088) and 1.833
-  (2464x1056) all abort server-side on the refine; the queue empties and
-  `gen_video.py` then hangs forever on a 0-byte log waiting for history, so
-  kill the client or the batch never advances. **It is length, not scale:**
-  the same 1.875 refine succeeds on a 243-frame (10 s) clip — the Pegasus
-  wedding pose clip was rendered that way at 2528x1088. So either keep 15 s
-  clips at 1.5x + lanczos, or cut the clip to ~10 s and refine natively.
-  A real fix needs the refine chunked in time.
+- Same seed, same guides. 1.9x takes a 1344x576 canvas to **2560x1088**, which
+  is the game canvas plus 8 rows to crop — no lanczos fill, no bars.
+- The refine is a **split schedule**: the tail of the same sigma ladder the base
+  pass used, re-run at the upscaled size (`--h3-upscale-refine-steps` to change).
+  `--h3-upscale-denoise 0` decodes the raw upscaled latent, which is softer than
+  a lanczos resize — never ship that.
+- `--h3-attention kitchen` (comfy-kitchen INT8 attention) is required at this size.
+- Since 2026-09-26 the refine sample is **chunked in time** through the upstream
+  `MMH3SplitUpscale` node: overlapping windows of 73 pixel frames with 22 frames
+  of overlap, each window's conditioning re-anchored, then crossfaded. This is
+  what makes 1.9x survive a 15 s clip; a single sampler pass over 362 frames
+  aborts server-side at any scale above ~1.5x. Verified no seam or pose jump at
+  the window boundaries (73 / 146 / 219 / 292).
+- Chunk lengths must sit on H3's **17k+5 pixel-frame grid** (73, 90, 107, 136…)
+  with overlap 17 or 22. The conv3d upscaler's own chunking knobs are *latent*
+  frames — a different axis, and a no-op at these lengths (latent T ≈ 22).
+- Budget ~60 min for 15 s on .51: ~28 min base, ~32 min refine. Peak ~56 GB.
+- Guides re-anchor at the refine resolution, so identity holds; poses can shift
+  a touch as the tail steps re-author detail. `--h3-upscale-refine-steps 2` if
+  that matters for a shot.
+- Knobs, should a run need them: `H3_REFINE_CHUNK_FRAMES` (73),
+  `H3_REFINE_OVERLAP_FRAMES` (22), `H3_REFINE_IDENTITY_ANCHOR` (0),
+  `H3_REFINE_MOTION_ANCHOR` (22), `H3_REFINE_SEAM_POLISH` (auto). Setting
+  `H3_REFINE_CHUNK_FRAMES=0` restores the old single-pass behaviour.
+
+### History: why 1.5x used to be the ceiling
+
+Until the chunked refine landed, anything above 1.5x aborted on a 362-frame
+clip — 2.0, 1.9, 1.875 and 1.833 all died server-side, the queue emptied, and
+`gen_video.py` hung forever on a 0-byte log. It was never VRAM (~52 of 95 GB at
+peak) and never the base model. It was length, not scale: the same 1.875 refine
+succeeded on a 243-frame clip, which is how the Pegasus wedding pose clip got
+rendered at 2528x1088. Full diagnosis in `tmp/h3_upscale_symptoms.md`.
 
 ## 6. Deliver
 
 ```bash
 mkdir -p mods.in/mod_outfits/video
-cp <name>_up15.mp4 mods.in/mod_outfits/video/<char>_<outfit>_striptease_<W>x<H>.mp4   # master
-ffmpeg -i mods.in/mod_outfits/video/<char>_<outfit>_striptease_<W>x<H>.mp4 \
-  -vf "scale=2560:1080:flags=lanczos" -c:v libsvtav1 -crf 28 -preset 6 -pix_fmt yuv420p -g 40 -an \
+ffmpeg -i <name>_19.mp4 -vf "crop=2560:1080:0:4" \
+  -c:v libsvtav1 -crf 28 -preset 6 -pix_fmt yuv420p -g 40 -an \
   mods.in/mod_outfits/video/<char>_<outfit>_striptease.webm
 ```
 
-Lanczos, not swin2sr: the final step is under 1.6x and SR smears this render
-style. The encode matches `tools/create_videos.sh` (AV1, GOP 40, silent). A
-21:9 refine is 2.33:1 against the 2.37:1 game canvas; the scale stretches about
-1.5 % horizontally rather than cropping. Register the webm the same way as any
+At 1.9x the refine lands on 2560x1088, so **crop** 8 rows rather than scaling —
+no resample at all on the delivered pixels. The encode matches
+`tools/create_videos.sh` (AV1, GOP 40, silent). Keep the 2560x1088 mp4 master in
+the scratch folder, **not** in `video/` — the DLC packagers walk that folder and
+a 23 MB master rides along for nothing. Register the webm the same way as any
 other mod video.
+
+Naming is by convention, no registration code needed:
+`<char>_<outfit>_striptease.webm`, `<char>_<outfit>_poses.webm`, and the futa
+variants `<char>_<outfit>_futa_striptease.webm` /
+`<char>_<outfit>_futa_poses.webm`. Bump `modout_version` and add a CHANGELOG
+entry in the same commit.
 
 ## Things that did not work
 
@@ -259,16 +339,34 @@ other mod video.
 - **Generated vulva and legs guides**: inflated anatomy, invented straps.
   Re-extract from the art.
 - **Raw 2x latent upscale without refine**: softer than lanczos.
+- **Dense guide sets** (six interior beats): each one is a chance to contradict
+  the art, and the clip visibly settles onto every guide instead of moving
+  through it. Three guides beat seven in a side-by-side on Pegasus's corset.
+- **Starting the clip from the clothed art and letting H3 invent the strip**
+  unguided: the garment comes back mid-clip and limbs duplicate. The nude tier
+  as the last frame is what stops that.
+- **Fixing bad video anatomy with LoRAs** (penis LoRAs, reveal LoRAs, higher
+  weights, more steps): the ceiling is the *source art* H3 interpolates toward,
+  not the model. If the clip's anatomy is wrong, repaint the guide frame.
 
 ## Server notes (.51)
 
-The 1.5x refine depends on local patches on phoenix that a ComfyUI or
-comfy-kitchen update would silently remove: the Triton backend flag in
-`deep_start.sh`, temporal chunking in the H3 latent-upscaler node, and an int32
-guard in comfy-kitchen's Triton `int8_linear`. Details and the restart recipe
-are in the memory note `feedback_h3_latent_upscale`. If a render goes quiet,
-check `systemctl show comfyui -p NRestarts`: a crashed server leaves
+The refine depends on local state on phoenix that a ComfyUI or comfy-kitchen
+update would silently remove: the Triton backend flag in `deep_start.sh`, an
+int32 guard in comfy-kitchen's Triton `int8_linear`, and the
+`Comfyui_Minimax_h3_latent_Upscaler` pack being current enough to provide
+`MMH3SplitUpscale` / `MMH3TemporalSplitParamsV10`. Our old local temporal-chunk
+patch on the upscaler node is superseded by upstream's own
+`enable_temporal_chunking` and should not be re-applied. Details and the restart
+recipe are in the memory note `feedback_h3_latent_upscale`. If a render goes
+quiet, check `systemctl show comfyui -p NRestarts`: a crashed server leaves
 `gen_video.py` waiting forever.
+
+Updating that pack broke three call sites once, so if the refine suddenly throws
+on a fresh checkout: the node is named `MinimaxH3LatentUpscaler3D` (not
+`...UpscalerNode3D`), it needs `"mode": "target dimensions"`, and its nested
+inputs must be **dot-prefixed** (`mode.width`, `mode.height`) — siblings give
+`float(None)` and a nested dict gives "missing required argument 'mode'".
 
 ## Worked example: Cera, corset, pose 1
 
@@ -296,3 +394,23 @@ the hair as drawn (three guides lost or flipped the ponytail on "high
 ponytail"), re-extract legs and hips rather than generate them, crop before
 asking Qwen for a close-up, and review the guide set in ivp with notes before
 spending a render.
+## Worked example: Pegasus, corset, futa (three guides)
+
+Folder `mods.in/mod_outfits/tmp/pegasus_corset_futa_strip/`. Canvas 1344x576,
+seed 20260924, SparseRef15 at 20 steps.
+
+| Frame | Guide | Source |
+|---|---|---|
+| 0 | `ch2_pegasus_corset_futa_plain_1.webp` | plain tier, untouched |
+| 216 | `final/216_penis.png` | hip crop of the futa nude tier → Qwen super-rez |
+| 361 | `ch2_pegasus_corset_futa_nude_1.webp` | nude tier, untouched |
+
+Base `sparse20_guided216.mp4` (1344x576, ~28 min), refined to `split19.mp4`
+(2560x1088, ~32 min), delivered as
+`mods.in/mod_outfits/video/pegasus_corset_futa_striptease.webm` (2560x1080 AV1,
+11 MB) in mod 1.2.
+
+This take was picked over an unguided run, a densely-guided run, and variants
+with the H3 penis and "reveals" LoRAs at several weights. The lesson that came
+out of it: none of the LoRA work moved the needle, because the limit was the
+guide frame's own anatomy. Fix the art, not the sampler.
