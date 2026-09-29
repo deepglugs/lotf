@@ -66,15 +66,98 @@ three frames:
 The first and last frames come straight from shipped art, so identity, wardrobe
 and setting are pinned for free and cannot drift. The single interior guide goes
 where the camera dwells longest and where the model is weakest on its own — for
-a futa clip that is the moment the lower garment comes off and the penis is in
-close-up; for a female clip it is the hips-and-vulva beat. That is also the
-frame the model has the least prior for, which is exactly why it is worth a
-guide and the other five beats are not.
+a female clip that is the hips-and-vulva beat.
+
+**For a futa character, do not put the interior guide on a head-on penis
+reveal.** That beat cannot be guided; it has to be choreographed around. See
+"Futanari clips" below before building the guide set.
 
 Everything else — the unfastening, the top coming off, the breast close-up, the
 upward sweep — the prompt handles. Validated on Pegasus's corset
 (`sparse20_guided216`, the user's pick out of a field that included unguided and
 densely-guided takes) and reused unchanged for her swimwear.
+
+### Futanari clips: choreograph around the reveal
+
+**Everything in this subsection is a futa problem.** H3's base model has
+effectively no nudity in its training data and no prior at all for a penis
+emerging from a garment, so a frontal futa reveal is the one beat in the whole
+recipe the model cannot improvise. Female clips do not need any of this — the
+hips-and-vulva beat behaves, one guide is enough, and the rest of the doc
+applies unchanged. Read this only when the character is futa.
+
+Four takes were spent trying to *guide* the head-on reveal and all four failed
+the same way: for ~25 frames before the guide the model invents a pale
+featureless tube, then snaps to the guide for two frames, then decays again. A
+guide only reaches a few frames either side of itself; it cannot repair the
+stretch in front of it.
+
+**The fix is choreography, not guidance: turn her around.**
+
+Rewrite the lower-garment beat so she rotates until her back is to the lens,
+takes the garment off from behind (bare buttocks, which the model renders well),
+then rotates back to face camera. The penis then only ever appears *after* she
+is already turning square, with the final frame right there pinning it. On
+Pegasus's swimwear this removed the problem in a single run after four takes of
+patching it.
+
+Three things this needs:
+
+1. **Pin the rotation direction in frame-relative terms.** "She turns to her
+   left" is ambiguous once her back is to the camera. Write what the frame
+   shows: *"rotating so that her buttocks come round toward the right-hand side
+   of the frame and her front swings away to the left"*, and describe the
+   turn-back the same way. If it still comes out mirrored, flipping the guide
+   horizontally is lossless and cheaper than re-rolling the clip.
+
+2. **One guide at the turn-back, and give it runway.** See the next subsection —
+   this is where guide placement matters most.
+
+3. **Do not reach for a penis LoRA.** `H3/PLORA_H3_V2` at 1.0 fixes the malformed
+   tip and ruins everything else: the penis inflates and reads semi-erect through
+   the whole clip. 1.2 is worse. The LoRA is treating "penis" as the subject
+   rather than a detail. If the profile still looks wrong after the turn, fix the
+   *art* — see the last point below.
+
+### Guide placement: a guide needs runway
+
+**The single most useful thing learned on this clip.** The same guide, same
+seed, same prompt, placed at two different frames:
+
+| Guide frame | Result |
+|---|---|
+| 258 | hard cut — rear view through f257, three-quarter front at f260, background jumps. She teleports. |
+| 300 | smooth animated rotation across f240-330. No cut. |
+
+A guide ~100 frames after the previous one, asking for a 135-degree change of
+body orientation, cannot be reached in three frames. Give a large pose change
+**50-60 frames of runway** and place the guide where the motion is already
+finishing, not where you want it to start. The same rule explains the dense
+route's failures: guides every 50 frames leave no room to move *between* them,
+so the clip visibly settles onto each one.
+
+### Editing a guide with Qwen: one instruction at a time
+
+Qwen's edit path treats the prompt as a single instruction and a second clause
+displaces the first rather than adding to it. Measured on this clip:
+
+| Prompt | Result |
+|---|---|
+| `Turn her 90 degrees to the left` | rotates correctly, identity and pose preserved |
+| `...left. Her penis is smaller.` | **no rotation** |
+| `...left. Her penis is soft and hangs down against her thigh.` | **no rotation** |
+| `...left. Her penis is small, soft and flaccid...` | no rotation, anatomy nearly erased |
+
+So: **turn in one pass, adjust anatomy in a second pass on the result** — or
+better, fix the anatomy on the source art while she is still front-on, because
+the last frame of the clip uses that art anyway and the whole clip will then
+agree with it.
+
+**Never pass a pose reference that contains the thing you are trying to fix.**
+Feeding `nude_1` as identity plus a video frame as a pose ref copied the
+malformed penis straight across, overrode her pose, and cropped her head out of
+frame. One identity reference plus plain text was dramatically better. Run three
+seeds: rotation lands about one time in three.
 
 ### The reveal close-up (crop → Qwen super-rez)
 
@@ -348,6 +431,22 @@ entry in the same commit.
 - **Fixing bad video anatomy with LoRAs** (penis LoRAs, reveal LoRAs, higher
   weights, more steps): the ceiling is the *source art* H3 interpolates toward,
   not the model. If the clip's anatomy is wrong, repaint the guide frame.
+  `H3/PLORA_H3_V2` at 1.0 does fix a malformed tip, but inflates the penis and
+  makes it read semi-erect for the whole clip; 1.2 is worse.
+- **A pose reference that contains the defect.** Qwen copies it verbatim, and
+  the pose ref also overrode the subject's pose and cropped her head off. One
+  identity ref plus text.
+- **Stacking two instructions in a Qwen edit.** The second silently replaces the
+  first.
+- **Feather-pasting the original anatomy back over an edit.** The surrounding
+  pixels no longer match, so it leaves a patch; auto-alignment keyed on the
+  background rather than the body and hit its search bounds. Compositing the
+  *edit's* hands onto the *original* worked; the reverse did not.
+- **There is no penis-physics LoRA for H3.** Checked the public catalogue
+  2026-09-28: the nearest is a generic secondary-motion booster
+  (`ref2VA_Motion_v2`, trigger `dynv2`, 0.6-0.8), trained on two-person scenes.
+  `Worship It` explicitly converts a flaccid penis to erect — avoid for these
+  clips.
 
 ## Server notes (.51)
 
@@ -414,3 +513,35 @@ This take was picked over an unguided run, a densely-guided run, and variants
 with the H3 penis and "reveals" LoRAs at several weights. The lesson that came
 out of it: none of the LoRA work moved the needle, because the limit was the
 guide frame's own anatomy. Fix the art, not the sampler.
+
+## Worked example: Pegasus, swimwear, futa (turn-around)
+
+Folder `mods.in/mod_outfits/tmp/pegasus_swimwear_futa_strip/`. Canvas 1344x576,
+seed 20260924, SparseRef15 at 20 steps, no LoRAs.
+
+Eleven takes. The first four tried to guide a head-on reveal of the penis as the
+bikini bottoms come off, with one guide, two bracketing guides, Qwen-edited
+hands-at-hips guides, and Dev-edited variants of those. All four produced the
+same failure: the model improvises a malformed penis for ~25 frames, snaps to
+the guide, then decays. Two more takes tried `H3/PLORA_H3_V2` at 1.0 and 1.2,
+which fixed the tip and inflated everything else.
+
+What shipped, take K:
+
+| Frame | Guide | Source |
+|---|---|---|
+| 0 | `ch2_pegasus_swimwear_futa_plain_1.webp` | plain tier, untouched |
+| 300 | `final/258_turn.webp` | `nude_1` rotated by Qwen (`"Turn her 90 degrees to the left"`, seed 303) |
+| 361 | `ch2_pegasus_swimwear_futa_nude_1.webp` | nude tier, untouched |
+
+Prompt: `pegasus_swimwear_futa_strip_turn_dir.txt` — she turns her back to the
+lens, slips the side-ties and pushes the bottoms down from behind, holds on her
+bare ass, then rotates back to square, with the direction pinned frame-relative.
+
+Delivered as `mods.in/mod_outfits/video/pegasus_swimwear_futa_striptease.webm`
+(2560x1080 AV1, 7.0 MB) in mod 1.4.
+
+The lesson, and it inverts the note on the corset example above: when a beat is
+outside the model's prior, more guides do not help. Change what the camera is
+asked to watch.
+
