@@ -327,10 +327,20 @@ them.
 
 ## 4. Base render
 
+**Non-futa — the default.** 4-step turbo GGUF, ~7 minutes:
+
+```bash
+uv run tools/gen_video.py --engine h3_turbo \
+  -i <plain tier> <nude tier> \
+  -p <prompt>.txt -o <name>_base.mp4 --seed <seed> --length 360
+```
+
+**Futa only.** SparseRef15 at 20 steps, ~28 minutes:
+
 ```bash
 export H3_UNET_FULL=minimaxH3Sparseref15_prunedPartialINT8V10.safetensors
 uv run tools/gen_video.py --engine h3 --h3-steps 20 \
-  -i <plain tier> final/216_penis.png:216 <nude tier> \
+  -i <plain tier> <turn guide>.png:300 <nude tier> \
   -p <prompt>.txt -o <name>_base.mp4 --seed <seed> --length 360
 ```
 
@@ -338,12 +348,15 @@ uv run tools/gen_video.py --engine h3 --h3-steps 20 \
   waypoint with an explicit `:frame`. The canvas is derived from the first
   image's aspect (768 short edge, 1344 max long edge; 2560x1080 art → 1344x576).
   Generate guides at that canvas size.
-- **Base model: SparseRef15 at 20 steps**, not the 4-step turbo GGUF. Turbo is
-  fine for blocking out motion, but it is visibly weaker on anatomy at the beats
-  that matter, and the difference survives the refine. Set it via
-  `H3_UNET_FULL`; `--engine h3` picks the full-checkpoint path.
-- About 28 minutes on .51 at 20 steps (turbo is ~7). Iterate here: the refine
-  keeps the seed, so the motion you approve is the motion you ship.
+- **Base model: turbo unless the character is futa.** The 4-step turbo GGUF is
+  what every shipped non-futa clip was rendered with, Cera's corset included,
+  and its anatomy is fine on female bodies. **SparseRef15 at 20 steps is a futa
+  measure only** — it was adopted because turbo renders futa anatomy poorly at
+  the reveal, and that is the only place it has been shown to help. It costs 4x
+  the base time (~28 min vs ~7), so do not pay for it on a non-futa clip. Set it
+  via `H3_UNET_FULL`; `--engine h3` picks the full-checkpoint path.
+- Iterate at the base: the refine keeps the seed, so the motion you approve is
+  the motion you ship.
 - Contact-sheet it (`ffmpeg -ss T -frames:v 1` at each guide time, `xstack`)
   and open sheet + mp4 in ivp. Check that each sampled frame matches its guide,
   that garments stay off once removed, and that hair, footwear and markings do
@@ -371,7 +384,11 @@ uv run tools/gen_video.py --engine h3 --h3-steps 20 \
 - Chunk lengths must sit on H3's **17k+5 pixel-frame grid** (73, 90, 107, 136…)
   with overlap 17 or 22. The conv3d upscaler's own chunking knobs are *latent*
   frames — a different axis, and a no-op at these lengths (latent T ≈ 22).
-- Budget ~60 min for 15 s on .51: ~28 min base, ~32 min refine. Peak ~56 GB.
+- Budget ~40 min for 15 s on .51 with turbo (~7 min base, ~32 min refine), or
+  ~60 min on SparseRef15. Peak ~56 GB either way. **Turbo plus the chunked 1.9x
+  refine is not yet validated** — the pre-split 1.9x failures were all on turbo,
+  and every success since the split node landed has been on SparseRef15. Confirm
+  it on one clip before batching a set.
 - Guides re-anchor at the refine resolution, so identity holds; poses can shift
   a touch as the tail steps re-author detail. `--h3-upscale-refine-steps 2` if
   that matters for a shot.
