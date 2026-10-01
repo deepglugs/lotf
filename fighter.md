@@ -20,7 +20,7 @@ These are automatically granted at the listed level.
 | 20 | ![Extra Attack](assets/extra_attack_icon.webp) | Extra Attack (+3 total) |
 
 ### ![](assets/second_wind_icon.webp) Renewed Life *(L1 — No energy, self-target)*
-Draw on reserves of stamina to heal yourself. Healing is **Nd10** where N = `max(1, level / 4)`. No energy cost.
+Draw on reserves of stamina to heal yourself. Healing is **Nd10** where N = `max(1, level / 4)`. No energy cost; **twice per rest**. Also castable from the camp action bar.
 
 ### ![](assets/action_surge_icon.webp) Burst of Speed *(L2 — No energy, self-target)*
 Grants yourself the **Action Surge** condition, giving **2 additional actions** on your next turn. No energy cost.

@@ -36,6 +36,10 @@ Generic feats are also offered at levels 4, 8, 12 and 16.
 | ![](assets/lustful_blessing_icon.webp) | Lustful Blessing | — | One ally gains +2 Charisma and advantage on Charisma checks for 5 turns. |
 | ![](assets/lust_rage_icon.webp) | Lust Rage | 1 Lust | *(Barbarian multiclass only.)* A rage fuelled by desire: bonus Charisma and advantage, with a chance to leave enemies **Horny**. |
 
+**In camp** (Chrys's camp action bar): **Masturbate** restores 1d3 lust once
+per rest; **Seduce** (1 Lust) targets a companion, who makes the same Wisdom
+save and reacts to whether it landed. **Transform** is cast there too.
+
 ---
 
 ## Spell Options (Level Choices)
