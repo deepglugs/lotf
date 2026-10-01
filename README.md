@@ -35,3 +35,5 @@ Your chosen affinity determines which spells and abilities are available as you 
 - [Modding Guide](modding.md) — Add custom items, enemies, and areas via `game/mods/` without editing core files. Also documents the published [character art models](https://huggingface.co/deepglugs/lotf-models) and their prompt triggers.
 - [Content & Shipping](modding_content_and_shipping.md) — Wardrobe outfit mods, asset-production pitfalls, and packaging a mod for distribution
 - [ComfyUI Workflows](workflows/) — Ready-to-run pipelines for generating art that matches the game
+- [Two-Character CGs & Animation](two_character_cg_pipeline.md) — Qwen compose, one-side-at-a-time genital inpaints, refine, and chained H3 clips (full model + PLORA) for two-figure explicit scenes
+- [Outfit Striptease Clips](outfit_striptease.md) — H3 striptease videos driven by an outfit's own pose art
