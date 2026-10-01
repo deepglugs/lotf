@@ -298,6 +298,94 @@ Review all guides in ivp in clip order before rendering
 (`uv run tools/ivp.py <plain tier> guides/... --name <name>`). Notes left in the
 viewer come back with `uv run tools/ivp.py --read-feedback <name>`.
 
+### The 362-frame ceiling, and splitting the clip
+
+`h3_workflows.py` records H3's trained range as **~124-362 frames**. 362 is a
+hard ceiling, not a soft one: a 430-frame render came back as **flat grey
+noise** across every frame (pixel std 8-11 against ~50 for real content). The
+model does not degrade gracefully past its range, so never raise `--length`
+past 362 looking for more room.
+
+**When a beat needs more time than 362 frames allow, render in two clips and
+concatenate.** Pick a guide frame to split on, use it as the *last* frame of
+clip A and the *first* frame of clip B, and the seam is exact because both
+clips converge on the same picture:
+
+```bash
+# A: the strip, 243 frames          B: the zoom-out, 124 frames
+gen_video.py ... -i plain1.png joinframe.png   -p A.txt -o A.mp4 --length 243
+gen_video.py ... -i joinframe.png nude_1.webp  -p B.txt -o B.mp4 --length 124
+# drop B's duplicate first frame, then concat
+ffmpeg -i B.mp4 -vf "select=gte(n\,1),setpts=PTS-STARTPTS" -an B_trim.mp4
+printf "file 'A.mp4'\nfile 'B_trim.mp4'\n" > list.txt
+ffmpeg -f concat -safe 0 -i list.txt -c copy joined.mp4
+```
+
+Measured on Pegasus's corset: frame-to-frame deltas across the join were
+2.15 / 2.14 / **3.13** / 2.43 — the join sits inside the clip's own baseline
+variation and is invisible. **This holds after refining each half
+independently**, which is not obvious: both halves still meet on the shared
+frame.
+
+Why bother, when the total runtime is the same? Because each half gets its own
+guidance budget. On the corset clip the zoom-out went from 35 frames to 124 —
+3.5x the runway — at no cost in length.
+
+**Each segment's prompt must describe the wardrobe at THAT segment's start.**
+The first attempt built both prompts from a shared room block ending "She wears
+an ivory silk corset over lace-trimmed drawers", so clip B was told she was
+both already nude and still dressed. It resolved the contradiction by putting
+the outfit back on, stripping the corset again, and leaving her in panties to
+the end. Strip the wardrobe sentence out of the later segment and state the
+state plainly: *"She is nude except for a pair of white stockings; there is no
+corset, no underwear and nothing covering her hips."*
+
+### Swapping a tier's background to match another tier
+
+Needed when `plain_<n>` and `nude_<n>` were rendered in different stagings of
+the same room — the clip then has to interpolate between two different sets of
+furniture, and the model invents a third room in the middle.
+
+**No model can do this.** All four were tried on the same pair and each kept
+one half and destroyed the other:
+
+| Provider | Room | Subject |
+|---|---|---|
+| qwen | correct | **stripped her nude** |
+| pro | **rebuilt the walls** | correct |
+| max | correct | **put her in a floor-length gown** |
+| grok | **invented a new room** | correct |
+
+**Do it mechanically instead:**
+
+1. Qwen the *target* tier into an empty plate: *"Remove the woman from this
+   image completely. Show only the empty room ... Fill in the floor, the
+   dresser and the mirror where she was standing."* Three seeds; they come back
+   clean.
+2. `image_ops.py --ops rmbg` the *source* tier, then keep only the **largest
+   connected component** of the alpha (`scipy.ndimage.label`). rmbg holds onto
+   furniture — a mirror came across as its own component.
+3. **rmbg eats dark features against dark backgrounds.** Her horse ears
+   vanished. Recover them from the original by **colour distance** from the
+   wall, not luminance: ears and wall were both near-black, but the wall is
+   neutral and the ears are warm-toned.
+4. Erase whatever is still attached to her silhouette (a bed, a drape) **by
+   hand in GIMP**. Do not try to derive a contour: in candlelight her skin
+   reads orange (G-B ~54) and the bed frame reads orange too (G-B ~40-54), so
+   no colour threshold separates them, and every polygon I fitted shaved
+   pixels off her leg.
+5. `alpha_composite` the cutout onto the plate.
+
+**Then fix the prompt.** The room description still named the *old* room's
+furniture ("velvet curtains ... a draped bed"), none of which exists in the new
+plate, so the clip drifted into an invented bedroom for 200 frames. Rewrite it
+to the new room and add "closed and windowless" if a window keeps appearing.
+
+**Never run `--provider i2k` to "refine" a composite.** It is a full-frame
+Klein re-render at cfg 5 / 20 steps: it changed her pose, redrew the wings,
+moved the mirror and returned 2560x1072. A hand-built composite needs no
+refine — every pixel is already source art.
+
 ## 3. The prompt
 
 Four parts, in this order. `mods.in/mod_outfits/tmp/h3_vae_test/sensual/cera_corset_sensual_fl2v.txt`
@@ -375,6 +463,16 @@ uv run tools/gen_video.py --engine h3 --h3-steps 20 \
   `--h3-upscale-denoise 0` decodes the raw upscaled latent, which is softer than
   a lanczos resize — never ship that.
 - `--h3-attention kitchen` (comfy-kitchen INT8 attention) is required at this size.
+- **Use `--h3-upscale-refine-steps 2` on turbo, not the default 3.** At 3 of 4
+  steps the refine re-runs 75% of the ladder at the upscaled size with freshly
+  built conditioning, which is close to re-rendering the tail — and it
+  re-narrates the prompt, putting the garments back on near the end. Proven by
+  an A/B on one seed: the base sample was bare from f290 to the final frame,
+  the refined output of the *same* sample had the drawers back on at f335 and
+  re-stripped through f355. Four guide configurations, including a full-body
+  nude pinned on the offending frame, failed to fix it — because the problem
+  was never in the guides. 2 of 4 keeps the detail and leaves the content
+  alone.
 - Since 2026-09-26 the refine sample is **chunked in time** through the upstream
   `MMH3SplitUpscale` node: overlapping windows of 73 pixel frames with 22 frames
   of overlap, each window's conditioning re-anchored, then crossfaded. This is
@@ -439,6 +537,18 @@ entry in the same commit.
 - **Generated vulva and legs guides**: inflated anatomy, invented straps.
   Re-extract from the art.
 - **Raw 2x latent upscale without refine**: softer than lanczos.
+- **Raising `--length` past 362** to buy more time for a beat: the whole render
+  comes back as grey noise. Split the clip instead.
+- **Any model-driven background swap** (qwen / pro / max / grok): each keeps the
+  room or the wardrobe, never both. Composite it by hand.
+- **`--provider i2k` as a "refine" on a hand-built composite**: it is a
+  full-frame re-render and rewrites pose, wings, furniture and canvas height.
+- **Deriving a cutout contour by colour or by sampled points** when the subject
+  is lit warm: skin and wood furniture both sit at G-B ~40-55. Every automatic
+  contour clipped the leg. Erase by hand.
+- **A per-row "keep the run containing the subject's centre column" filter** to
+  clean a cutout: it deletes the wings on every row where they are separated
+  from the torso by background.
 - **Dense guide sets** (six interior beats): each one is a chance to contradict
   the art, and the clip visibly settles onto every guide instead of moving
   through it. Three guides beat seven in a side-by-side on Pegasus's corset.
@@ -561,4 +671,39 @@ Delivered as `mods.in/mod_outfits/video/pegasus_swimwear_futa_striptease.webm`
 The lesson, and it inverts the note on the corset example above: when a beat is
 outside the model's prior, more guides do not help. Change what the camera is
 asked to watch.
+
+## Worked example: Pegasus, corset (non-futa, split render)
+
+Folder `mods.in/mod_outfits/tmp/pegasus_corset_strip/`. Canvas 1344x576, seed
+20260924, **h3_turbo**, `breastplayjiggle_h3_v2` @0.8.
+
+The first non-futa clip on the current pipeline, and the one that produced most
+of the rules above. Eight renders:
+
+| # | Change | Outcome |
+|---|---|---|
+| 1 | turbo, 2 guides, 1.9x refine (default 3/4) | strip + vulva beat clean; **drawers return f320-350** |
+| 2 | prompt hardened ("kicked away", "bare in every shot") | discarded garment now visible on the carpet; **still re-dresses** |
+| 3 | + hips crop @300, legs crop @330 | holds where pinned; a **legs** crop constrains nothing about clothing |
+| 4 | + full nude_1 @335 | **still dressed at the pinned frame** |
+| 5 | base only, no refine | **clean** — the refine was the culprit all along |
+| 6 | base + background-swapped plain_1 | room drifts to an invented bedroom (prompt named the old room) |
+| 7 | + room description rewritten | **room holds all 362 frames**; best single-render take |
+| 8 | split A+B, both at 1.9x, refine 2/4 | **shipped** |
+
+Shipped as `mods.in/mod_outfits/video/pegasus_corset_striptease.webm`
+(2560x1080 AV1, 19.5 MB) in mod 1.5.
+
+Guides, after the background swap so all four share `nude_1`'s room:
+
+| Clip | First frame | Last frame | Frames |
+|---|---|---|---|
+| A | `plain1_bgswapped.png` | `final/a_hips.png` | 243 |
+| B | `final/a_hips.png` | `ch2_pegasus_corset_nude_1.webp` | 124 |
+
+The lesson that cost the most renders: **four attempts were spent adding guides
+to fix a problem the guides could not reach.** When a defect survives a guide
+pinned directly on the offending frame, stop adding guides and check whether a
+later stage of the pipeline is rewriting the output. A base-vs-refined A/B on
+one seed is seven minutes and would have found it immediately.
 
