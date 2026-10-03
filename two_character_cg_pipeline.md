@@ -199,6 +199,37 @@ it; the base render is clean. Options we tried:
 **RIFE is a per-clip call** (`docs/scripts/rife.py` / `rife_blend.sh`): RIFE 2x plus a 1:2:1 blend back to 24 fps suited
 the slow stroke loop, but the user vetoed it for fast motion.
 
+### Motion transfer: when an approved clip has the right motion but the wrong cast
+
+Futa-on-futa humping failed every other way:
+- **Prompting:** H3 can't tell which of two women is thrusting.
+- **Pasting the male clip's pixels:** the reference's wings and hair bled in.
+- **Optical-flow warping:** the penises moved like snakes.
+- **2D rig:** the body looked unnatural.
+
+What worked was H3 **Ref2VA with a reference video**:
+- **Inputs:** the futa still as `<Picture 1>` (identity and scene) and the approved male clip as `<Video 1>` (motion).
+- **Anchors:** the still is pinned at frame 0, and at -1 too for a loop, through `MiniMaxH3AddGuide`.
+- **Code:** `h3_workflows.build_ref2va(..., ref_videos=[...], anchors=[...])`. The driver is `tmp/pegasus_futa/experiment/comp/ref2va_motion.py` (`still refvideo out seed [full] [prompt_file] [start_only]`).
+- **Prompt:** *"Keep their faces, bodies, wings, hair and the tent exactly as in <Picture 1>; only the motion comes from <Video 1>. Reproduce the motion of <Video 1>: ..."*
+- **Upscale:** turbo outputs 1344×576, so finish with `--h3-upscale-video 1.9 --h3-upscale-refine-steps 8` and `blend_in.py ... 4 --loop`. That loader is `VHS_LoadVideoFFmpeg` now, so the AV1 masters load directly.
+- **Climaxes:** pin only frame 0, so the ending can differ from the still.
+
+### Loops that won't move: chain I2V clips
+
+FL2VA with the same still at both ends often renders a frozen clip (motion around 0.4). I2V from the still moves. For a long loop:
+1. Render two I2V clips from the still.
+2. Render two short FL2VA transitions (39 frames): from the end of clip A to the start of clip B, and from the end of B back to the start of A.
+3. Concatenate A → T1 → B → T2. Drop each transition's repeated first frame and crossfade 3 frames at every join and at the wrap.
+
+The result is about 11.7 s with no snap back to the still.
+
+### Prompt traps found here
+
+- **"Mouth falls open in a gasp" plus semen wording** makes semen run from that open mouth. Give the receiver a closed-mouth reaction, and name the target mouth whenever liquid is mentioned.
+- **Semen has to be spelled out** ("a string of white semen stretches from her lower lip to the tip...") or it renders none.
+- **Stillness words** ("holds still", "keeps its size") freeze the whole clip. Say what moves, never what doesn't.
+
 ## 6. Ship
 
 - Base stills: `src_assets/<name>.webp` (lossless), promoted with
