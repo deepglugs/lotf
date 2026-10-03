@@ -144,7 +144,8 @@ When a target is inflicted with **Horny**, they enter a multi-turn battle of lus
 ### Horny Mechanics:
 - **Disadvantage on attack rolls** — Overwhelming distraction
 - **+1 Lust energy per turn** — Passive lust energy recovery (benefits enemies too!)
-- **Wisdom saving throw each turn** — DC 10 + horny_level. Success reduces horny_level by 1.
+- **-1 to Wisdom checks and saving throws per Horny level** — lust clouds judgement
+- **Wisdom saving throw each turn** — DC 10 + horny_level, made with that penalty. Success reduces horny_level by 1, so a deep Horny is much harder to shake than a light one.
 - **Horny level stacks** — Reapplying Horny increases the level instead of resetting it
 
 ### Masturbate (Forced Action at Low Horny Levels)
