@@ -30,7 +30,7 @@ Generic feats are also offered at levels 4, 8, 12 and 16.
 
 | Icon | Ability | Energy | Description |
 |------|---------|--------|-------------|
-| — | Masturbate | — | Spend your turn to gain 1d3 lust energy. Every enemy makes a Wisdom save or becomes **Horny** (strength scales with your level). |
+| — | Masturbate | — | Spend your turn to gain 1d3 lust energy. Every enemy makes a Wisdom save or becomes **Horny** (strength scales with your level). In camp, Chrys can do it in front of a companion: if she stays to watch, she gains 1d3 lust too and makes the same Wisdom save or is **Horny** until the next rest. |
 | ![](assets/seduce_icon.webp) | Seduce | 1 Lust | One target makes a Wisdom save or is **Stunned**. |
 | ![](assets/enthralling_chant_icon.webp) | Enthralling Chant | — | A hypnotic hymn. Every enemy makes a Charisma save; each one who fails has a 1-in-4 chance to be **Distracted** and lose their next action. |
 | ![](assets/lustful_blessing_icon.webp) | Lustful Blessing | — | One ally gains +2 Charisma and advantage on Charisma checks for 5 turns. |
