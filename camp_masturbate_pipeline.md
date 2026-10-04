@@ -100,6 +100,13 @@ The full-body CG is 2560x1088 — the clip aspect — so no cropping or guides.
   slack". Female: the orgasm LoRA's trigger phrases ("strong orgasmic
   contractions visibly tightening and releasing rhythmically", "falls back
   into a relaxed state, audibly catching her breath") with the slow wording.
+- **Keep the shaft still in the loop.** "pumping it … hips rocking" made the
+  penis swing forward and back (user reject). Write "only her hand moves,
+  sliding up and down along the shaft … her penis itself stays rigid and still,
+  standing at the same angle: it does not swing, bob, tilt or move forward and
+  back … her hips stay still". Cut glans sway ~40% (tracked x-position 14.6 →
+  8.2 px) and the user approved; if it still sways, pin a mid-loop frame (fist
+  at the base of the shaft, Qwen edit) at frame 48.
 - **Name the accessories** in both prompts (bracers, corset, boots) — between
   pinned frames H3 invents ornate gold filigree and laced corsets.
 - **Approve motion on base-res drafts first.** Drop `--h3-upscale` (1344x576,
@@ -166,8 +173,12 @@ guide. It worked but cost a lot of guide fixing. What it taught:
 
 ## Server notes
 
-- `.51`: H3 (turbo, ErosMax Q8, SparseRef15 Partial-INT8, stock FP8, PinkCherry
-  Q8 in `SwarmUI/Models/unet`), Qwen bf16 encoder. Don't use while training.
+- `.51`: H3 (turbo, ErosMax Q8, PinkCherry bf16 in `SwarmUI/Models/unet`; FP8 and
+  SparseRef15 deleted 2026-10-03 after the base-model test), Qwen bf16 encoder.
+  Don't use while training.
+- **"No video output found in ComfyUI history" = the NAS is full.** Comfy
+  finishes the sample then VHS_VideoCombine fails with ENOSPC; it is not a bad
+  seed. Check `df -h /home/kev/ai` first (`/history` shows the real error).
 - `.44`: Qwen (3 ports, incl. `qwen_penis_edit_v1`), Klein, Illustrious. Run
   all stills work here.
 - Civitai downloads: `CIVITAI_TOKEN` is in `~/.bashrc` but not exported; resume
