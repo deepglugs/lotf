@@ -60,6 +60,7 @@ female/futa). Describe the camp in text — never feed a camp render as a ref.
 | Fingers on a vulva | Illustrious booru inpaint, no nyl2, dn 0.8 (`vulva_inpaint.py`) |
 | Penis / grip (old route) | nyl2 (Illustrious + `nyl2-guy` 0.8) at dn 0.75 over Qwen's layout (`nyl_inpaint.py`) — or the user's hand repair in ComfyUI |
 | User marks (green paint) | build the mask from the paint; pre-fill the paint with ringed-skin median before a partial-denoise inpaint (`nyl_mask_inpaint.py`), or Klein masked inpaint for fingers |
+| Deformed off-hand (mitten on a breast) | Klein inpaint box over hand + breast + bracer end ("five slender well-formed fingers cupping her breast …"); fix the STILL, then apply the same box to the climax end frame, and re-render both clips — the loop faithfully copies whatever the still has |
 | Hollow bracer cuff / detached hand | Klein inpaint the bracer end + hand base ("wrist coming out of the end of the bracer and flowing into the back of her hand") |
 | Patch seams / hands | Qwen "keep image 1 exactly … only refine it" pass (`refine.py`) |
 
