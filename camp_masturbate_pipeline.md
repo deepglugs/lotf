@@ -95,10 +95,15 @@ The full-body CG is 2560x1088 — the clip aspect — so no cropping or guides.
   same" (Illustrious cum inpaint reshaped the glans). Female: an afterglow edit
   (head back, eyes closed, flushed, hand resting). Check the edit did not
   reframe the body — full-frame Qwen edits can drift; reroll if it moved.
-- **Climax prompt:** "The smooth rounded head of his penis stays closed and
-  intact, with only a tiny slit at its tip … thick ropes of white semen squirt
-  from the small slit in three short pulses, landing low …, then his body goes
-  slack". Female: the orgasm LoRA's trigger phrases ("strong orgasmic
+- **Climax prompt:** keep the glans closed ("smooth rounded head … stays closed and
+  intact, with only a tiny slit") and **sequence the spurts** — "three short
+  pulses" made H3 fan two streams out sideways at once (user reject). Use: "he
+  ejaculates in two separate spurts, one after the other, never at the same time:
+  first a single thick rope … straight up from the slit … falls back onto his
+  fist; a moment later, after a pause, a second single rope follows the same path
+  … one narrow stream from the one slit, never two streams, never spraying
+  sideways" (wales male `climax_v2.txt`). The first spurt can still open wide;
+  if so, try "a thin, narrow stream" instead of "thick". Female: the orgasm LoRA's trigger phrases ("strong orgasmic
   contractions visibly tightening and releasing rhythmically", "falls back
   into a relaxed state, audibly catching her breath") with the slow wording.
 - **Keep the shaft still in the loop.** "pumping it … hips rocking" made the
