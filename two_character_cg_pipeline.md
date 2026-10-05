@@ -25,7 +25,7 @@ Qwen compose (2 char refs)  ──►  pick base  ──►  user paints strokes
             H3 full model + PLORA, direct --h3-upscale 1.9, per beat:
             I2V transition ─► last frame = next still ─► FL2VA loop on that still
                                                        │
-            AV1 masters (src_videos/.../h3_final) ─► VP9 src_elite ─► ELITE clips
+            AV1 masters (src_videos/.../h3_final) ─► same file in src_elite ─► ELITE clips
 ```
 
 Drafts, seeds, logs and intermediates go in `tmp/<work>/`. Only approved
@@ -235,7 +235,10 @@ The result is about 11.7 s with no snap back to the still.
 - Base stills: `src_assets/<name>.webp` (lossless), promoted with
   `tools/resize_border.py --replace --width=2560 --height=1080 --format WEBP`.
 - Clip masters: `src_videos/<work>/h3_final/<name>.webm` (AV1, crf 8,
-  10-bit). Game copies: `src_elite/<name>.webm` (VP9, crf 10).
+  10-bit). Game copies: `src_elite/<name>.webm`, the same AV1 file (git
+  stores identical blobs once). Don't re-encode to VP9: `tools/create_videos.sh`
+  transcodes `src_elite` to AV1 for `game/videos` anyway, so a VP9 copy only
+  adds a lossy generation.
 - `assets_gen.yml` → `interp_videos`: `images: [start_still, end_still]`
   (`repeat: false`) or `[still]` (`repeat: true`), with `condition: ELITE`.
 - Script: one `<scene>_cg(stage)` label per scene that plays the clip when
