@@ -431,18 +431,20 @@ authors can generate art that matches the base game.
 | `klein_lotf_v1_fp8.safetensors` | 9.1 GB | Flux.2 Klein 9B | merged checkpoint (fp8) |
 | `lora/lotf_sdxl_v1.safetensors` | 320 MB | Illustrious / SDXL | runtime LoRA |
 | `lora/lotf_v2_klein.safetensors` | 1.1 GB | Flux.2 Klein | runtime LoRA |
+| `lora/lotf_qwen_v3.safetensors` | 872 MB | Qwen-Image 2.1 | runtime LoRA (LoKr) |
 
 The same repo carries the [example workflows](https://huggingface.co/deepglugs/lotf-models/tree/main/workflows)
 mirrored from [`workflows/`](workflows) here.
 
-### The two families
+### The three families
 
 | Family | Base | Use it for |
 |---|---|---|
 | **Illustrious / SDXL** | `waiNSFWIllustrious_v140` | Fast anime/illustrated-style generation. The usual first pass. |
 | **Flux.2 Klein** | Klein 9B | Photoreal-leaning renders and true masked inpainting. |
+| **Qwen-Image 2.1** | `Qwen-Image-2.1` (Q8_0 GGUF) | Best style fidelity (real skin texture, natural light), the cleanest two-character separation, and reference-image edits (up to 16 refs). LoRA only — there is no merge. |
 
-Each family ships in two forms:
+The Illustrious and Klein families ship in two forms:
 
 - a **merged checkpoint** — the character LoKr baked into the base model. Use
   this for straight identity/style generation; **no LoRA tag needed**, the
@@ -451,6 +453,19 @@ Each family ships in two forms:
   when stacking with *other* concept LoRAs the merge doesn't include.
 
 Prefer the merge when you just want in-style character art.
+
+The **Qwen** model is a runtime LoRA only (`lotf_qwen_v3`, weight **1.0** — higher
+deforms anatomy without adding identity). It covers eleven characters: the six
+below plus `danu`, `igret`, `helen` and `lakapati`, and two-character frames.
+Two rules specific to it:
+
+- **Prompt in JSON, not prose.** Its captions are JSON objects
+  (`scene` / `subjects[]` with `description`, `position`, `action` / `style` /
+  `lighting` / `mood` / `composition`); a prose prompt only half-triggers the
+  likeness. Put `lotf, <character>` at the start of `scene` and the character
+  token at the start of each subject's `description`.
+- **Render portrait 832×1216**, not 1024 square — the square canvas pulls the
+  camera back and widens the figure.
 
 ### Triggers
 
@@ -469,7 +484,11 @@ lotf, <character>, <description of the character>, ...
 | **Chrys** (male) | `chrys, 1boy` | shoulder-length dark brown hair, blue-gray eyes, muscular tan athletic build, light stubble |
 | **Chrys** (female/futa) | `chrys, 1girl` | long silver-white hair, blue-gray eyes, sun-tanned golden bronze skin, athletic build |
 | **Nashoba** | `nashoba` | long white hair, fluffy white wolf ears, one large bushy white tail, fair skin, blue eyes |
-| **Kallirhoe** | `kallirhoe` | — |
+| **Kallirhoe** | `kallirhoe` | tall regal mature Oceanid, long deep ocean-blue hair with violet streaks, glowing pale silver eyes, silver-gold circlet |
+| **Danu** (Qwen only) | `danu` | porcelain-pale skin, bright turquoise eyes, extremely long straight silver-white hair, sheer aqua-teal water-fabric gown over gold, bronze celtic-knot filigree jewellery, emerald circlet |
+| **Igret** (Qwen only) | `igret` | tan olive skin, long black hair in high pigtails with bangs, glowing purple eyes, black choker, geometric chest tattoo, dragon thigh tattoo, black leather corset |
+| **Helen** (Qwen only) | `helen` | classical Greek beauty, warm honey-gold skin, long wavy golden-brown hair bound with a gold fillet, grey-green eyes, heavy gold collar necklace, white Bronze Age chiton |
+| **Lakapati** (Qwen only, futa) | `lakapati` | Filipino woman, warm golden-brown skin, long straight black hair with sun-bleached strands, dark almond eyes, wide gold pectoral collar and arm bands etched with rice stalks |
 
 **Always describe the character, don't rely on the token alone.** The tokens
 bind likeness, not every attribute, and several have base-model priors working
@@ -509,6 +528,7 @@ saved image.
 | `klein_lotf_inpaint.json` | Klein merge → masked inpaint. |
 | `illustrious_base_plus_lotf_lora.json` | Stock Illustrious + the LoRA (stackable). |
 | `klein_base_plus_lotf_lora.json` | Stock Klein + the LoRA (stackable). |
+| `qwen_lotf_txt2img.json` | Qwen-Image 2.1 (GGUF) + `lotf_qwen_v3` → image, JSON prompt. |
 
 The Illustrious checkpoint is self-contained. The **Klein** workflows also need
 a VAE and a Qwen3 text encoder, neither of which is part of this project —
