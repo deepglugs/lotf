@@ -7,7 +7,7 @@ both animated on the full-body shot. Built 2026-09-30 → 10-03.
 
 The idea in one line: **the approved full-body CG is the first frame of both
 clips; the loop ends on it too, the climax ends on a still edited from it, and
-any bad penis is redrawn on the still (qwen_penis_edit_v1) before H3 sees it.**
+any bad penis is redrawn on the still (qwen_penis_edit_v1) before H3 sees it.** Since 2026-10-05 the penis edit runs by default on every new Qwen still that shows a penis (3 seeds, crotch paste-back) before it is posted for review.
 
 ```
 Qwen compose (bf16 encoder) ─► genital/hand fix ─► Qwen refine ─► still CG (src_assets/)
@@ -102,10 +102,45 @@ The full-body CG is 2560x1088 — the clip aspect — so no cropping or guides.
   first a single thick rope … straight up from the slit … falls back onto his
   fist; a moment later, after a pause, a second single rope follows the same path
   … one narrow stream from the one slit, never two streams, never spraying
-  sideways" (wales male `climax_v2.txt`). The first spurt can still open wide;
+  sideways" (wales male `climax_v2.txt`). **Cumshot LoRA on the full engine (2026-10-05).** Turbo cannot do small spurts: every
+  wording variant gave a mist burst then one rope. `--engine h3` (ErosMax) with
+  `<lora:H3/MH3_Cum_05b.safetensors:1.0>` in the prompt (LoRAs are a no-op on turbo)
+  + the light end frame + 'three small, separate spurts … short thin thread' gave
+  thin threads onto the fingers with no burst, first try, on both futa scenes. Use
+  it for every climax; still pins at 24/48 hold the shaft through the build-up. **Volume is set by the END FRAME, not the wording** (beach futa, 2026-10-05: 'thin
+  thread … never a fountain' still produced a jet because the cum frame was heavy).
+  Generate the cum frame with 'a small amount … a few thin drops on the tip and a
+  little over her fingers, nothing on her thighs' and pick the lightest; only then
+  tune the spurt wording. The first spurt can still open wide;
   if so, try "a thin, narrow stream" instead of "thick". Female: the orgasm LoRA's trigger phrases ("strong orgasmic
   contractions visibly tightening and releasing rhythmically", "falls back
   into a relaxed state, audibly catching her breath") with the slow wording.
+- **One render queue on .51.** Two `gen_video.py` jobs at once overwrite each
+  other's uploaded first/last frames (fixed upload names): a beach climax came
+  back starting on the prologue still (2026-10-05). Chain every .51 render in a
+  single sequential script; if in doubt, match each output's first/last frame
+  to the stills by mean abs diff before posting.
+- **Sway screen for male/futa loops** (`tmp/camp_mast_video/sway.py VIDEO cx cy`):
+  CSRT-tracks the glans through the draft; approved loops measure <=9 px x /
+  <=20 px y peak-to-peak, user-rejected 'forward and back' loops 45-70 px y
+  (frontal views show tilt as vertical glans travel). The tracker point MUST be on the glans, not the
+  shaft/hand path — placed on the hand it reports 37-52 px for loops that measure
+  6-8 px at the glans (shore male, 2026-10-05: two good unpinned loops were
+  wrongly auto-rejected). Check `f0_crotch.jpg` before trusting a number. Auto-reject > 30 px and
+  re-roll; if wording + seeds fail, pin the STILL itself as interior waypoints
+  (`-i S S:24 S:48 S:72 S`): the shaft is forced back to its angle every
+  half-stroke. Shore male 47 -> 18 px (pass), prologue futa 73 -> 30 px. A
+  Qwen "fist at the base" mid frame did not help (Qwen would not move the hand).
+  TRADE-OFF: the pins freeze everything in the still — sea (shore male), fire and
+  her body (wales futa: 'lacks motion in the fire and chrys looks static'). Use
+  pins only as a last resort; prefer unpinned + explicit scene/body motion wording,
+  or composite the background from an unpinned plate behind the pinned figure
+  (shore male `*_sea` drafts: rmbg silhouette + temporal-motion mask).
+  Tool: `tmp/camp_mast_video/sea_composite.py PINNED PLATE MASK.npy OUT` (plate is
+  ping-ponged to the clip length; mask = plate temporal-std > 2 minus the dilated
+  rmbg silhouette of the still, saved as `sea_mask.npy`). Applies to the climax
+  too — its 24/48 pins froze the sea (user: 'the waves stopped'). Render the plate
+  at the same res as the final (unpinned, same prompt, --h3-upscale).
 - **Keep the shaft still in the loop.** "pumping it … hips rocking" made the
   penis swing forward and back (user reject). Write "only her hand moves,
   sliding up and down along the shaft … her penis itself stays rigid and still,
@@ -135,13 +170,44 @@ The full-body CG is 2560x1088 — the clip aspect — so no cropping or guides.
 3. `assets_gen.yml` `interp_videos` (`condition: ELITE`): the loop with images
    `[still]`, `repeat: true`; the climax with `[still, …_climax_end.webp]`,
    `repeat: false` (the end still is extracted from the clip).
+3b. **Replaced stills need `--replace`**: `make images` never overwrites an existing
+   `game/images` file, so a re-done still (new pose / new penis) stays stale and the
+   Movie `start_image` shows the OLD art (mainland male, 2026-10-05 play-test). Run
+   `python3 tools/resize_border.py --width=2560 --height=1080 <dir> --output
+   legacy_of_the_fallen/game/images --compress 95 --crop --replace` on the changed stills.
 4. `ELITE=1 HW_QP=18 make videos` (default QP 28 is too lossy). Check first
    which `src_elite` clips are missing from `game/videos` — make encodes all of
    them.
 5. Scene wiring: the loop under the body-beat lines, the climax on the climax
    line (`camp_actions.rpy`, `camp_masturbate_cg`). Falls back to the still.
 
-## History: the close-up recipe (pilots, superseded)
+
+## Optional intro clip (third clip)
+
+Scenes whose approved still has the hands elsewhere (wales futa: both hands on
+her breasts; mainland male: hands behind his neck, semi-erect) get a third clip,
+`camp_masturbate_<camp>_<sex>_intro` (121 f, `repeat: false`): first frame = the
+pose still, last frame = the loop still (hand on the shaft). Futa/female rub the
+breasts first, then the hand slides down; male goes straight to the cock and
+hardens as he grips it, so the loop still must be the fully erect edit. The
+engine (`camp_masturbate_intro`) shows the intro over the first narration line
+and the body beat switches to `_loop` after it. assets_gen.yml entry: images
+[`<img>_intro_start.webp`, `<img>.webp`] (gen_video_rpy extracts the start frame
+from the webm if the still is not shipped).
+
+## History
+
+### 2026-10-05 — last six scenes (shore male, beach futa, prologue female/futa, mainland male, wales futa)
+- New poses for mainland male (kneeling, hands behind neck → hand to cock, semi→erect) and wales futa
+  (kneeling, hands on breasts → hand to shaft), each with a third **intro** clip (`_intro`, engine support
+  in `camp_masturbate_intro`). Stills went Qwen pose render → penis edit (Qwen LoRA or Illustrious
+  nyl2 inpaint) → Qwen hand-to-shaft edit → user manual ComfyUI edits pasted back.
+- Shaft sway: `sway.py` CSRT glans tracker (point ON the glans!), pinned-still loops as a last resort,
+  background restored with `make_mask.py` + `sea_composite.py` (shore sea, wales fire/rain, beach waves).
+- Climaxes: turbo cannot do small spurts; **full h3 + MH3_Cum_05b** with a light end frame and
+  'three small separate spurts' wording passed first try on all five.
+- Lost ~1 h to two concurrent .51 jobs cross-wiring their uploaded frames — one sequential queue only.
+: the close-up recipe (pilots, superseded)
 
 The first three videos (beach female, beach male, shore futa, still installed
 as `camp_masturbate_<camp>_<sex>_vid`) were one spliced clip: push-in to a
