@@ -55,7 +55,7 @@ paid from any affinity pool.
 | ![](assets/glacial_strike_icon.webp) | Glacial Strike | 3 | 2 Any | Weapon attack with added scaling cold damage. If the target fails a Constitution save you gain a **Glacial Shield**. |
 | ![](assets/transform_icon.webp) | Transform | 3 | — | Change your own sex — male, female or futa. **Camp only**: cast between fights, never in combat (see below). |
 | ![](assets/sleet_storm_icon.webp) | Sleet Storm | 5 | 5 Any | Every enemy makes a Wisdom save or is **Wet** and **Icy** for 5 turns (2 turns on a success). Icy targets have a 30% chance each turn to slip and lose their action. |
-| ![](assets/succubus_invisibility_icon.webp) | Succubus Invisibility | 5 | 2 Lust | Become **Invisible** for 2 turns (see below). |
+| ![](assets/succubus_invisibility_icon.webp) | Succubus Invisibility | 5 | 2 Lust | Become **Invisible** for 3 turns (see below). |
 | ![](assets/blizzard_icon.webp) | Blizzard | 9 | 8 Any | 8d8 cold damage to every enemy (Constitution save for half). Those who fail are **Icy** for 3 turns. |
 | ![](assets/black_hole_icon.webp) | Black Hole | 14 | Lust + Chaos + Heavenfire | Tri-affinity capstone (requires all three affinities). Psychic and chaos damage to every enemy; all are **Slowed**. |
 
@@ -71,6 +71,9 @@ of her own presence in until nothing can find her.
 - While **Invisible**, enemies cannot choose you as a target as long as someone
   visible is still standing. If you are the last one left, you can be targeted
   anyway.
+- **Striking from out of sight.** While Invisible your attacks have
+  **advantage** and score a critical hit on a **19 or 20**. Advantage is what a
+  Rogue's Sneak Attack needs, so a Succubus/Rogue can open from invisibility.
 - **It can be seen through.** Each enemy makes a **Wisdom check** against your
   save DC once per turn. On a success, that enemy can target you normally for
   the rest of the turn. Perceptive creatures are the danger here.
