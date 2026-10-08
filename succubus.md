@@ -75,7 +75,8 @@ of her own presence in until nothing can find her.
   **advantage** and score a critical hit on a **19 or 20**. Advantage is what a
   Rogue's Sneak Attack needs, so a Succubus/Rogue can open from invisibility.
 - **It can be seen through.** Each enemy makes a **Wisdom check** against your
-  save DC once per turn. On a success, that enemy can target you normally for
+  save DC **+2** once per turn (the veil is magic, harder to spot than a Rogue's
+  Hide). On a success, that enemy can target you normally for
   the rest of the turn. Perceptive creatures are the danger here.
 - The same rules apply when an *enemy* turns invisible: your characters roll
   Wisdom to spot it, and it is hidden from your target list if they fail.
