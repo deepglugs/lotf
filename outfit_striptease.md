@@ -445,6 +445,14 @@ uv run tools/gen_video.py --engine h3 --h3-steps 20 \
   via `H3_UNET_FULL`; `--engine h3` picks the full-checkpoint path.
 - Iterate at the base: the refine keeps the seed, so the motion you approve is
   the motion you ship.
+- **UNVERIFIED: whether a LoRA actually applies on the turbo GGUF.** Older notes
+  (`video_loras.md`, the MH3_Cum entry) record LoRAs not taking effect on turbo.
+  `h3_workflows` now chains `LoraLoaderModelOnly` for both unets, but nobody has
+  confirmed it bites on the GGUF. Every non-futa clip here was rendered on turbo
+  with `breastplayjiggle_h3_v2` @0.8 attached and the breast motion is good — but
+  that may be H3 on its own, with the LoRA silently inert. Do not credit a LoRA
+  on a turbo clip without an A/B. (The h3_jiggle_training session is measuring
+  this on full h3 as of 2026-10-08.)
 - Contact-sheet it (`ffmpeg -ss T -frames:v 1` at each guide time, `xstack`)
   and open sheet + mp4 in ivp. Check that each sampled frame matches its guide,
   that garments stay off once removed, and that hair, footwear and markings do
