@@ -54,7 +54,7 @@ Attacks are chosen on level up and added to your action list. Most require advan
 ### Level 1
 | Icon | Attack | Energy | Description |
 |------|--------|--------|-------------|
-| ![](assets/sneak_attack_icon.webp) | Sneak Attack | 0 | A precise strike exploiting gaps in defenses. **Requires advantage on attacks.** Deals weapon damage plus **((L+1)/2)d6 bonus** (max 10d6 at L20). |
+| ![](assets/sneak_attack_icon.webp) | Sneak Attack | 0 | A precise strike exploiting gaps in defenses. **Requires advantage on attacks.** Deals weapon damage plus **((L+1)/2)d6 bonus** (max 10d6 at L20), doubled on a critical hit. **Once per turn**, spent only on a hit. |
 | ![](assets/hide_icon.webp) | Hide | 0 | Slip into concealment, becoming **Hidden** for up to 5 turns. Grants advantage on attack rolls until an enemy spots you (Intelligence check). |
 
 ### Level 3
@@ -88,7 +88,7 @@ Generic feats are available at levels **4, 8, 12, and 16**.
 ## Tips
 
 - **Dexterity is your primary stat.** It drives Expertise, Uncanny Dodge, Evasion, initiative, and all attack rolls. Stack it.
-- **Sneak Attack (L1)** is your signature ability. It scales from **1d6** at L1 to **10d6** at L20, but requires advantage on attacks. Use Shadow Step or Shadow Mastery to enable it.
+- **Sneak Attack (L1)** is your signature ability. It scales from **1d6** at L1 to **10d6** at L20, but requires advantage on attacks and lands **once per turn** (a miss doesn't spend it — try again with your next action). Use Shadow Step or Shadow Mastery to enable it.
 - **Shadow Step (L5)** is your setup tool — use it to gain advantage, then Sneak Attack the next turn for massive damage.
 - **Uncanny Dodge (L5)** makes you surprisingly tanky. Physical resistance cuts incoming melee damage in half, and combined with Evasion advantage, you're hard to kill.
 - **Shadow Mastery (L17)** is a game-changer — permanent advantage on all attacks means Sneak Attack becomes your default, not a special condition.
