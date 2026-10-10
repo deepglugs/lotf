@@ -197,6 +197,35 @@ from the webm if the still is not shipped).
 
 ## History
 
+### 2026-10-09/10 — the Irish camp (16th camp; Isle of Man + the Boyne share `ch3_irish_camp_map`)
+- Stills on the usual recipe (Qwen compose, heretic encoder; Illustrious vulva/hand inpaint for the female;
+  nyl2 crotch inpaints for male/futa). The male's first nyl2 pass fused the hand into the shaft — a box
+  that takes the whole hand and forearm (1000,560,1340,900) fixed it. Qwen seed 102 put the corset back on
+  both female-bodied shapes (known); seed 101 shipped for them.
+- **Cum end frames: Qwen edit amounts are bimodal.** "a small amount" gave a few drops, "a generous amount"
+  a flood; the moderate tier that shipped came from an *incremental* edit of the light frame ("add a little
+  more … four or five drops on the blanket, keep it modest"). Offer tiers, let the user pick.
+- **Futa loop: a penis LoRA on the full engine froze the hand** (`PenisV2_minimax-h3_epoch60`, with and without
+  Handjob Helper: crotch motion 1.9–2.3 vs 6.6 on turbo). The pinned-still turbo loop (`-i S S:24 S:48 S:72 S`)
+  held the shaft shape with 2–3 px glans sway AND kept the fire moving (fire-region motion 10–15) — pins did
+  not freeze this background. Use pins before LoRAs for shape problems.
+- **Full-engine climaxes freeze the background** (fire-region motion 1.5–2.8 vs 3–10 in the turbo loops; the
+  user: "not even the fire or bird is moving"). Fix = the plate composite: a turbo plate from the still with
+  only fire/heron/mist/reeds moving (`irish_plate_prompt.txt`), `make_mask.py` + `sea_composite.py`. Fire
+  motion after: 3.4 / 10 / 5.7. Render the plate again at final res for the finals.
+- **H3 will not add weather the start frame doesn't show.** A "steady visible rain" climax prompt produced a
+  clip whose sky and tents were pixel-identical to the no-rain render. Rain has to be in the still (Dev edit)
+  or composited; the user dropped it.
+- **Female climax speed:** 121 f and 217 f ("slow, drawn-out") drafts were both "too fast"; what passed was
+  RIFE ×3 then `setpts=3.0*PTS` at 24 fps (~28 s). Do the RIFE on the final, after the plate composite.
+- **In-generation `--h3-upscale 1.9` on the full-engine climaxes re-timed the spurts** (male and futa: a thread
+  appeared in the first second, draft-vs-final ≈5 — "≈5 → look" held). `--h3-upscale-video DRAFT
+  --h3-upscale 1.9 --h3-upscale-refine-steps 8` kept the approved timing exactly (draft-vs-final ≈5.5 too, but
+  that is detail, not content) — for climaxes, upscale the approved draft, don't re-sample. Turbo loops were
+  fine either way.
+- Two concurrent .51 jobs again (another session): nothing cross-wired this time, but every output's first
+  frame was checked against its still before posting.
+
 ### 2026-10-05 — last six scenes (shore male, beach futa, prologue female/futa, mainland male, wales futa)
 - New poses for mainland male (kneeling, hands behind neck → hand to cock, semi→erect) and wales futa
   (kneeling, hands on breasts → hand to shaft), each with a third **intro** clip (`_intro`, engine support
