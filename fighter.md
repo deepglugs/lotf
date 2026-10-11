@@ -49,6 +49,11 @@ The Fighter has **no spell options** on level up — only generic feats at feat 
 
 Generic feats are available at levels **4, 8, 12, and 16**.
 
+- **Great Weapon Master** (level 4): while wielding a *Massive* weapon (Fragarach, the
+  Scepter of Divine Ruin), every hit deals **+10 physical damage**, and **landing a
+  critical hit grants an extra action that same turn** — the turn extends on the spot,
+  and several crits in one turn stack. No effect with any other weapon.
+
 ---
 
 ## Extra Attacks by Level
