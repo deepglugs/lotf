@@ -70,7 +70,7 @@ Attacks are chosen on level up and added to your action list. Most require advan
 ### Level 7
 | Icon | Attack | Energy | Description |
 |------|--------|--------|-------------|
-| ![](assets/death_mark_icon.webp) | Death Mark | 0 | Mark a target for death. **All attackers** gain advantage against this target for 2 turns. |
+| ![](assets/death_mark_icon.webp) | Death Mark | 0 | Mark a target for death. The mark **always lands**: **all attackers** gain advantage against this target for 2 turns. |
 
 ### Level 11
 | Icon | Attack | Energy | Description |
@@ -93,5 +93,5 @@ Generic feats are available at levels **4, 8, 12, and 16**.
 - **Uncanny Dodge (L5)** makes you surprisingly tanky. Physical resistance cuts incoming melee damage in half, and combined with Evasion advantage, you're hard to kill.
 - **Shadow Mastery (L17)** is a game-changer — permanent advantage on all attacks means Sneak Attack becomes your default, not a special condition.
 - **Death's Edge (L20)** adds 4d6 to every attack, stacking with Sneak Attack dice for truly devastating damage.
-- **Death Mark (L7)** is powerful crowd control — mark the biggest threat and your whole party gains advantage against it for 2 turns.
+- **Death Mark (L7)** is powerful crowd control — mark the biggest threat and your whole party gains advantage against it for 2 turns. It never misses, so its only cost is the rogue's action.
 - The Rogue rewards positioning and planning — set up advantages, use them strategically, and watch enemies fall to precision strikes.
