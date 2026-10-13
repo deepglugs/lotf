@@ -119,6 +119,22 @@ Three things this needs:
    rather than a detail. If the profile still looks wrong after the turn, fix the
    *art* — see the last point below.
 
+### Anchor the last frame, not just the first
+
+A clip given **only a first-frame guide drifts**. Kallirhoe's corset part B ran
+124 frames off `join.png` alone and by ~frame 60 had restyled the render, tightened
+the framing, rearranged the furniture and lost her stockings; by the end the user
+read it as *"an entirely different character"*. Three different seeds all failed
+the same way, so it is structural, not seed noise.
+
+Giving it `nude_1` as a **closing** guide fixed all of it in one render — identity,
+framing, room, and the stockings, which had been lost in the tail of every prior
+version including the original. The nude tier's pose art is usually the right
+anchor because the prompt's final beat is already written to match it ("standing
+nude in the candlelight, one hand raised to her circlet").
+
+**Any clip longer than ~60 frames gets a guide at both ends.**
+
 ### Guide placement: a guide needs runway
 
 **The single most useful thing learned on this clip.** The same guide, same
@@ -409,6 +425,27 @@ is a filled example.
    her legs ... and rises to her chest as both hands come to the laces".
 4. **Sound line.** Fabric, ambience, breath. No dialogue.
 
+### Name the anatomy, or you get none
+
+**On turbo the wording is the only lever that exists** (LoRAs are inert — see
+§4), so anything you leave vague, you lose. Two confirmed cases:
+
+- **"the smooth cleft between her thighs" renders a featureless crotch.** This
+  sat in the corset prompts and produced a vulva-less reveal in Kallirhoe's and
+  Pegasus's clips. It reads as a literal instruction. Write **"her bare vulva
+  between her thighs, her labia clearly visible"**. Changing only that line
+  moved the render by mean |diff| 11.0; adding a vagina LoRA to the same seed
+  moved it by 0.0.
+- **Saying nothing is just as bad.** Cera's corset prompt never named the crotch
+  at all and got the same result. Name it at the reveal and again in any sweep
+  that passes over it, the way the halloween prompts do: *"revealing her bare
+  vulva; ... the camera sweeps up her calves and thighs, over her bare vulva,
+  across her belly"*. All five halloween clips were written this way and none of
+  them has the problem.
+
+Do not reach for an inpaint or a LoRA for a missing vulva on a turbo clip. Fix
+the sentence and re-render.
+
 Keep it I2VA-shaped: continuous development, no "then"-lists, no `[Shot N]`
 timestamps. The guides carry the timing; the prose carries the motion between
 them.
@@ -445,14 +482,21 @@ uv run tools/gen_video.py --engine h3 --h3-steps 20 \
   via `H3_UNET_FULL`; `--engine h3` picks the full-checkpoint path.
 - Iterate at the base: the refine keeps the seed, so the motion you approve is
   the motion you ship.
-- **UNVERIFIED: whether a LoRA actually applies on the turbo GGUF.** Older notes
-  (`video_loras.md`, the MH3_Cum entry) record LoRAs not taking effect on turbo.
-  `h3_workflows` now chains `LoraLoaderModelOnly` for both unets, but nobody has
-  confirmed it bites on the GGUF. Every non-futa clip here was rendered on turbo
-  with `breastplayjiggle_h3_v2` @0.8 attached and the breast motion is good — but
-  that may be H3 on its own, with the LoRA silently inert. Do not credit a LoRA
-  on a turbo clip without an A/B. (The h3_jiggle_training session is measuring
-  this on full h3 as of 2026-10-08.)
+- **LoRAs used to be a silent no-op on turbo; FIXED 2026-10-11.** `h3_turbo` is
+  now the full checkpoint + the fl2v 8-step distillation LoRA
+  (`minimax_h3_fl2v_turbo_8step_v1.0_768p_comfyui_bf16`), applied first in the
+  chain, so stacked LoRAs work again — adding `minimax_vag` moves the render by
+  mean |diff| 17.6 where the merged GGUF gave exactly 0.0. Default steps are now
+  8 (the LoRA's native count; 4 also works). The history below is why:
+- **The old merged turbo GGUF ignored every LoRA (A/B verified 2026-10-10).** Pegasus
+  corset topless, `h3_turbo`, seed 4242, same prompt, no LoRA vs `breastplayjiggle_h3_v2`
+  @0.8: the two clips are pixel-identical (mean diff 0.00). The breast motion in the
+  turbo clips here is H3 plus the prompt. On full `h3` the same LoRA does change the
+  output. Motion comes from the wording: "keeps her feet planted and her body in
+  place ... a small rhythmic bounce at the knees and shoulders. Her bare breasts
+  bounce and jiggle heavily with each bounce, swinging up and down and wobbling side
+  to side, then settling with a soft wobble" (chest motion 10.9 on turbo vs 4.4 for
+  a hip-sway prompt with the LoRA on full h3).
 - Contact-sheet it (`ffmpeg -ss T -frames:v 1` at each guide time, `xstack`)
   and open sheet + mp4 in ivp. Check that each sampled frame matches its guide,
   that garments stay off once removed, and that hair, footwear and markings do
@@ -542,8 +586,11 @@ entry in the same commit.
 - **BFL FLUX video upscale**: refuses nude content even at the most permissive
   tolerance.
 - **Qwen close-ups from a full-scene ref**: come back as medium shots. Crop first.
-- **Generated vulva and legs guides**: inflated anatomy, invented straps.
-  Re-extract from the art.
+- **Generated LEGS guides**: invented straps. Re-extract from the art.
+  (Generated *vulvas* used to be listed here too — that is no longer true, see
+  the vulva-inpaint recipe: a 640 patch upscaled to 1024, Illustrious masked
+  inpaint, feathered paste-back of the region only. 6/6 accepted on the first
+  pass, 2026-10-08.)
 - **Raw 2x latent upscale without refine**: softer than lanczos.
 - **Raising `--length` past 362** to buy more time for a beat: the whole render
   comes back as grey noise. Split the clip instead.

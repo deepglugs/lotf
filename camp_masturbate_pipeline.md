@@ -260,7 +260,12 @@ guide. It worked but cost a lot of guide fixing. What it taught:
 
 ## Things that did not work
 
-- **LoRAs on turbo** — silent no-op (`minimaxH3TurboGGUF` is int8 convrot).
+- **LoRAs on turbo** — WAS a silent no-op while `h3_turbo` meant the *merged*
+  `minimaxH3TurboGGUF` checkpoint. **Fixed 2026-10-11:** `h3_turbo` is now the
+  full checkpoint plus the fl2v distillation LoRA, and stacked LoRAs work
+  (A/B: adding `minimax_vag` moves the render by mean |diff| 17.6, vs 0.0 on
+  the merged GGUF). Anything written off here as "LoRA does nothing on turbo"
+  is worth retrying.
 - **Full H3 + HMPenis v2 + Handjob Helper** — near-frozen hand (local motion
   1.1). Handjob Helper does apply on ErosMax (A/B diff 2.6–3.2) but the user
   preferred turbo loops.
