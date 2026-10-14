@@ -37,4 +37,5 @@ Your chosen affinity determines which spells and abilities are available as you 
 - [ComfyUI Workflows](workflows/) — Ready-to-run pipelines for generating art that matches the game
 - [Two-Character CGs & Animation](two_character_cg_pipeline.md) — Qwen compose, one-side-at-a-time genital inpaints, refine, and chained H3 clips (full model + PLORA) for two-figure explicit scenes
 - [Outfit Striptease Clips](outfit_striptease.md) — H3 striptease videos driven by an outfit's own pose art
+- [Three-Stage Animations](three_stage_animation.md) — The intro → loop → climax clip pattern: which stills anchor each clip, which loop, `assets_gen.yml` entries and scene wiring
 - [Camp Masturbation CGs & Videos](camp_masturbate_pipeline.md) — Qwen stills with hand-fixed anatomy (qwen_penis_edit_v1), and full-body H3 masturbation-loop + climax videos for the camp Masturbate action
