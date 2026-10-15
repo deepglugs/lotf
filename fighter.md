@@ -23,7 +23,7 @@ These are automatically granted at the listed level.
 Draw on reserves of stamina to heal yourself. Healing is **Nd10** where N = `max(1, level / 4)`. No energy cost; **twice per rest**. Also castable from the camp action bar.
 
 ### ![](assets/action_surge_icon.webp) Burst of Speed *(L2 — No energy, self-target)*
-Grants yourself the **Action Surge** condition, giving **2 additional actions** on your next turn. No energy cost.
+Grants yourself the **Action Surge** condition, giving **2 additional actions** on your next turn. No energy cost; **once per battle** — it refreshes at the start of every encounter, so there is no reason to hoard it between fights.
 
 ### ![](assets/extra_attack_icon.webp) Extra Attack *(L5)*
 Passive. Grants **1 extra attack** per turn.
@@ -32,7 +32,7 @@ Passive. Grants **1 extra attack** per turn.
 Passive. Upgraded to **2 extra attacks** per turn total.
 
 ### ![](assets/action_surge_icon.webp) Burst of Speed *(L17 — Upgrade)*
-The Action Surge action is upgraded, granting additional uses per rest.
+The Action Surge action is upgraded to **twice per battle**.
 
 ### ![](assets/extra_attack_icon.webp) Extra Attack *(L20)*
 Passive. Upgraded to **3 extra attacks** per turn total.
@@ -70,7 +70,7 @@ Generic feats are available at levels **4, 8, 12, and 16**.
 ## Tips
 
 - **Strength is your only stat.** Every point of Strength modifier directly increases damage with melee weapons.
-- **Burst of Speed** (Action Surge) is a massive burst turn — you effectively double your actions. Save it for high-priority kills or tough moments, not just any turn.
+- **Burst of Speed** (Action Surge) is a massive burst turn — you effectively double your actions. It recharges every battle, so spend it in *every* fight; save it only for the right turn within the fight, ideally early while there are still several enemies to spend the extra actions on.
 - **Renewed Life** is your only recovery tool. Use it proactively when you drop below ~40% HP, not as a last resort when you're near death.
 - The Fighter has the **best action economy** in the game at level 20 with 3 extra attacks. In the late game, you can outright kill enemies in a single turn with a strong weapon.
 - Since Fighters get **no class-specific level options**, feat choices at levels 4, 8, 12, and 16 are critical for shaping your build. Prioritize feats that add damage or survivability.
