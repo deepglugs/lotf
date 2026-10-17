@@ -1,0 +1,147 @@
+{
+  "1": {
+    "inputs": {
+      "unet_name": "flux3_image_klein_sd_bf16.safetensors",
+      "weight_dtype": "default"
+    },
+    "class_type": "UNETLoader",
+    "_meta": {
+      "title": "Load FLUX 3 Klein (step-distilled)"
+    }
+  },
+  "2": {
+    "inputs": {
+      "clip_name": "qwen3vl_4b_bf16.safetensors",
+      "type": "flux3",
+      "device": "default"
+    },
+    "class_type": "CLIPLoader",
+    "_meta": {
+      "title": "Load Qwen3-VL-4B (type flux3)"
+    }
+  },
+  "3": {
+    "inputs": {
+      "vae_name": "flux2-vae.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "Load Flux2 VAE"
+    }
+  },
+  "4": {
+    "inputs": {
+      "lora_name": "lotf_flux3_klein_v3.safetensors",
+      "strength_model": 1.0,
+      "strength_clip": 1.0,
+      "model": [
+        "1",
+        0
+      ],
+      "clip": [
+        "2",
+        0
+      ]
+    },
+    "class_type": "LoraLoader",
+    "_meta": {
+      "title": "lotf_flux3_klein_v3 @1.0"
+    }
+  },
+  "5": {
+    "inputs": {
+      "text": "{\"scene\": \"lotf, pegasus, full body of a human woman with long blonde hair, standing, looking at the viewer, confident expression, a cliffside shrine above the sea\", \"subjects\": [{\"description\": \"pegasus, a human woman with long blonde hair, fair skin, two tall dark pointed horse ears on her head, and large white feathered angel wings, wearing a flowing ivory silk gown\", \"position\": \"centered in frame\", \"action\": \"standing, looking at the viewer, confident expression, both arms relaxed at her sides\"}], \"style\": \"high quality 3d render like elden ring, highly detailed skin and material textures\", \"lighting\": \"bright overcast daylight\", \"background\": \"a cliffside shrine above the sea\", \"composition\": \"full-body framing from head to feet\"}",
+      "clip": [
+        "4",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "Positive (lotf, <char>, ... JSON prompt)"
+    }
+  },
+  "6": {
+    "inputs": {
+      "text": "",
+      "clip": [
+        "4",
+        1
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "Negative (unused at cfg 1)"
+    }
+  },
+  "7": {
+    "inputs": {
+      "width": 832,
+      "height": 1216,
+      "batch_size": 1
+    },
+    "class_type": "EmptyFlux2LatentImage",
+    "_meta": {
+      "title": "Empty Flux2 Latent"
+    }
+  },
+  "8": {
+    "inputs": {
+      "seed": 42,
+      "steps": 16,
+      "cfg": 1.0,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 1.0,
+      "model": [
+        "4",
+        0
+      ],
+      "positive": [
+        "5",
+        0
+      ],
+      "negative": [
+        "6",
+        0
+      ],
+      "latent_image": [
+        "7",
+        0
+      ]
+    },
+    "class_type": "KSampler",
+    "_meta": {
+      "title": "KSampler (16 steps, cfg 1, euler/simple)"
+    }
+  },
+  "9": {
+    "inputs": {
+      "samples": [
+        "8",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE Decode"
+    }
+  },
+  "10": {
+    "inputs": {
+      "filename_prefix": "flux3_klein_lotf",
+      "images": [
+        "9",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  }
+}

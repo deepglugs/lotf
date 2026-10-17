@@ -20,6 +20,7 @@ saved image.
 | `illustrious_base_plus_lotf_lora.json` | Stock Illustrious + the LoRA, for stacking with other concept LoRAs. |
 | `klein_base_plus_lotf_lora.json` | Stock Klein + the LoRA, same idea. |
 | `qwen_lotf_txt2img.json` | Qwen-Image 2.1 (GGUF) + `lotf_qwen_v3` → image. **Prompt is a JSON object** (see below). Needs the ComfyUI-GGUF node pack. |
+| `flux3_klein_lotf_txt2img.json` | FLUX 3 Image Klein (step-distilled) + `lotf_flux3_klein_v3` → image. Core nodes only; needs ComfyUI ≥ 0.41. |
 
 ## Where files go
 
@@ -28,13 +29,16 @@ ComfyUI/models/
   checkpoints/      illustrious_lotf_v1.safetensors
   diffusion_models/ klein_lotf_v1_fp8.safetensors
   diffusion_models/ qwen-image-2.1-Q8_0.gguf      <- Qwen only
+  diffusion_models/ flux3_image_klein_sd_bf16.safetensors   <- FLUX 3 Klein only
   loras/            lotf_sdxl_v1.safetensors
                     lotf_v2_klein.safetensors
                     lotf_qwen_v3.safetensors
-  vae/              flux2-vae.safetensors        <- Klein only
+                    lotf_flux3_klein_v3.safetensors
+  vae/              flux2-vae.safetensors        <- Klein and FLUX 3 Klein
                     qwen_image_2.1_vae_bf16.safetensors  <- Qwen only
   text_encoders/    <a Klein 9B Qwen3 encoder>   <- Klein only
                     qwen3vl_8b_bf16.safetensors  <- Qwen only
+                    qwen3vl_4b_bf16.safetensors  <- FLUX 3 Klein only
 ```
 
 The workflows reference models by **bare filename**, assuming they sit in the
@@ -107,6 +111,29 @@ string in the workflow is a JSON object, not prose:
 
 Keep `lotf, <character>` at the start of `scene` and the character token at the
 start of each `description`. Prose prompts only half-trigger the likeness.
+
+## FLUX 3 Klein needs three files and a recent ComfyUI
+
+`flux3_klein_lotf_txt2img.json` uses only core nodes but needs **ComfyUI 0.41 or
+newer** (native FLUX 3 support: `CLIPLoader` type `flux3`). All three base files
+are in BFL's own ComfyUI repack,
+[`black-forest-labs/flux-3-image-klein-comfy`](https://huggingface.co/black-forest-labs/flux-3-image-klein-comfy)
+(gated; accept the FLUX Kommunity license):
+
+- **Diffusion model** — `diffusion_models/flux3_image_klein_sd_bf16.safetensors`
+  (11 GB, the step-distilled model) → `ComfyUI/models/diffusion_models/`. The
+  `int8_convrot` (5.8 GB) and `nvfp4` builds also work on 8-16 GB cards; edit
+  `unet_name`.
+- **Text encoder** — `text_encoders/qwen3vl_4b_bf16.safetensors` (8.9 GB; the
+  `fp8_scaled` build from `Comfy-Org/Qwen3-VL` also works) →
+  `ComfyUI/models/text_encoders/`.
+- **VAE** — `vae/flux2-vae.safetensors`, the same Flux2 VAE the Klein workflows use.
+
+Sampling is 16 steps, euler/simple, **cfg 1.0** (no negative prompt), at 832×1216.
+The LoRA goes through a plain `LoraLoader` (model + clip) at strength 1.0. The
+example prompt is the same JSON object shape as the Qwen workflow; plain
+`lotf, <character>, <description>` prose also works on this model. If you load
+the undistilled `flux3_image_klein_bf16` instead, use 30 steps and cfg 3.5.
 
 ## Running one
 

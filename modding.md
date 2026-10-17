@@ -432,6 +432,7 @@ authors can generate art that matches the base game.
 | `lora/lotf_sdxl_v1.safetensors` | 320 MB | Illustrious / SDXL | runtime LoRA |
 | `lora/lotf_v2_klein.safetensors` | 1.1 GB | Flux.2 Klein | runtime LoRA |
 | `lora/lotf_qwen_v3.safetensors` | 872 MB | Qwen-Image 2.1 | runtime LoRA (LoKr) |
+| `lora/lotf_flux3_klein_v3.safetensors` | 660 MB | FLUX 3 Image Klein | runtime LoRA (LoKr) |
 
 The same repo carries the [example workflows](https://huggingface.co/deepglugs/lotf-models/tree/main/workflows)
 mirrored from [`workflows/`](workflows) here.
@@ -443,6 +444,7 @@ mirrored from [`workflows/`](workflows) here.
 | **Illustrious / SDXL** | `waiNSFWIllustrious_v140` | Fast anime/illustrated-style generation. The usual first pass. |
 | **Flux.2 Klein** | Klein 9B | Photoreal-leaning renders and true masked inpainting. |
 | **Qwen-Image 2.1** | `Qwen-Image-2.1` (Q8_0 GGUF) | Best style fidelity (real skin texture, natural light), the cleanest two-character separation, and reference-image edits (up to 16 refs). LoRA only — there is no merge. |
+| **FLUX 3 Image Klein** | `flux-3-image-klein` (5.6B, step-distilled) | The fastest of the four (~17 s per 1 MP image on a 4090) with the strongest two-character scenes and the closest match to the game's 3D-render look, with or without reference images. LoRA only. Explicit anatomy is weaker than Qwen. |
 
 The Illustrious and Klein families ship in two forms:
 
@@ -466,6 +468,17 @@ Two rules specific to it:
   token at the start of each subject's `description`.
 - **Render portrait 832×1216**, not 1024 square — the square canvas pulls the
   camera back and widens the figure.
+
+The **FLUX 3 Klein** model (`lotf_flux3_klein_v3`, weight **1.0**) covers the same
+eleven characters and two-character frames as the Qwen model. It needs
+**ComfyUI 0.41 or newer** (native FLUX 3 support) and three base files from
+[`black-forest-labs/flux-3-image-klein-comfy`](https://huggingface.co/black-forest-labs/flux-3-image-klein-comfy):
+the step-distilled DiT (`flux3_image_klein_sd_bf16`, 11 GB), the Qwen3-VL-4B text
+encoder (`qwen3vl_4b_bf16`, loaded with `CLIPLoader` type `flux3`) and the Flux2
+VAE. Sample at **16 steps, euler/simple, cfg 1** (no negative); the JSON prompt
+shape used for Qwen works here too, and plain `lotf, <character>, ...` prose also
+triggers. The same LoRA loads on the undistilled base
+(`flux3_image_klein_bf16`, 30 steps / cfg 3.5) for a softer, less glossy skin.
 
 ### Triggers
 
