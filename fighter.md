@@ -47,7 +47,21 @@ Passive. Upgraded to **3 extra attacks** per turn total.
 
 Chosen as the level-up option (one per level, from those unlocked). Each is a weapon attack: roll to hit, deal weapon damage, and on a failed save the target suffers the effect. No energy cost; uses **refresh at the start of every battle**.
 
-**Save DC** = 8 + proficiency bonus + the better of your Strength and Dexterity modifiers.
+**Save DC** = 8 + proficiency bonus + the better of your Strength and Dexterity modifiers. Trips (Trip Attack, Leg Sweep) use **Strength only**.
+
+### Weight and tripping
+Every enemy has a body weight. Trips compare it with your **carrying capacity** (Strength score × 15 lb) and adjust the target's save:
+
+| Target weight vs. your capacity | Target's save |
+|---|---|
+| up to ¼ | −4 |
+| up to ½ | −2 |
+| up to 1× | +0 |
+| up to 2× | +3 |
+| up to 4× | +6 |
+| over 4× | **cannot be tripped** |
+
+A Strength 16 fighter (240 lb capacity) trips a 170 lb cultist on an even save, a 900 lb Fomorian Beast only rarely (+6), and can't move the 2,000 lb Ammit at all. Raise Strength to topple bigger things. Foes with no legs to sweep or no body to topple (sea serpents, lamiae, slimes, shades, the rooted Grove Guardian) can't be tripped at any weight. Weight appears on the character sheet.
 
 | Unlocks | Icon | Maneuver | Save | Effect | Uses / battle |
 |---------|------|----------|------|--------|---------------|
@@ -57,7 +71,7 @@ Chosen as the level-up option (one per level, from those unlocked). Each is a we
 | L7 | ![](assets/leg_sweep_icon.webp) | Leg Sweep | Dexterity | Prone, every enemy | 1 (2 from L15) |
 
 ### ![](assets/trip_attack_icon.webp) Trip Attack *(L1)*
-Hook the foe's legs out from under them. On a failed **Strength** save the target is knocked **Prone**.
+Hook the foe's legs out from under them. On a failed **Strength** save, adjusted for weight (above), the target is knocked **Prone**.
 
 ### ![](assets/pommel_strike_icon.webp) Pommel Strike *(L3)*
 Hilt to the skull. On a failed **Constitution** save the target is **Stunned** and loses its next turn (it may also shake the stun off with a DC 12 Constitution save at the end of its turn).
@@ -66,7 +80,7 @@ Hilt to the skull. On a failed **Constitution** save the target is **Stunned** a
 A ringing blow to the head. On a failed **Wisdom** save the target is **Confused** for 2 turns: disadvantage on attack rolls and ability checks (DC 12 Intelligence save each turn to recover).
 
 ### ![](assets/leg_sweep_icon.webp) Leg Sweep *(L7)*
-A wide, low sweep. Rolls to hit **every** enemy separately; each one hit takes **half** weapon damage and, on a failed **Dexterity** save, is knocked **Prone**.
+A wide, low sweep. Rolls to hit **every** enemy separately; each one hit takes **half** weapon damage and, on a failed **Dexterity** save (adjusted for weight), is knocked **Prone**.
 
 ### ![](assets/prone_icon.webp) Prone (condition)
 Knocked to the ground through its next turn: **disadvantage on its attack rolls**, and **all attacks against it have advantage**.
@@ -95,7 +109,7 @@ Generic feats are available at levels **4, 8, 12, and 16**.
 
 ## Tips
 
-- **Strength is your only stat.** Every point of Strength modifier directly increases damage with melee weapons.
+- **Strength is your only stat.** Every point of Strength modifier directly increases damage with melee weapons — and raises how heavy a foe you can trip.
 - **Burst of Speed** (Action Surge) is a massive burst turn — you effectively double your actions. It recharges every battle, so spend it in *every* fight; save it only for the right turn within the fight, ideally early while there are still several enemies to spend the extra actions on.
 - **Renewed Life** is your only recovery tool. Use it proactively when you drop below ~40% HP, not as a last resort when you're near death.
 - The Fighter has the **best action economy** in the game at level 20 with 3 extra attacks. In the late game, you can outright kill enemies in a single turn with a strong weapon.
