@@ -64,7 +64,7 @@ Spells are chosen on level up and added to your action list.
 |------|-------|--------|-------------|
 | ![](assets/aid_icon.webp) | Aid | 3 (Heavenfire) | Grants target temporary HP equal to **1d6 + Wisdom modifier + 1 per spell level**, lasting until rest. |
 | ![](assets/firebolt_icon.webp) | Firebolt | 1 | Standard fire damage spell. |
-| ![](assets/slap_icon.webp) | Divine Bitch Slap | 5 (Heavenfire) | Divine melee strike. |
+| ![](assets/slap_icon.webp) | Divine Bitch Slap | 4 (Heavenfire) | **2d8 radiant** + 1d4 per four levels (max 5d4 more) + Strength modifier. |
 
 ### Level 2
 | Icon | Spell | Energy | Description |
@@ -75,7 +75,7 @@ Spells are chosen on level up and added to your action list.
 ### Level 3
 | Icon | Spell | Energy | Description |
 |------|-------|--------|-------------|
-| ![](assets/smite_icon.webp) | Divine Smite | 5 (Heavenfire) | Powerful melee strike with divine damage. |
+| ![](assets/smite_icon.webp) | Divine Smite | 8 (Heavenfire) | Weapon damage plus **2d8** radiation damage, +1d8 per four levels (max 5d8 more). Extra 1d8 vs. undead/demons. Radiant dice double on a crit. |
 | ![](assets/glacial_strike_icon.webp) | Glacial Strike | 2 | Channel cold through your weapon: weapon + scaling cold damage (1d10, +1d10 at L5/11/17). Failed enemy Con save grants you **Glacial Shield**. |
 
 ### Level 5

@@ -18,6 +18,7 @@ Your chosen affinity determines which spells and abilities are available as you 
 
 - [Barbarian](barbarian.md) — Rage-fueled melee fighter with Storm Herald elemental abilities
 - [Cleric](cleric.md) — Divine healer and radiation damage caster scaled on Wisdom
+- [HolyKnight](holyknight.md) — Heavenfire affinity class: Charisma martial that calls judgement, burns with holy fire, turns the undead and shields allies
 - [Darklord](darklord.md) — Chaos-aligned dark caster whose signature is summoning demons and beasts to fight beside you
 - [Fighter](fighter.md) — Martial master with superior action economy and no resource limits
 - [Paladin](paladin.md) — Holy warrior combining divine smites and protecting auras scaled on Charisma
