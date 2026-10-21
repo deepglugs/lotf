@@ -41,6 +41,31 @@ mods.in/mod_outfits/images/ch2_<char>_<outfit>_nude_<n>.webp     anatomy ref, nu
 src_assets_no_resize/<char>_icon_0001.webp                        face ref
 ```
 
+**First check the set can be built at all.** The clip's last frame IS the nude
+tier art, so a set with no nude tier for a character cannot have a clip for her
+until that art exists. The Succubus Academy uniform registers only `plain` and
+`topless` for Cera, Kallirhoe and Nashoba — it looks complete in the outfit
+table and is not. One `ls` settles it:
+
+```bash
+for c in cera kallirhoe nashoba pegasus danu; do
+    printf "%-10s %d/%d/%d\n" $c \
+      $(ls ch2_${c}_${SET}_plain_*.webp   2>/dev/null | wc -l) \
+      $(ls ch2_${c}_${SET}_topless_*.webp 2>/dev/null | wc -l) \
+      $(ls ch2_${c}_${SET}_nude_*.webp    2>/dev/null | wc -l)
+done
+```
+
+**Then find the best-staged plain/nude pair by LOOKING, not by scoring.** The
+corset route is cheap because `plain_1` and `nude_1` are the same room, camera
+and pose. Hunting for that property with a background-similarity score is a
+trap: scored on a border crop, swimwear ranked best of all six sets
+(0.19-0.26, against the corset's known-matched 0.25-0.31) — but those pairs
+only share the *cove*. Cera's swimwear nude tier is a rear view walking away;
+Nashoba's and Danu's are seated against standing plain shots. The metric reads
+the background, and that set has one flat bright background. Build a contact
+sheet of the candidate pairs and look at them.
+
 Before writing anything, **look at the tiers and list what is actually there**:
 hair (style, band, side), jewellery, garments per tier, hosiery, footwear per
 tier (the nude tier can have different shoes from the plain tier), harness or
@@ -151,6 +176,61 @@ body orientation, cannot be reached in three frames. Give a large pose change
 finishing, not where you want it to start. The same rule explains the dense
 route's failures: guides every 50 frames leave no room to move *between* them,
 so the clip visibly settles onto each one.
+
+### Guide placement in TIME: it must match the prompt's own pacing
+
+Runway (above) is about having enough frames to *reach* a guide. This is the
+other half: the guide has to sit where the prompt already puts that wardrobe
+state. Danu's goth clip, same seed, same prompt, guide = the topless tier art:
+
+| Guide frame | Result |
+|---|---|
+| 216 (9.0 s) | nude at 7.08 s, **gown back ON at 8.33 s**, guide matched at 9.00 s, nude again at 9.25 s. 11 frozen frames on the guide. |
+| 144 (6.0 s) | topless continuously f120-f172, guide matched at 6.00 s, no reversal. 8 frozen frames. |
+
+The prompt front-loaded the strip — sash at ~1.5 s, bodice at ~4.5 s, gown off
+by 7.5 s — while the topless guide sat at 9 s. The two disagreed about *when*
+she is topless, and **H3 satisfied both by putting the gown back on to reach
+the guide and taking it off again afterwards.** A guide does not slow the
+choreography down to meet it; it contorts the wardrobe instead.
+
+So: render once with the guides you think you want, find the frame range where
+the state actually occurs, and move the guide inside that range. The stall on
+the guide shrinks as the reversal disappears, but note it does not vanish —
+see "a guide needs an action through it" and the corset build's resolution.
+
+### Generating a missing guide: one instruction, not a scene
+
+When the tier you need for a beat is staged somewhere else in the room (Danu's
+goth `plain_1` is a different spot in the graveyard from her `topless_1` and
+`nude_1`: one big cross and two lamp posts versus two crosses and none), do not
+use it and do not describe the scene you want from scratch. Both make the clip
+morph its own background.
+
+Generate the missing beat **from the nearest-staged tier art, changing exactly
+one thing**:
+
+```
+Keep image 1 exactly as it is: <everything — face, hair, jewellery, sleeves,
+pose, the prop in her hand, the skirt, the sash, the furniture, the framing,
+the lighting, the colours>. Change one thing only: <the wardrobe state>.
+```
+
+Writing it as the doc's JSON scene skeleton instead let Qwen compose its own
+graveyard — cross mirrored to the far side, camera pulled back, her hand no
+longer resting on it. Two guides with mirrored furniture is a teleport.
+
+**Say "the viewer's left/right", or say nothing.** "a tall cross close on her
+right" was rendered on the viewer's right, i.e. her left. Omitting placement
+entirely and letting it inherit from image 1 is safest.
+
+**Pick the seed by measuring, not by eye.** Score each candidate's background
+against the guide it has to match (normalised grey, centre columns masked out
+where the figure stands). On the Danu goth frame-0 guide the five candidates
+spread 0.101 / 0.175 / 0.183 / 0.323 / 0.683, and the winner matched the mid
+guide's staging more closely than the shipped `nude_1` does (0.385) — with
+`plain_1`, the known-wrong spot, at 0.532 as the control. Put the numbers in
+the ivp Info overlay so the pick is reviewable.
 
 ### Editing a guide with Qwen: one instruction at a time
 
@@ -501,6 +581,53 @@ uv run tools/gen_video.py --engine h3 --h3-steps 20 \
   and open sheet + mp4 in ivp. Check that each sampled frame matches its guide,
   that garments stay off once removed, and that hair, footwear and markings do
   not flicker between beats.
+
+### Score it before anyone sees it
+
+Two defects are invisible on a contact sheet because they only exist *between*
+frames, and both were caught by the user on playback rather than by review.
+Score every take against a shipped clip before submitting it. The scorers live
+in `mods.in/mod_outfits/tmp/clip_scorers/` (`shake.py`, `hitch.py`,
+`hitch2.py`; ~30 lines each).
+
+**Stalls — use an ABSOLUTE floor, not a relative one.** Per-frame mean |Δ| of
+consecutive frames at 336x144 grey; count the longest run under **0.6**.
+
+An earlier version of this check used "under 15% of the clip's mean motion",
+and that over-reports: a deliberately slow reveal dwell runs 1.0-2.5 while 15%
+of a 10-ish clip mean is ~1.5, so the dwell scores as a freeze. It raised a
+false alarm on a finished master that was in fact clean. The real freeze
+signature is an order of magnitude lower — the defect the user flagged on the
+Danu corset clip ran 0.04-0.3.
+
+| clip | longest run < 0.6 | where |
+|---|---|---|
+| cera corset (shipped) | 0 | — |
+| kallirhoe corset (shipped) | 2 | — |
+| nashoba corset (shipped) | 6 | 14.79 s, the final hold |
+| danu corset (shipped) | 14 | 14.79 s, the final hold |
+| danu corset, the take the user rejected | 11 | **8.96 s, mid-clip** |
+
+**A run at the end of the clip is the hold the prompt asked for; a run in the
+middle is the defect.** Score the two separately (e.g. ignore the last ~30
+frames when looking for the mid-clip worst).
+
+**Background jitter — measure a FURNITURE-ONLY patch.** Subpixel vertical
+offset between consecutive frames by phase correlation. Whole-frame correlation
+is dominated by the subject and hides the shake; a patch containing candles
+measures flicker instead. Pick a region with a wall, a headboard or a fence in
+it (`y150:250, x430:620` at 672x288 worked for the corset room).
+
+| clip | mean / worst | verdict |
+|---|---|---|
+| seed 7311 | 4.74 / 8.13 | alternating +2.2 -3.1 +1.1 -4.5 every frame — unusable |
+| seed 20261019 | 0.55 / 1.78 | shipped |
+| nashoba (shipped) | 0.89 / 3.42 | the bar |
+
+**Jitter is a property of the SEED, not the prompt.** If a take shakes, change
+the seed; do not rewrite the prompt. (The reverse also held: the colour bleed
+that first prompted a seed change was the prompt's doing, and rewording fixed
+it on the original seed.)
 
 ## 5. Refine to 1.9x (chunked)
 
