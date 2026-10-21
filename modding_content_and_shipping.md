@@ -308,6 +308,39 @@ exclude it from every package with `build.classify` in `options.rpy`:
 build.classify('game/mods/mod_decent_to_hell/**', None)
 ```
 
+### Bundling into some channels but not others
+
+A mod can be paid content on one storefront and a backer perk on another — Extra
+Outfits is DLC on Steam (app 5171620, delivered by its own depot) and ships
+installed in the Patreon and Mega-ELITE builds. Drive that from the environment
+rather than by editing `options.rpy` per build:
+
+```python
+if os.environ.get("BUNDLE_OUTFITS") and not os.environ.get("STEAM"):
+    build.classify('game/mods/mod_outfits/**', 'all')
+else:
+    build.classify('game/mods/mod_outfits/**', None)
+```
+
+`'all'` is the include verb — it is what Ren'Py's own catch-all `("**", "all")`
+rule uses, and the first matching pattern wins, so this must sit above it.
+
+Three things make that safe to leave switched on in CI:
+
+- **The variable is injected by target, not by schedule.** `trigger_build.sh`
+  adds `BUNDLE_OUTFITS=1` for `patreon` and `mega-elite` and *strips* it for
+  every other target, so a schedule that acquires the variable by mistake
+  cannot carry it into a Steam or itch pipeline.
+- **Install an allow-list, not `mods.in/<mod>/`.** With the exclusion lifted,
+  everything under the installed folder ships — and `mods.in/mod_outfits` is
+  4.8 GB of refs, prompts and render scratch. `tools/install_mod_outfits.sh`
+  installs the staged DLC payload (script + `.rpyc` + images + `.webm` clips)
+  instead, and it is the same payload the depot and the backer archive get.
+- **Re-install per resolution variant.** A build that produces both native and
+  FHD packages clears `game/images` and `game/videos` between them but *not*
+  `game/mods`, so the mod has to be re-installed and re-cropped for the second
+  pass or the FHD package carries native-canvas art.
+
 ### Standalone download
 
 To distribute a mod on its own, build both `.tar.gz` and `.zip` (Windows users
@@ -340,8 +373,8 @@ back untouched.
 4. Audit art against the asset table — missing art fails **silently**.
 5. Verify cutouts over magenta; confirm no clipping at canvas edges.
 6. Base-game art → `src_assets/`. Mod art → `mods.in/<mod>/images/`.
-7. Decide bundled / dev-only / standalone; add the `build.classify` line if the
-   mod should not ship.
+7. Decide bundled / dev-only / standalone / per-channel; add the
+   `build.classify` line if the mod should not ship everywhere.
 8. For a standalone download: ship `.rpyc` alongside `.rpy`, mod folder at the
    archive root, `.tar.gz` + `.zip`, and a player-facing `INSTALL.md`.
 9. `renpy <project> lint` before playtesting.
