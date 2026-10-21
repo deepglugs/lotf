@@ -187,6 +187,7 @@ state. Danu's goth clip, same seed, same prompt, guide = the topless tier art:
 |---|---|
 | 216 (9.0 s) | nude at 7.08 s, **gown back ON at 8.33 s**, guide matched at 9.00 s, nude again at 9.25 s. 11 frozen frames on the guide. |
 | 144 (6.0 s) | topless continuously f120-f172, guide matched at 6.00 s, no reversal. 8 frozen frames. |
+| none | correct choreography, **0 frozen frames mid-clip** (4 at 15.0 s, the final hold). |
 
 The prompt front-loaded the strip — sash at ~1.5 s, bodice at ~4.5 s, gown off
 by 7.5 s — while the topless guide sat at 9 s. The two disagreed about *when*
@@ -195,9 +196,18 @@ the guide and taking it off again afterwards.** A guide does not slow the
 choreography down to meet it; it contorts the wardrobe instead.
 
 So: render once with the guides you think you want, find the frame range where
-the state actually occurs, and move the guide inside that range. The stall on
-the guide shrinks as the reversal disappears, but note it does not vanish —
-see "a guide needs an action through it" and the corset build's resolution.
+the state actually occurs, and move the guide inside that range. **Moving it
+there removes the wardrobe reversal but not the stall** — 11 frames became 8,
+and only deleting the guide took it to 0. That is the corset build's finding
+reproduced on a second outfit: a mid guide costs ~8 frames of motion even when
+it is correctly placed and a garment action runs through it.
+
+**So place a mid guide only when it buys something you cannot get otherwise.**
+It pins a wardrobe state to the shipped tier art; without it that beat is the
+model's own invention. For a beat the camera passes *through* (a transition)
+the invention is cheap and the guide is not worth 8 frames. For a beat the
+camera rests *on* (a reveal dwell), pin it — or build the dwell from a held
+framing with moving contents, which costs nothing.
 
 ### Generating a missing guide: one instruction, not a scene
 
