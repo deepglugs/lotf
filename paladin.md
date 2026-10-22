@@ -42,13 +42,13 @@ Smites are chosen on level up and added to your action list. All smites scale wi
 ### Level 1
 | Icon | Spell | Energy | Description |
 |------|-------|--------|-------------|
-| ![](assets/slap_icon.webp) | Divine Bitch Slap | 4 (Heavenfire) | **2d8 radiant** + 1d4 per four levels (max 5d4 more) + Strength modifier. |
+| ![](assets/slap_icon.webp) | Divine Bitch Slap | 4 (Heavenfire) | **2d8 radiant** + 1d4 per four levels (max 5d4 more) + Strength modifier. Reach 1 (adjacent enemy). |
 
 ### Level 2
 | Icon | Spell | Energy | Description |
 |------|-------|--------|-------------|
 | ![](assets/smite_icon.webp) | Divine Smite | 8 (Heavenfire) | Weapon damage plus **2d8** radiation damage, +1d8 per four levels (max 5d8 more). Extra 1d8 vs. undead/demons. Radiant dice double on a crit. |
-| ![](assets/lay_on_hands_icon.webp) | Lay on Hands | 3 | Heal a target for **1d8 + Charisma modifier** HP. |
+| ![](assets/lay_on_hands_icon.webp) | Lay on Hands | 3 | Heal a target for **1d8 + Charisma modifier** HP. Reach 1 (adjacent ally). |
 | ![](assets/frost_smite_icon.webp) | Frost Smite | 4 | Weapon damage plus **(1+L/4)d6 + Charisma** cold damage (max 5d6). Constitution save or target is **Slowed**. |
 
 ### Level 3

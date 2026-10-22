@@ -24,7 +24,7 @@ These are automatically granted at the listed level.
 | 20 | ![Avatar of Light](assets/avatar_of_light_icon.webp) | Avatar of Light |
 
 ### ![](assets/heal_icon.webp) Heal *(L1 — Auto)*
-A baseline healing ability granted at level 1.
+A baseline healing ability granted at level 1. On the battle grid it is a touch: the ally must be on a square **next to you** (reach 1).
 
 ### ![](assets/divine_grace_icon.webp) Divine Grace *(L2)*
 Passive. Adds your **Wisdom modifier** to all saving throws.
@@ -62,9 +62,9 @@ Spells are chosen on level up and added to your action list.
 ### Level 1
 | Icon | Spell | Energy | Description |
 |------|-------|--------|-------------|
-| ![](assets/aid_icon.webp) | Aid | 3 (Heavenfire) | Grants target temporary HP equal to **1d6 + Wisdom modifier + 1 per spell level**, lasting until rest. |
+| ![](assets/aid_icon.webp) | Aid | 3 (Heavenfire) | No target: grants **every living ally and yourself** temporary HP equal to **1d6 + Wisdom modifier + 1 per spell level**, lasting until rest. |
 | ![](assets/firebolt_icon.webp) | Firebolt | 1 | Standard fire damage spell. |
-| ![](assets/slap_icon.webp) | Divine Bitch Slap | 4 (Heavenfire) | **2d8 radiant** + 1d4 per four levels (max 5d4 more) + Strength modifier. |
+| ![](assets/slap_icon.webp) | Divine Bitch Slap | 4 (Heavenfire) | **2d8 radiant** + 1d4 per four levels (max 5d4 more) + Strength modifier. Reach 1 (adjacent enemy). |
 
 ### Level 2
 | Icon | Spell | Energy | Description |
@@ -82,7 +82,7 @@ Spells are chosen on level up and added to your action list.
 | Icon | Spell | Energy | Description |
 |------|-------|--------|-------------|
 | ![](assets/fireball_icon.webp) | Fireball | — | Large area fire damage. |
-| ![](assets/greater_heal_icon.webp) | Greater Heal | 6 (Heavenfire) | Heals target for **4d8 + Wisdom modifier x2**. Scaling with level. |
+| ![](assets/greater_heal_icon.webp) | Greater Heal | 6 (Heavenfire) | Heals target for **4d8 + Wisdom modifier x2**. Scaling with level. Reach 1 (adjacent ally). |
 | ![](assets/blessed_strike_icon.webp) | Blessed Strike | 2 (Heavenfire) | Melee weapon hit + self-heal for **1d6 + Wisdom modifier**. |
 | ![](assets/sleet_storm_icon.webp) | Sleet Storm | 4 | AoE control: all enemies gain **Icy** + **Wet** for 5 turns. Icy = 30% chance to slip and lose a turn; Wet doubles Cold/Lightning damage taken. |
 

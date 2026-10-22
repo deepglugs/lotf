@@ -68,7 +68,8 @@ A Strength 16 fighter (240 lb capacity) trips a 170 lb cultist on an even save, 
 | L1 | ![](assets/trip_attack_icon.webp) | Trip Attack | Strength | Prone | 2 (3 from L11) |
 | L3 | ![](assets/pommel_strike_icon.webp) | Pommel Strike | Constitution | Stunned (loses next turn) | 1 (2 from L11) |
 | L3 | ![](assets/disorienting_blow_icon.webp) | Disorienting Blow | Wisdom | Confused, 2 turns | 2 (3 from L11) |
-| L7 | ![](assets/leg_sweep_icon.webp) | Leg Sweep | Dexterity | Prone, every enemy | 1 (2 from L15) |
+| L5 | ![](assets/cleave_icon.webp) | Cleave | none | Full weapon damage to each enemy in a line of three | 2 (3 from L11) |
+| L7 | ![](assets/leg_sweep_icon.webp) | Leg Sweep | Dexterity | Prone, every enemy in the 3x3 around you | 1 (2 from L15) |
 
 ### ![](assets/trip_attack_icon.webp) Trip Attack *(L1)*
 Hook the foe's legs out from under them. On a failed **Strength** save, adjusted for weight (above), the target is knocked **Prone**.
@@ -79,8 +80,11 @@ Hilt to the skull. On a failed **Constitution** save the target is **Stunned** a
 ### ![](assets/disorienting_blow_icon.webp) Disorienting Blow *(L3)*
 A ringing blow to the head. On a failed **Wisdom** save the target is **Confused** for 2 turns: disadvantage on attack rolls and ability checks (DC 12 Intelligence save each turn to recover).
 
+### ![](assets/cleave_icon.webp) Cleave *(L5)*
+One great swing through a **line of three squares**, either the three in front of you or the three behind (you pick the side). Rolls to hit each enemy in the line separately; each one hit takes **full** weapon damage. No saving throw and no condition: it is pure damage. Without the battle grid it hits the **3 enemies nearest you in initiative order**.
+
 ### ![](assets/leg_sweep_icon.webp) Leg Sweep *(L7)*
-A wide, low sweep. Rolls to hit **every** enemy separately; each one hit takes **half** weapon damage and, on a failed **Dexterity** save (adjusted for weight), is knocked **Prone**.
+A wide, low sweep through the **3x3 area centred on you** (every square next to you). Rolls to hit each enemy there separately; each one hit takes **half** weapon damage and, on a failed **Dexterity** save (adjusted for weight), is knocked **Prone**.
 
 ### ![](assets/prone_icon.webp) Prone (condition)
 Knocked to the ground through its next turn: **disadvantage on its attack rolls**, and **all attacks against it have advantage**.
@@ -114,6 +118,7 @@ Generic feats are available at levels **4, 8, 12, and 16**.
 - **Renewed Life** is your only recovery tool. Use it proactively when you drop below ~40% HP, not as a last resort when you're near death.
 - The Fighter has the **best action economy** in the game at level 20 with 3 extra attacks. In the late game, you can outright kill enemies in a single turn with a strong weapon.
 - **Open, then punish.** Trip or stun the most dangerous enemy first, then hit it with everything: advantage from Prone plus Exploit Opening's bonus die stack on every swing — yours and your allies'.
-- **Leg Sweep** shines against groups; a whole room knocked Prone gives the entire party advantage for a turn.
+- **Cleave** wants enemies lined up: step so two or three foes stand in the column in front of (or behind) you, then swing. Full damage on every hit makes it your best multi-target damage.
+- **Leg Sweep** shines when you are surrounded: step into the middle of a group, and everyone next to you knocked Prone gives the entire party advantage for a turn.
 - Spend your maneuvers every fight. They refresh at the start of each battle, so hoarding them gains nothing.
 - The Fighter pairs well with high-damage weapons — there are no energy gates on your attacks, so you can go all-out every turn without resource management.

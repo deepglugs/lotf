@@ -28,6 +28,7 @@ Your chosen affinity determines which spells and abilities are available as you 
 
 ## Game Systems
 
+- [Battle Grid](grid_combat.md) — Isometric grid combat: movement, reach, engagement and area spells
 - [Rest & Camp](rest_system.md) — Rest mechanics and food-based camp recovery
 - [Food & Consumables](food.md) — Consumable items and their effects
 
