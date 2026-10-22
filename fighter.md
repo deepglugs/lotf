@@ -81,10 +81,10 @@ Hilt to the skull. On a failed **Constitution** save the target is **Stunned** a
 A ringing blow to the head. On a failed **Wisdom** save the target is **Confused** for 2 turns: disadvantage on attack rolls and ability checks (DC 12 Intelligence save each turn to recover).
 
 ### ![](assets/cleave_icon.webp) Cleave *(L5)*
-One great swing through a **line of three squares**, either the three in front of you or the three behind (you pick the side). Rolls to hit each enemy in the line separately; each one hit takes **full** weapon damage. No saving throw and no condition: it is pure damage. Without the battle grid it hits the **3 enemies nearest you in initiative order**.
+One great swing through a **line of three squares**, either the three in front of you or the three behind (you pick the side). Rolls to hit each enemy in the line separately; each one hit takes **full** weapon damage. No saving throw and no condition: it is pure damage.
 
 ### ![](assets/leg_sweep_icon.webp) Leg Sweep *(L7)*
-A wide, low sweep through the **3x3 area centred on you** (every square next to you). Without the battle grid it sweeps **every** enemy. Rolls to hit each enemy there separately; each one hit takes **half** weapon damage and, on a failed **Dexterity** save (adjusted for weight), is knocked **Prone**.
+A wide, low sweep through the **3x3 area centred on you** (every square next to you). Rolls to hit each enemy there separately; each one hit takes **half** weapon damage and, on a failed **Dexterity** save (adjusted for weight), is knocked **Prone**.
 
 ### ![](assets/prone_icon.webp) Prone (condition)
 Knocked to the ground through its next turn: **disadvantage on its attack rolls**, and **all attacks against it have advantage**.
