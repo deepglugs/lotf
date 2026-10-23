@@ -1,6 +1,6 @@
 # Paladin Class Guide
 
-**Version:** 0.3.6
+**Versions:** every feature is tagged with the first game version it shipped in. *0.3.6+* means it was already in 0.3.6 or earlier.
 
 The Paladin is a Charisma-based holy warrior who channels divine smites and protective auras. They excel in melee combat with scaling radiant damage and support abilities, combining the durability of a warrior with the magic of a caster.
 
@@ -10,27 +10,27 @@ The Paladin is a Charisma-based holy warrior who channels divine smites and prot
 
 These are automatically granted at the listed level.
 
-| Level | Icon | Feature |
-|-------|------|---------|
-| 2 | ![Aura of Protection](assets/paladin_aura_icon.webp) | Aura of Protection |
-| 5 | ![Extra Attack](assets/extra_attack_icon.webp) | Extra Attack |
-| 7 | ![Aura of Courage](assets/paladin_courage_icon.webp) | Aura of Courage |
-| 11 | ![Improved Divine Smite](assets/smite_icon.webp) | Improved Divine Smite |
-| 20 | ![Holy Champion](assets/paladin_champion_icon.webp) | Holy Champion |
+| Level | Icon | Feature | Since |
+|-------|------|---------|-------|
+| 2 | ![Aura of Protection](assets/paladin_aura_icon.webp) | Aura of Protection | 0.3.6+ |
+| 5 | ![Extra Attack](assets/extra_attack_icon.webp) | Extra Attack | 0.3.6+ |
+| 7 | ![Aura of Courage](assets/paladin_courage_icon.webp) | Aura of Courage | 0.3.6+ |
+| 11 | ![Improved Divine Smite](assets/smite_icon.webp) | Improved Divine Smite | 0.3.6+ |
+| 20 | ![Holy Champion](assets/paladin_champion_icon.webp) | Holy Champion | 0.3.6+ |
 
-### ![](assets/paladin_aura_icon.webp) Aura of Protection *(L2)*
+### ![](assets/paladin_aura_icon.webp) Aura of Protection *(L2 · 0.3.6+)*
 Passive. Your divine presence adds your **Charisma modifier** to all saving throws.
 
-### ![](assets/extra_attack_icon.webp) Extra Attack *(L5)*
+### ![](assets/extra_attack_icon.webp) Extra Attack *(L5 · 0.3.6+)*
 Passive. Grants one additional attack per turn.
 
-### ![](assets/paladin_courage_icon.webp) Aura of Courage *(L7)*
+### ![](assets/paladin_courage_icon.webp) Aura of Courage *(L7 · 0.3.6+)*
 Passive. Your fearless presence grants **advantage on Wisdom saving throws** against fear and charm effects.
 
-### ![](assets/smite_icon.webp) Improved Divine Smite *(L11)*
+### ![](assets/smite_icon.webp) Improved Divine Smite *(L11 · 0.3.6+)*
 Passive. Your melee attacks crackle with divine power, dealing an extra **1d8 radiation damage** per hit.
 
-### ![](assets/paladin_champion_icon.webp) Holy Champion *(L20)*
+### ![](assets/paladin_champion_icon.webp) Holy Champion *(L20 · 0.3.6+)*
 Passive. You are a true champion of the divine. **Charisma increased by 4**, with an ability score cap of 24. All attacks radiate with overwhelming holy power, adding your Charisma modifier as **bonus radiation damage**.
 
 ---
@@ -40,31 +40,31 @@ Passive. You are a true champion of the divine. **Charisma increased by 4**, wit
 Smites are chosen on level up and added to your action list. All smites scale with Charisma and deal weapon damage plus elemental/divine damage.
 
 ### Level 1
-| Icon | Spell | Energy | Description |
-|------|-------|--------|-------------|
-| ![](assets/slap_icon.webp) | Divine Bitch Slap | 4 (Heavenfire) | **2d8 radiant** + 1d4 per four levels (max 5d4 more) + Strength modifier. Reach 1 (adjacent enemy). |
+| Icon | Spell | Energy | Description | Since |
+|------|-------|--------|-------------|-------|
+| ![](assets/slap_icon.webp) | Divine Bitch Slap | 4 (Heavenfire) | **2d8 radiant** + 1d4 per four levels (max 5d4 more) + Strength modifier. Reach 1 (adjacent enemy) since 0.6.1. | 0.3.6+ |
 
 ### Level 2
-| Icon | Spell | Energy | Description |
-|------|-------|--------|-------------|
-| ![](assets/smite_icon.webp) | Divine Smite | 8 (Heavenfire) | Weapon damage plus **2d8** radiation damage, +1d8 per four levels (max 5d8 more). Extra 1d8 vs. undead/demons. Radiant dice double on a crit. |
-| ![](assets/lay_on_hands_icon.webp) | Lay on Hands | 3 | Heal a target for **1d8 + Charisma modifier** HP. Reach 1 (adjacent ally). |
-| ![](assets/frost_smite_icon.webp) | Frost Smite | 4 | Weapon damage plus **(1+L/4)d6 + Charisma** cold damage (max 5d6). Constitution save or target is **Slowed**. |
+| Icon | Spell | Energy | Description | Since |
+|------|-------|--------|-------------|-------|
+| ![](assets/smite_icon.webp) | Divine Smite | 8 (Heavenfire) | Weapon damage plus **2d8** radiation damage, +1d8 per four levels (max 5d8 more). Extra 1d8 vs. undead/demons. Radiant dice double on a crit. | 0.3.6+ |
+| ![](assets/lay_on_hands_icon.webp) | Lay on Hands | 3 | Heal a target for **1d8 + Charisma modifier** HP. Reach 1 (adjacent ally) since 0.6.1. | 0.3.6+ |
+| ![](assets/frost_smite_icon.webp) | Frost Smite | 4 | Weapon damage plus **(1+L/4)d6 + Charisma** cold damage (max 5d6). Constitution save or target is **Slowed**. | 0.3.6+ |
 
 ### Level 3
-| Icon | Spell | Energy | Description |
-|------|-------|--------|-------------|
-| ![](assets/searing_smite_icon.webp) | Searing Smite | 4 | Weapon damage plus **(1+L/4)d6 + Charisma** heat damage (max 5d6). Dexterity save or target is **Burning** (2 turns, 1d4 heat per turn). |
+| Icon | Spell | Energy | Description | Since |
+|------|-------|--------|-------------|-------|
+| ![](assets/searing_smite_icon.webp) | Searing Smite | 4 | Weapon damage plus **(1+L/4)d6 + Charisma** heat damage (max 5d6). Dexterity save or target is **Burning** (2 turns, 1d4 heat per turn). | 0.3.6+ |
 
 ### Level 5
-| Icon | Spell | Energy | Description |
-|------|-------|--------|-------------|
-| ![](assets/thunder_smite_icon.webp) | Thunder Smite | 5 | Weapon damage plus **(2+L/4)d6 + Charisma** electric damage (max 5d6). Strength save or target is **Stunned for 1 turn**. |
+| Icon | Spell | Energy | Description | Since |
+|------|-------|--------|-------------|-------|
+| ![](assets/thunder_smite_icon.webp) | Thunder Smite | 5 | Weapon damage plus **(2+L/4)d6 + Charisma** electric damage (max 5d6). Strength save or target is **Stunned for 1 turn**. | 0.3.6+ |
 
 ### Level 7
-| Icon | Spell | Energy | Description |
-|------|-------|--------|-------------|
-| ![](assets/blinding_smite_icon.webp) | Blinding Smite | 5 | Weapon damage plus **(2+L/4)d8 + Charisma** radiation damage (max 5d8). Extra 1d8 vs. undead/demons. Constitution save or target is **Blinded for 2 turns** (disadvantage on attacks, attackers have advantage). |
+| Icon | Spell | Energy | Description | Since |
+|------|-------|--------|-------------|-------|
+| ![](assets/blinding_smite_icon.webp) | Blinding Smite | 5 | Weapon damage plus **(2+L/4)d8 + Charisma** radiation damage (max 5d8). Extra 1d8 vs. undead/demons. Constitution save or target is **Blinded for 2 turns** (disadvantage on attacks, attackers have advantage). | 0.3.6+ |
 
 ---
 

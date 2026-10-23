@@ -1,6 +1,6 @@
 # Succubus Class Guide
 
-**Version:** 0.4.96
+**Versions:** every feature is tagged with the first game version it shipped in. *0.3.6+* means it was already in 0.3.6 or earlier.
 
 The Succubus is a Lust-aligned controller. Rather than trading blows, she takes
 enemies out of the fight: stunning them, distracting them, leaving them unable
@@ -18,23 +18,23 @@ Her key stat is **Charisma**. Every save she forces uses the same difficulty:
 
 Automatically granted at the listed level.
 
-| Level | Feature | Notes |
-|-------|---------|-------|
-| 1 | Masturbate | Skip your turn to recover lust energy; enemies may become **Horny**. |
-| 2 | Seduce | Single-target stun (Wisdom save). |
-| 4 | Enthralling Chant | Area distraction (Charisma save). |
-| 6 | Lustful Blessing | Buff an ally's Charisma. |
-| — | Lust Rage | Granted only when multiclassed with Barbarian (Succubus level 2+). |
+| Level | Feature | Notes | Since |
+|-------|---------|-------|-------|
+| 1 | Masturbate | Skip your turn to recover lust energy; enemies may become **Horny**. | 0.4.96+ |
+| 2 | Seduce | Single-target stun (Wisdom save). | 0.4.96+ |
+| 4 | Enthralling Chant | Area distraction (Charisma save). | 0.4.96+ |
+| 6 | Lustful Blessing | Buff an ally's Charisma. | 0.4.96+ |
+| — | Lust Rage | Granted only when multiclassed with Barbarian (Succubus level 2+). | 0.4.96+ |
 
 Generic feats are also offered at levels 4, 8, 12 and 16.
 
-| Icon | Ability | Energy | Description |
-|------|---------|--------|-------------|
-| — | Masturbate | — | Spend your turn to gain 1d3 lust energy. Every enemy makes a Wisdom save or becomes **Horny** (strength scales with your level). In camp, Chrys can do it in front of a companion: if she stays to watch, she gains 1d3 lust too and makes the same Wisdom save or is **Horny** until the next rest. |
-| ![](assets/seduce_icon.webp) | Seduce | 1 Lust | One target makes a Wisdom save or is **Stunned**. |
-| ![](assets/enthralling_chant_icon.webp) | Enthralling Chant | — | A hypnotic hymn. Every enemy makes a Charisma save; each one who fails has a 1-in-4 chance to be **Distracted** and lose their next action. |
-| ![](assets/lustful_blessing_icon.webp) | Lustful Blessing | 1 Lust | One ally gains +2 Charisma and advantage on Charisma checks for 5 turns. |
-| ![](assets/lust_rage_icon.webp) | Lust Rage | 1 Lust | *(Barbarian multiclass only.)* A rage fuelled by desire: bonus Charisma and advantage, with a chance to leave enemies **Horny**. |
+| Icon | Ability | Energy | Description | Since |
+|------|---------|--------|-------------|-------|
+| — | Masturbate | — | Spend your turn to gain 1d3 lust energy. Every enemy makes a Wisdom save or becomes **Horny** (strength scales with your level). In camp, Chrys can do it in front of a companion: if she stays to watch, she gains 1d3 lust too and makes the same Wisdom save or is **Horny** until the next rest. | 0.4.96+ |
+| ![](assets/seduce_icon.webp) | Seduce | 1 Lust | One target makes a Wisdom save or is **Stunned**. | 0.4.96+ |
+| ![](assets/enthralling_chant_icon.webp) | Enthralling Chant | — | A hypnotic hymn. Every enemy makes a Charisma save; each one who fails has a 1-in-4 chance to be **Distracted** and lose their next action. | 0.4.96+ |
+| ![](assets/lustful_blessing_icon.webp) | Lustful Blessing | 1 Lust | One ally gains +2 Charisma and advantage on Charisma checks for 5 turns. | 0.4.96+ |
+| ![](assets/lust_rage_icon.webp) | Lust Rage | 1 Lust | *(Barbarian multiclass only.)* A rage fuelled by desire: bonus Charisma and advantage, with a chance to leave enemies **Horny**. | 0.4.96+ |
 
 **In camp** (Chrys's camp action bar): **Masturbate** restores 1d3 lust once
 per rest; **Seduce** (1 Lust) targets a companion, who makes the same Wisdom
@@ -47,17 +47,17 @@ save and reacts to whether it landed. **Transform** is cast there too.
 Chosen on level up and added to your action list. "Any" means the cost can be
 paid from any affinity pool.
 
-| Icon | Ability | Level | Energy | Description |
-|------|---------|-------|--------|-------------|
-| ![](assets/heat_icon.webp) | Heat | 2 | 2 Any | Constitution save or become **Hot**: 1d5 heat damage per turn for 5 turns. |
-| — | Golden Shower | 3 | 1 Lust | Leaves the target **Wet**: double damage from cold and lightning, but resistant to heat. |
-| ![](assets/command_icon.webp) | Command | 3 | 1 Any | Wisdom save or be **Stunned** for 2 turns. |
-| ![](assets/glacial_strike_icon.webp) | Glacial Strike | 3 | 2 Any | Weapon attack with added scaling cold damage. If the target fails a Constitution save you gain a **Glacial Shield**. |
-| ![](assets/transform_icon.webp) | Transform | 3 | — | Change your own sex — male, female or futa. **Camp only**: cast between fights, never in combat (see below). |
-| ![](assets/sleet_storm_icon.webp) | Sleet Storm | 5 | 5 Any | Every enemy makes a Wisdom save or is **Wet** and **Icy** for 5 turns (2 turns on a success). Icy targets have a 30% chance each turn to slip and lose their action. |
-| ![](assets/succubus_invisibility_icon.webp) | Succubus Invisibility | 5 | 2 Lust | Become **Invisible** for 3 turns (see below). |
-| ![](assets/blizzard_icon.webp) | Blizzard | 9 | 8 Any | 8d8 cold damage to every enemy (Constitution save for half). Those who fail are **Icy** for 3 turns. |
-| ![](assets/black_hole_icon.webp) | Black Hole | 14 | Lust + Chaos + Heavenfire | Tri-affinity capstone (requires all three affinities). Psychic and chaos damage to every enemy; all are **Slowed**. |
+| Icon | Ability | Level | Energy | Description | Since |
+|------|---------|-------|--------|-------------|-------|
+| ![](assets/heat_icon.webp) | Heat | 2 | 2 Any | Constitution save or become **Hot**: 1d5 heat damage per turn for 5 turns. | 0.4.96+ |
+| — | Golden Shower | 3 | 1 Lust | Leaves the target **Wet**: double damage from cold and lightning, but resistant to heat. | 0.4.96+ |
+| ![](assets/command_icon.webp) | Command | 3 | 1 Any | Wisdom save or be **Stunned** for 2 turns. | 0.4.96+ |
+| ![](assets/glacial_strike_icon.webp) | Glacial Strike | 3 | 2 Any | Weapon attack with added scaling cold damage. If the target fails a Constitution save you gain a **Glacial Shield**. | 0.4.96+ |
+| ![](assets/transform_icon.webp) | Transform | 3 | — | Change your own sex — male, female or futa. **Camp only**: cast between fights, never in combat (see below). | 0.4.97+ |
+| ![](assets/sleet_storm_icon.webp) | Sleet Storm | 5 | 5 Any | Every enemy makes a Wisdom save or is **Wet** and **Icy** for 5 turns (2 turns on a success). Icy targets have a 30% chance each turn to slip and lose their action. | 0.4.96+ |
+| ![](assets/succubus_invisibility_icon.webp) | Succubus Invisibility | 5 | 2 Lust | Become **Invisible** for 3 turns (see below). | 0.4.96+ |
+| ![](assets/blizzard_icon.webp) | Blizzard | 9 | 8 Any | 8d8 cold damage to every enemy (Constitution save for half). Those who fail are **Icy** for 3 turns. | 0.4.96+ |
+| ![](assets/black_hole_icon.webp) | Black Hole | 14 | Lust + Chaos + Heavenfire | Tri-affinity capstone (requires all three affinities). Psychic and chaos damage to every enemy; all are **Slowed**. | 0.4.96+ |
 
 ---
 

@@ -1,6 +1,6 @@
 # Fighter Class Guide
 
-**Version:** 0.3.6
+**Versions:** every feature is tagged with the first game version it shipped in. *0.3.6+* means it was already in 0.3.6 or earlier.
 
 The Fighter is a Strength-based martial class with no spells. They compensate with superior action economy — more attacks per turn than any other class, and the ability to surge beyond their normal action limit — and with **martial maneuvers** that trip, stun and confuse enemies, then punish the opening. No energy to manage: maneuvers refresh every battle.
 
@@ -10,35 +10,35 @@ The Fighter is a Strength-based martial class with no spells. They compensate wi
 
 These are automatically granted at the listed level.
 
-| Level | Icon | Feature |
-|-------|------|---------|
-| 1 | ![Renewed Life](assets/second_wind_icon.webp) | Renewed Life (Second Wind) |
-| 2 | ![Burst of Speed](assets/action_surge_icon.webp) | Burst of Speed (Action Surge) |
-| 3 | ![Exploit Opening](assets/exploit_opening_icon.webp) | Exploit Opening |
-| 5 | ![Extra Attack](assets/extra_attack_icon.webp) | Extra Attack (+1) |
-| 11 | ![Extra Attack](assets/extra_attack_icon.webp) | Extra Attack (+2 total) |
-| 17 | ![Burst of Speed](assets/action_surge_icon.webp) | Burst of Speed upgrade |
-| 20 | ![Extra Attack](assets/extra_attack_icon.webp) | Extra Attack (+3 total) |
+| Level | Icon | Feature | Since |
+|-------|------|---------|-------|
+| 1 | ![Renewed Life](assets/second_wind_icon.webp) | Renewed Life (Second Wind) | 0.3.6+ |
+| 2 | ![Burst of Speed](assets/action_surge_icon.webp) | Burst of Speed (Action Surge) | 0.3.6+ |
+| 3 | ![Exploit Opening](assets/exploit_opening_icon.webp) | Exploit Opening | 0.6.0+ |
+| 5 | ![Extra Attack](assets/extra_attack_icon.webp) | Extra Attack (+1) | 0.3.6+ |
+| 11 | ![Extra Attack](assets/extra_attack_icon.webp) | Extra Attack (+2 total) | 0.3.6+ |
+| 17 | ![Burst of Speed](assets/action_surge_icon.webp) | Burst of Speed upgrade | 0.3.6+ |
+| 20 | ![Extra Attack](assets/extra_attack_icon.webp) | Extra Attack (+3 total) | 0.3.6+ |
 
-### ![](assets/second_wind_icon.webp) Renewed Life *(L1 — No energy, self-target)*
+### ![](assets/second_wind_icon.webp) Renewed Life *(L1 — No energy, self-target · 0.3.6+)*
 Draw on reserves of stamina to heal yourself. Healing is **Nd10** where N = `max(1, level / 4)`. No energy cost; **twice per rest**. Also castable from the camp action bar.
 
-### ![](assets/action_surge_icon.webp) Burst of Speed *(L2 — No energy, self-target)*
+### ![](assets/action_surge_icon.webp) Burst of Speed *(L2 — No energy, self-target · 0.3.6+)*
 Grants yourself the **Action Surge** condition, giving **2 additional actions** on your next turn. No energy cost; **once per battle** — it refreshes at the start of every encounter, so there is no reason to hoard it between fights.
 
-### ![](assets/exploit_opening_icon.webp) Exploit Opening *(L3)*
+### ![](assets/exploit_opening_icon.webp) Exploit Opening *(L3 · 0.6.0+)*
 Passive. Weapon hits against a target that is **Prone, Stunned, Confused, Staggered, Paralyzed, Ensnared or Asleep** deal **+1d8 physical** damage (**2d8** from Fighter level 13). Works with every weapon attack, not just maneuvers — knock a foe down, then pile on. Fighters who were already past level 3 when this was added receive it at their next level-up.
 
-### ![](assets/extra_attack_icon.webp) Extra Attack *(L5)*
+### ![](assets/extra_attack_icon.webp) Extra Attack *(L5 · 0.3.6+)*
 Passive. Grants **1 extra attack** per turn.
 
-### ![](assets/extra_attack_icon.webp) Extra Attack *(L11)*
+### ![](assets/extra_attack_icon.webp) Extra Attack *(L11 · 0.3.6+)*
 Passive. Upgraded to **2 extra attacks** per turn total.
 
-### ![](assets/action_surge_icon.webp) Burst of Speed *(L17 — Upgrade)*
+### ![](assets/action_surge_icon.webp) Burst of Speed *(L17 — Upgrade · 0.3.6+)*
 The Action Surge action is upgraded to **twice per battle**.
 
-### ![](assets/extra_attack_icon.webp) Extra Attack *(L20)*
+### ![](assets/extra_attack_icon.webp) Extra Attack *(L20 · 0.3.6+)*
 Passive. Upgraded to **3 extra attacks** per turn total.
 
 ---
@@ -49,7 +49,7 @@ Chosen as the level-up option (one per level, from those unlocked). Each is a we
 
 **Save DC** = 8 + proficiency bonus + the better of your Strength and Dexterity modifiers. Trips (Trip Attack, Leg Sweep) use **Strength only**.
 
-### Weight and tripping
+### Weight and tripping *(0.6.0+)*
 Every enemy has a body weight. Trips compare it with your **carrying capacity** (Strength score × 15 lb) and adjust the target's save:
 
 | Target weight vs. your capacity | Target's save |
@@ -63,30 +63,30 @@ Every enemy has a body weight. Trips compare it with your **carrying capacity** 
 
 A Strength 16 fighter (240 lb capacity) trips a 170 lb cultist on an even save, a 900 lb Fomorian Beast only rarely (+6), and can't move the 2,000 lb Ammit at all. Raise Strength to topple bigger things. Foes with no legs to sweep or no body to topple (sea serpents, lamiae, slimes, shades, the rooted Grove Guardian) can't be tripped at any weight. Weight appears on the character sheet.
 
-| Unlocks | Icon | Maneuver | Save | Effect | Uses / battle |
-|---------|------|----------|------|--------|---------------|
-| L1 | ![](assets/trip_attack_icon.webp) | Trip Attack | Strength | Prone | 2 (3 from L11) |
-| L3 | ![](assets/pommel_strike_icon.webp) | Pommel Strike | Constitution | Stunned (loses next turn) | 1 (2 from L11) |
-| L3 | ![](assets/disorienting_blow_icon.webp) | Disorienting Blow | Wisdom | Confused, 2 turns | 2 (3 from L11) |
-| L5 | ![](assets/cleave_icon.webp) | Cleave | none | Full weapon damage to each enemy in a line of three | 2 (3 from L11) |
-| L7 | ![](assets/leg_sweep_icon.webp) | Leg Sweep | Dexterity | Prone, every enemy in the 3x3 around you | 1 (2 from L15) |
+| Unlocks | Icon | Maneuver | Save | Effect | Uses / battle | Since |
+|---------|------|----------|------|--------|---------------|-------|
+| L1 | ![](assets/trip_attack_icon.webp) | Trip Attack | Strength | Prone | 2 (3 from L11) | 0.6.0+ |
+| L3 | ![](assets/pommel_strike_icon.webp) | Pommel Strike | Constitution | Stunned (loses next turn) | 1 (2 from L11) | 0.6.0+ |
+| L3 | ![](assets/disorienting_blow_icon.webp) | Disorienting Blow | Wisdom | Confused, 2 turns | 2 (3 from L11) | 0.6.0+ |
+| L5 | ![](assets/cleave_icon.webp) | Cleave | none | Full weapon damage to each enemy in a line of three | 2 (3 from L11) | 0.6.1+ |
+| L7 | ![](assets/leg_sweep_icon.webp) | Leg Sweep | Dexterity | Prone, every enemy in the 3x3 around you | 1 (2 from L15) | 0.6.0+ |
 
-### ![](assets/trip_attack_icon.webp) Trip Attack *(L1)*
+### ![](assets/trip_attack_icon.webp) Trip Attack *(L1 · 0.6.0+)*
 Hook the foe's legs out from under them. On a failed **Strength** save, adjusted for weight (above), the target is knocked **Prone**.
 
-### ![](assets/pommel_strike_icon.webp) Pommel Strike *(L3)*
+### ![](assets/pommel_strike_icon.webp) Pommel Strike *(L3 · 0.6.0+)*
 Hilt to the skull. On a failed **Constitution** save the target is **Stunned** and loses its next turn (it may also shake the stun off with a DC 12 Constitution save at the end of its turn).
 
-### ![](assets/disorienting_blow_icon.webp) Disorienting Blow *(L3)*
+### ![](assets/disorienting_blow_icon.webp) Disorienting Blow *(L3 · 0.6.0+)*
 A ringing blow to the head. On a failed **Wisdom** save the target is **Confused** for 2 turns: disadvantage on attack rolls and ability checks (DC 12 Intelligence save each turn to recover).
 
-### ![](assets/cleave_icon.webp) Cleave *(L5)*
+### ![](assets/cleave_icon.webp) Cleave *(L5 · 0.6.1+)*
 One great swing through a **line of three squares**, either the three in front of you or the three behind (you pick the side). Rolls to hit each enemy in the line separately; each one hit takes **full** weapon damage. No saving throw and no condition: it is pure damage.
 
-### ![](assets/leg_sweep_icon.webp) Leg Sweep *(L7)*
-A wide, low sweep through the **3x3 area centred on you** (every square next to you). Rolls to hit each enemy there separately; each one hit takes **half** weapon damage and, on a failed **Dexterity** save (adjusted for weight), is knocked **Prone**.
+### ![](assets/leg_sweep_icon.webp) Leg Sweep *(L7 · 0.6.0+)*
+A wide, low sweep through the **3x3 area centred on you** (since 0.6.1; in 0.6.0 it hit every enemy) (every square next to you). Rolls to hit each enemy there separately; each one hit takes **half** weapon damage and, on a failed **Dexterity** save (adjusted for weight), is knocked **Prone**.
 
-### ![](assets/prone_icon.webp) Prone (condition)
+### ![](assets/prone_icon.webp) Prone (condition) *(0.6.0+)*
 Knocked to the ground through its next turn: **disadvantage on its attack rolls**, and **all attacks against it have advantage**.
 
 ## Feat Levels
