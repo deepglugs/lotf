@@ -25,6 +25,16 @@ Each turn a character can move **1 + (DEX − 10) ÷ 4** squares (rounded down),
 
 Some effects add bonus movement on top.
 
+### Dash *(0.6.1+)*
+
+**Dash** is on every character's action bar during grid fights. It costs no energy and uses one of your actions for the turn. In exchange you get your full move again on top of whatever you have left, so a turn's movement doubles. Squares you walked before dashing still count.
+
+- If Dash was your last action, you then walk the extra squares (blue) and press **End Turn** when you're done.
+- With actions left, the turn carries on as normal, and the move hint shows the new total.
+- It isn't a disengage. Breaking away from an enemy still draws its free attack.
+- A Netted or Pinned character can't dash.
+- Enemies (and allies on Auto Battle) dash only when nothing they have can reach anyone this turn, the extra squares get them closer, and they haven't moved yet.
+
 ## Reach
 
 - **Melee** attacks reach the 8 squares around you (reach 1).
