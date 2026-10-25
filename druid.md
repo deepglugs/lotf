@@ -63,6 +63,15 @@ Each level-up you pick one option; already-learned spells are not offered again.
 |------|-------|--------|-------------|-------|
 | ![](assets/blizzard_icon.webp) | Blizzard | 8 | 8d8 cold to every enemy (+1d8 for every 3 levels past 9), **Constitution** save for half; Icy for 3 turns on a fail. | 0.5.4+ |
 
+## Harvest Druid Spells (Level Options) *(0.6.1+)*
+
+Growth rather than weather: offered beside the storm spells, and like them a druid becomes a Harvest Druid by picking them.
+
+| Unlocks | Icon | Spell | Energy | Description | Since |
+|---------|------|-------|--------|-------------|-------|
+| L1 | ![](assets/renewal_icon.webp) | Renewal | 4 | Plant new growth in an ally's wounds: they heal **1d6 per four levels** (at least 1d6) **+ Wisdom** at the start of each of their next **3 turns**. | 0.6.1+ |
+| L3 | ![](assets/grasping_rice_icon.webp) | Grasping Rice | 5 | The field rises around every enemy: on a failed **Strength** save each is held fast for 2 turns (**Netted**: cannot move, attacks at disadvantage) until it tears free or an ally cuts it loose. | 0.6.1+ |
+
 ---
 
 ## Feat Levels
