@@ -50,8 +50,8 @@ Area spells hit a square area centred on the square you aim at; a few are centre
 | Heavenfire Nova | 5 x 5 around the caster |
 | Leg Sweep (Fighter) | 3 x 3 around the caster |
 | Cleave (Fighter) | a line of 3 squares in front of or behind the caster |
-| River Surge (Kallirhoe) | a line 1 column wide and 4 rows tall, aimed anywhere *(0.6.1+)* |
-| Semi-Automatic Shot (AR15, Euryale's rifle) | a line 1 column wide and 5 rows tall, aimed anywhere *(0.6.1+)* |
+| River Surge (Kallirhoe) | a line 4 columns long and 1 row tall (sideways), aimed anywhere *(0.6.1+)* |
+| Semi-Automatic Shot (AR15, Euryale's rifle) | a line 5 columns long and 1 row tall (sideways), aimed anywhere *(0.6.1+)* |
 | Volley, Suppressing Fire (Fighter) | 3 x 3, aimed anywhere in range *(0.6.1+)* |
 
 Exact values live in `combat_attacks.py` and `cold_movesets.py` (`splash_size`, `splash_self`, `reach`).
