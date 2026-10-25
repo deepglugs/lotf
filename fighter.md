@@ -27,7 +27,7 @@ Draw on reserves of stamina to heal yourself. Healing is **Nd10** where N = `max
 Grants yourself the **Action Surge** condition, giving **2 additional actions** on your next turn. No energy cost; **once per battle** — it refreshes at the start of every encounter, so there is no reason to hoard it between fights.
 
 ### ![](assets/exploit_opening_icon.webp) Exploit Opening *(L3 · 0.6.0+)*
-Passive. Weapon hits against a target that is **Prone, Stunned, Confused, Staggered, Paralyzed, Ensnared or Asleep** deal **+1d8 physical** damage (**2d8** from Fighter level 13). Works with every weapon attack, not just maneuvers — knock a foe down, then pile on. Fighters who were already past level 3 when this was added receive it at their next level-up.
+Passive. Weapon hits against a target that is **Prone, Pinned, Stunned, Confused, Staggered, Paralyzed, Ensnared or Asleep** deal **+1d8 physical** damage (**2d8** from Fighter level 13). Works with every weapon attack, not just maneuvers — knock a foe down, then pile on. Fighters who were already past level 3 when this was added receive it at their next level-up.
 
 ### ![](assets/extra_attack_icon.webp) Extra Attack *(L5 · 0.3.6+)*
 Passive. Grants **1 extra attack** per turn.
@@ -91,6 +91,35 @@ A wide, low sweep through the **3x3 area centred on you** (since 0.6.1; in 0.6.0
 ### ![](assets/prone_icon.webp) Prone (condition) *(0.6.0+)*
 Knocked to the ground through its next turn: **disadvantage on its attack rolls**, and **all attacks against it have advantage**.
 
+### Ranged maneuvers *(0.6.1+)*
+A second set for a fighter with a **bow or firearm**, unlocking at the same levels and offered alongside the melee set (one pick per level from either). They **need a ranged weapon equipped** and are greyed out with a blade, club or bare hands, just as the melee set is greyed out with a bow. Same save DC and the same per-battle refresh. Shots reach any square; a shot taken with an enemy next to you rolls with disadvantage, like any ranged attack.
+
+| Unlocks | Icon | Maneuver | Save | Effect | Uses / battle | Since |
+|---------|------|----------|------|--------|---------------|-------|
+| L1 | ![](assets/pinning_shot_icon.webp) | Pinning Shot | Dexterity | Pinned | 2 (3 from L11) | 0.6.1+ |
+| L3 | ![](assets/crippling_shot_icon.webp) | Crippling Shot | Constitution | Slowed | 1 (2 from L11) | 0.6.1+ |
+| L3 | ![](assets/distracting_shot_icon.webp) | Distracting Shot | Wisdom | Confused, 2 turns | 2 (3 from L11) | 0.6.1+ |
+| L5 | ![](assets/volley_icon.webp) | Volley | none | Full weapon damage to each enemy in a 3x3 area anywhere in range | 2 (3 from L11) | 0.6.1+ |
+| L7 | ![](assets/suppressing_fire_icon.webp) | Suppressing Fire | Dexterity | Half damage and Pinned, each enemy in a 3x3 area in range | 1 (2 from L15) | 0.6.1+ |
+
+### ![](assets/pinning_shot_icon.webp) Pinning Shot *(L1 · 0.6.1+)*
+Nail a sleeve or a boot to the ground. On a failed **Dexterity** save the target is **Pinned**. No weight check: a shot pins a giant's hem as well as a man's.
+
+### ![](assets/crippling_shot_icon.webp) Crippling Shot *(L3 · 0.6.1+)*
+A shot to the knee or hip. On a failed **Constitution** save the target is **Slowed**: one action fewer each turn and disadvantage on Dexterity checks, until it passes a DC 10 Constitution save at the start of a turn (3 turns at most).
+
+### ![](assets/distracting_shot_icon.webp) Distracting Shot *(L3 · 0.6.1+)*
+A shot that grazes the temple. On a failed **Wisdom** save the target is **Confused** for 2 turns, as Disorienting Blow.
+
+### ![](assets/volley_icon.webp) Volley *(L5 · 0.6.1+)*
+Shot after shot into one spot: aim a **3x3 area anywhere in range**. Rolls to hit each enemy there separately; each one hit takes **full** weapon damage. No save, no condition: the ranged Cleave.
+
+### ![](assets/suppressing_fire_icon.webp) Suppressing Fire *(L7 · 0.6.1+)*
+Rake a **3x3 area anywhere in range**. Rolls to hit each enemy there; each one hit takes **half** weapon damage and, on a failed **Dexterity** save, is **Pinned**. The ranged Leg Sweep.
+
+### ![](assets/pinned_icon.webp) Pinned (condition) *(0.6.1+)*
+Pinned to the ground through its next turn: it **cannot move**, and **all attacks against it have advantage**. Unlike Prone it can still attack normally. Counts as an opening for Exploit Opening.
+
 ## Feat Levels
 
 Generic feats are available at levels **4, 8, 12, and 16**.
@@ -122,5 +151,6 @@ Generic feats are available at levels **4, 8, 12, and 16**.
 - **Open, then punish.** Trip or stun the most dangerous enemy first, then hit it with everything: advantage from Prone plus Exploit Opening's bonus die stack on every swing — yours and your allies'.
 - **Cleave** wants enemies lined up: step so two or three foes stand in the column in front of (or behind) you, then swing. Full damage on every hit makes it your best multi-target damage.
 - **Leg Sweep** shines when you are surrounded: step into the middle of a group, and everyone next to you knocked Prone gives the entire party advantage for a turn.
+- **Archers:** pin the biggest threat with Pinning Shot before it reaches the line, and Volley a cluster. Pinned gives the whole party advantage and holds it out of melee.
 - Spend your maneuvers every fight. They refresh at the start of each battle, so hoarding them gains nothing.
 - The Fighter pairs well with high-damage weapons — there are no energy gates on your attacks, so you can go all-out every turn without resource management.
