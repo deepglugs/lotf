@@ -99,6 +99,7 @@ A second set for a fighter with a **bow or firearm**, unlocking at the same leve
 | L1 | ![](assets/pinning_shot_icon.webp) | Pinning Shot | Dexterity | Pinned | 2 (3 from L11) | 0.6.1+ |
 | L3 | ![](assets/crippling_shot_icon.webp) | Crippling Shot | Constitution | Slowed | 1 (2 from L11) | 0.6.1+ |
 | L3 | ![](assets/distracting_shot_icon.webp) | Distracting Shot | Wisdom | Confused, 2 turns | 2 (3 from L11) | 0.6.1+ |
+| L3 | ![](assets/pushing_shot_icon.webp) | Pushing Shot | Strength (weight-adjusted) | Pushed 1 square back (2 with Windforce) | 2 (3 from L11) | 0.6.1+ |
 | L5 | ![](assets/volley_icon.webp) | Volley | none | Full weapon damage to each enemy in a 3x3 area anywhere in range | 2 (3 from L11) | 0.6.1+ |
 | L7 | ![](assets/suppressing_fire_icon.webp) | Suppressing Fire | Dexterity | Half damage and Pinned, each enemy in a 3x3 area in range | 1 (2 from L15) | 0.6.1+ |
 
@@ -110,6 +111,9 @@ A shot to the knee or hip. On a failed **Constitution** save the target is **Slo
 
 ### ![](assets/distracting_shot_icon.webp) Distracting Shot *(L3 · 0.6.1+)*
 A shot that grazes the temple. On a failed **Wisdom** save the target is **Confused** for 2 turns, as Disorienting Blow.
+
+### ![](assets/pushing_shot_icon.webp) Pushing Shot *(L3 · 0.6.1+)*
+Hit hard enough to drive the foe back. On a failed **Strength** save, adjusted for weight like a trip (a foe over four times your carrying capacity can't be moved at all, but legless foes can still be shoved), the target is **pushed one square** straight away from you. The push stops at the edge of the field or at anyone in the way, does no extra damage, and draws no free attacks (see [grid combat](grid_combat.md)). Unlike the other shots it **works with any weapon**: a bow, a firearm, or a shoving blow with a melee weapon. With **Windforce** the bow's own gust adds a square on every hit, so a failed save sends the target **two squares** back.
 
 ### ![](assets/volley_icon.webp) Volley *(L5 · 0.6.1+)*
 Shot after shot into one spot: aim a **3x3 area anywhere in range**. Rolls to hit each enemy there separately; each one hit takes **full** weapon damage. No save, no condition: the ranged Cleave.
@@ -152,5 +156,6 @@ Generic feats are available at levels **4, 8, 12, and 16**.
 - **Cleave** wants enemies lined up: step so two or three foes stand in the column in front of (or behind) you, then swing. Full damage on every hit makes it your best multi-target damage.
 - **Leg Sweep** shines when you are surrounded: step into the middle of a group, and everyone next to you knocked Prone gives the entire party advantage for a turn.
 - **Archers:** pin the biggest threat with Pinning Shot before it reaches the line, and Volley a cluster. Pinned gives the whole party advantage and holds it out of melee.
+- **Pushing Shot** peels an enemy off a wounded ally, or knocks a brute back out of reach so it has to spend its move closing again. With Windforce every arrow already pushes a square, so Pushing Shot sends them two.
 - Spend your maneuvers every fight. They refresh at the start of each battle, so hoarding them gains nothing.
 - The Fighter pairs well with high-damage weapons — there are no energy gates on your attacks, so you can go all-out every turn without resource management.

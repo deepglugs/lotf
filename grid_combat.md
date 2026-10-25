@@ -35,6 +35,16 @@ Some effects add bonus movement on top.
 - A Netted or Pinned character can't dash.
 - Enemies (and allies on Auto Battle) dash only when nothing they have can reach anyone this turn, the extra squares get them closer, and they haven't moved yet.
 
+### Knock-back *(0.6.1+)*
+
+Some attacks **push** the target straight away from the attacker: the fighter's **Pushing Shot** (one square on a failed Strength save) and the **Windforce** bow (one square on every hit, two with Pushing Shot).
+
+- The push goes in the 8-way direction closest to a straight line from attacker to target.
+- It stops at the edge of the field or at an occupied square, and nobody is hurt by the stop.
+- Being pushed is forced movement: it draws **no free attacks** and doesn't use the target's move.
+- Netted or Pinned targets are held in place and can't be pushed.
+- The combat log says how far ("pushed back 1 square") or that the target held its ground, and the token slides to its new square on the map.
+
 ## Reach
 
 - **Melee** attacks reach the 8 squares around you (reach 1).
