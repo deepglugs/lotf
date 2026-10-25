@@ -56,7 +56,7 @@ paid from any affinity pool.
 | ![](assets/transform_icon.webp) | Transform | 3 | — | Change your own sex — male, female or futa. **Camp only**: cast between fights, never in combat (see below). | 0.4.97+ |
 | ![](assets/sleet_storm_icon.webp) | Sleet Storm | 5 | 5 Any | Every enemy makes a Wisdom save or is **Wet** and **Icy** for 5 turns (2 turns on a success). Icy targets have a 30% chance each turn to slip and lose their action. | 0.4.96+ |
 | ![](assets/succubus_invisibility_icon.webp) | Succubus Invisibility | 5 | 2 Lust | Become **Invisible** for 3 turns (see below). | 0.4.96+ |
-| ![](assets/blizzard_icon.webp) | Blizzard | 9 | 8 Any | 8d8 cold damage to every enemy (Constitution save for half). Those who fail are **Icy** for 3 turns. | 0.4.96+ |
+| ![](assets/blizzard_icon.webp) | Blizzard | 9 | 8 Any | 8d8 cold damage to every enemy in a **3x3** area *(0.6.1+)* (Constitution save for half). Those who fail are **Icy** for 3 turns. | 0.4.96+ |
 | ![](assets/black_hole_icon.webp) | Black Hole | 14 | Lust + Chaos + Heavenfire | Tri-affinity capstone (requires all three affinities). Psychic and chaos damage to every enemy; all are **Slowed**. | 0.4.96+ |
 
 ---

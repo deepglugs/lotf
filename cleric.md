@@ -95,7 +95,7 @@ Spells are chosen on level up and added to your action list.
 | Icon | Spell | Energy | Description | Since |
 |------|-------|--------|-------------|-------|
 | ![](assets/greater_heal_icon.webp) | Mass Heal | 8 (Heavenfire) | Heals all allies (including self) for **3d6 + Wisdom modifier**. | 0.3.6+ |
-| ![](assets/blizzard_icon.webp) | Blizzard | 8 | AoE nuke: **8d8** cold damage to all enemies (Constitution save for half; scales +1d8 per 3 levels past 9). Those who fail are left **Icy** for 3 turns. Devastating after Sleet Storm's Wet. | 0.3.12+ |
+| ![](assets/blizzard_icon.webp) | Blizzard | 8 | AoE nuke: **8d8** cold damage to every enemy in a **3x3** area (Constitution save for half; scales +1d8 per 3 levels past 9). Those who fail are left **Icy** for 3 turns. Devastating after Sleet Storm's Wet. The area is one square smaller than Sleet Storm's *(0.6.1+)*. | 0.3.12+ |
 
 ---
 

@@ -91,7 +91,7 @@ Spells are chosen on level up and added to your action list.
 ### Level 9
 | Icon | Spell | Energy | Description | Since |
 |------|-------|--------|-------------|-------|
-| ![](assets/blizzard_icon.webp) | Blizzard | 8 | AoE nuke: **8d8** cold damage to all enemies (Constitution save for half; scales +1d8 per 3 levels past 9). Those who fail are left **Icy** for 3 turns. Devastating after Sleet Storm's Wet. | 0.3.12+ |
+| ![](assets/blizzard_icon.webp) | Blizzard | 8 | AoE nuke: **8d8** cold damage to every enemy in a **3x3** area (Constitution save for half; scales +1d8 per 3 levels past 9). Those who fail are left **Icy** for 3 turns. Devastating after Sleet Storm's Wet. The area is one square smaller than Sleet Storm's *(0.6.1+)*. | 0.3.12+ |
 
 ---
 

@@ -37,7 +37,7 @@ Each level-up you pick one option; already-learned spells are not offered again.
 
 | Icon | Spell | Energy | Description | Since |
 |------|-------|--------|-------------|-------|
-| ![](assets/sand_storm_icon.webp) | Sand Storm | 3 | 1d6 physical to every enemy. A failed **Constitution** save leaves them **Sand-Blinded** for 2 turns: disadvantage on their attacks, advantage on attacks against them (Constitution 12 each turn to clear it). | 0.5.4+ |
+| ![](assets/sand_storm_icon.webp) | Sand Storm | 3 | 1d6 physical to every enemy in a **3x3** area *(0.6.1+)*. A failed **Constitution** save leaves them **Sand-Blinded** for 2 turns: disadvantage on their attacks, advantage on attacks against them (Constitution 12 each turn to clear it). | 0.5.4+ |
 
 ### Level 3
 
@@ -61,7 +61,7 @@ Each level-up you pick one option; already-learned spells are not offered again.
 
 | Icon | Spell | Energy | Description | Since |
 |------|-------|--------|-------------|-------|
-| ![](assets/blizzard_icon.webp) | Blizzard | 8 | 8d8 cold to every enemy (+1d8 for every 3 levels past 9), **Constitution** save for half; Icy for 3 turns on a fail. | 0.5.4+ |
+| ![](assets/blizzard_icon.webp) | Blizzard | 8 | 8d8 cold to every enemy in a **3x3** area *(0.6.1+)* (+1d8 for every 3 levels past 9), **Constitution** save for half; Icy for 3 turns on a fail. | 0.5.4+ |
 
 ## Harvest Druid Spells (Level Options) *(0.6.1+)*
 
@@ -83,6 +83,6 @@ At levels 4, 8, 12 and 16 you also choose one general feat, as every class does.
 ## Tips
 
 - **Sleet, then Lightning.** Sleet Storm soaks the line; Lightning Storm on Wet enemies deals double.
-- **Open with Sand Storm.** Blinding the whole enemy line at level 1 swings an early fight: your party hits more and gets hit less.
+- **Open with Sand Storm.** Blinding a cluster of enemies at level 1 swings an early fight: aim the 3x3 where they bunch up, and your party hits more and gets hit less.
 - **Plague Storm keeps working.** The poison ticks for three turns after the swarm passes.
 - **Wisdom is everything.** Every storm's DC runs off it.
