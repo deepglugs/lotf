@@ -37,7 +37,7 @@ Passive. You are a true champion of the divine. **Charisma increased by 4**, wit
 
 ## Smite Spells (Level Options)
 
-Smites are chosen on level up and added to your action list. All smites scale with Charisma and deal weapon damage plus elemental/divine damage.
+Smites are chosen on level up and added to your action list. All smites scale with Charisma and deal weapon damage plus elemental/divine damage. Smites need a **melee weapon** *(0.6.1+)*: they are greyed out while a bow or firearm is equipped.
 
 ### Level 1
 | Icon | Spell | Energy | Description | Since |

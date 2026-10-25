@@ -47,6 +47,8 @@ Passive. Upgraded to **3 extra attacks** per turn total.
 
 Chosen as the level-up option (one per level, from those unlocked). Each is a weapon attack: roll to hit, deal weapon damage, and on a failed save the target suffers the effect. No energy cost; uses **refresh at the start of every battle**.
 
+**Melee weapons only** *(0.6.1+)*: maneuvers are greyed out while a bow or firearm is equipped (bare hands count as melee). Swap to a blade, club or spear to use them.
+
 **Save DC** = 8 + proficiency bonus + the better of your Strength and Dexterity modifiers. Trips (Trip Attack, Leg Sweep) use **Strength only**.
 
 ### Weight and tripping *(0.6.0+)*

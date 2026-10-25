@@ -52,7 +52,7 @@ paid from any affinity pool.
 | ![](assets/heat_icon.webp) | Heat | 2 | 2 Any | Constitution save or become **Hot**: 1d5 heat damage per turn for 5 turns. | 0.4.96+ |
 | — | Golden Shower | 3 | 1 Lust | Leaves the target **Wet**: double damage from cold and lightning, but resistant to heat. | 0.4.96+ |
 | ![](assets/command_icon.webp) | Command | 3 | 1 Any | Wisdom save or be **Stunned** for 2 turns. | 0.4.96+ |
-| ![](assets/glacial_strike_icon.webp) | Glacial Strike | 3 | 2 Any | Weapon attack with added scaling cold damage. If the target fails a Constitution save you gain a **Glacial Shield**. | 0.4.96+ |
+| ![](assets/glacial_strike_icon.webp) | Glacial Strike | 3 | 2 Any | Weapon attack with added scaling cold damage. If the target fails a Constitution save you gain a **Glacial Shield**. Melee weapon only *(0.6.1+)*. | 0.4.96+ |
 | ![](assets/transform_icon.webp) | Transform | 3 | — | Change your own sex — male, female or futa. **Camp only**: cast between fights, never in combat (see below). | 0.4.97+ |
 | ![](assets/sleet_storm_icon.webp) | Sleet Storm | 5 | 5 Any | Every enemy makes a Wisdom save or is **Wet** and **Icy** for 5 turns (2 turns on a success). Icy targets have a 30% chance each turn to slip and lose their action. | 0.4.96+ |
 | ![](assets/succubus_invisibility_icon.webp) | Succubus Invisibility | 5 | 2 Lust | Become **Invisible** for 3 turns (see below). | 0.4.96+ |

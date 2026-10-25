@@ -78,7 +78,7 @@ Spells are chosen on level up and added to your action list.
 | Icon | Spell | Energy | Description | Since |
 |------|-------|--------|-------------|-------|
 | ![](assets/command_icon.webp) | Command | 1 | A spell that issues a magical command to an enemy. | 0.3.6+ |
-| ![](assets/glacial_strike_icon.webp) | Glacial Strike | 2 | Channel cold through your weapon: weapon + scaling cold damage (1d10, +1d10 at L5/11/17). Failed enemy Con save grants you **Glacial Shield**. | 0.3.6+ |
+| ![](assets/glacial_strike_icon.webp) | Glacial Strike | 2 | Channel cold through your weapon: weapon + scaling cold damage (1d10, +1d10 at L5/11/17). Failed enemy Con save grants you **Glacial Shield**. Melee weapon only *(0.6.1+)*. | 0.3.6+ |
 
 ### Level 5
 | Icon | Spell | Energy | Description | Since |

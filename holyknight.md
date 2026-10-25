@@ -24,7 +24,7 @@ These are automatically granted at the listed level.
 **2d8 radiant** plus 1d4 for every four character levels (up to 5d4 more), plus your Strength modifier as physical damage.
 
 ### ![](assets/smite_icon.webp) Divine Smite *(L2 — 8 Heavenfire · 0.6.0+)*
-Normal weapon damage plus **2d8 radiant**, 1d8 more for every four levels (up to 5d8 more), and another **1d8 against undead and demons**. The radiant dice double on a critical hit.
+Normal weapon damage plus **2d8 radiant**, 1d8 more for every four levels (up to 5d8 more), and another **1d8 against undead and demons**. The radiant dice double on a critical hit. **Melee weapon only** *(0.6.1+)*: greyed out while a bow or firearm is equipped.
 
 ### ![](assets/heal_icon.webp) Heal *(L2 — 6 Heavenfire · 0.6.0+)*
 Heals an ally for 1d4 per four levels (at least 1d4) plus the **better of your Wisdom and Charisma** modifiers.
@@ -58,7 +58,7 @@ Chosen as the level-up option, one per level from those unlocked. Save DCs are *
 Call heaven's judgement on one enemy. It never misses. For 3 turns the target is **Judged**, and **every weapon hit against it, from anyone in the party**, deals an extra **1d6 radiant** (**2d6** from HolyKnight level 11). Cast it on whatever the party is focusing.
 
 ### ![](assets/heavenfire_blade_icon.webp) Heavenfire Blade *(L2 · 0.6.0+)*
-Set your blade alight and strike (a normal attack roll). On a hit it deals **1d8 + Charisma radiant**, with one more d8 at HolyKnight levels 5, 11 and 17. Dice double on a crit. The target then **burns for 1d6 radiant each turn for 3 turns**, or **2d6 against undead and demons**.
+Set your blade alight and strike (a normal attack roll). On a hit it deals **1d8 + Charisma radiant**, with one more d8 at HolyKnight levels 5, 11 and 17. Dice double on a crit. The target then **burns for 1d6 radiant each turn for 3 turns**, or **2d6 against undead and demons**. **Melee weapon only** *(0.6.1+)*: greyed out while a bow or firearm is equipped.
 
 ### ![](assets/turn_the_profane_icon.webp) Turn the Profane *(L3 · 0.6.0+)*
 Blaze with holy light. Every **undead and demon** enemy makes a Wisdom save or is **Turned** for 2 turns: it cowers and can't act, with a Wisdom save at the end of each turn to break free. Other enemies are unaffected, and the button greys out when there are no undead or demons. **Once per battle.**

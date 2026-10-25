@@ -75,7 +75,7 @@ Attacks are chosen on level up and added to your action list. Most require advan
 ### Level 11
 | Icon | Attack | Energy | Description | Since |
 |------|--------|--------|-------------|-------|
-| ![](assets/execute_strike_icon.webp) | Execute Strike | 0 | A devastating finishing blow. Deals weapon damage plus **3d8 bonus** physical damage. If target is below 50% HP, deals **extra 3d8** bonus damage (double bonus if bloodied). | 0.3.6+ |
+| ![](assets/execute_strike_icon.webp) | Execute Strike | 0 | A devastating finishing blow. Deals weapon damage plus **3d8 bonus** physical damage. If target is below 50% HP, deals **extra 3d8** bonus damage (double bonus if bloodied). Follows your weapon: a finishing **shot** with a bow or firearm *(0.6.1+)*. | 0.3.6+ |
 
 ---
 

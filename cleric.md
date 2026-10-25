@@ -75,8 +75,8 @@ Spells are chosen on level up and added to your action list.
 ### Level 3
 | Icon | Spell | Energy | Description | Since |
 |------|-------|--------|-------------|-------|
-| ![](assets/smite_icon.webp) | Divine Smite | 8 (Heavenfire) | Weapon damage plus **2d8** radiation damage, +1d8 per four levels (max 5d8 more). Extra 1d8 vs. undead/demons. Radiant dice double on a crit. | 0.3.6+ |
-| ![](assets/glacial_strike_icon.webp) | Glacial Strike | 2 | Channel cold through your weapon: weapon + scaling cold damage (1d10, +1d10 at L5/11/17). Failed enemy Con save grants you **Glacial Shield**. | 0.3.6+ |
+| ![](assets/smite_icon.webp) | Divine Smite | 8 (Heavenfire) | Weapon damage plus **2d8** radiation damage, +1d8 per four levels (max 5d8 more). Extra 1d8 vs. undead/demons. Radiant dice double on a crit. Melee weapon only *(0.6.1+)*. | 0.3.6+ |
+| ![](assets/glacial_strike_icon.webp) | Glacial Strike | 2 | Channel cold through your weapon: weapon + scaling cold damage (1d10, +1d10 at L5/11/17). Failed enemy Con save grants you **Glacial Shield**. Melee weapon only *(0.6.1+)*. | 0.3.6+ |
 
 ### Level 5
 | Icon | Spell | Energy | Description | Since |

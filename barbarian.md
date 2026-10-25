@@ -28,7 +28,7 @@ Enter a barbarian rage for **10 turns**, gaining:
 - **Advantage on Strength checks and saving throws**
 
 ### ![](assets/reckless_icon.webp) Reckless Attack *(L2 — Melee · 0.3.6+)*
-Attack with abandon. Gain advantage on melee attack rolls this turn but **grant advantage to all attackers against you** until your next turn. Deals weapon damage + Strength modifier.
+Attack with abandon. Gain advantage on melee attack rolls this turn but **grant advantage to all attackers against you** until your next turn. Deals weapon damage + Strength modifier. **Melee weapon only** *(0.6.1+)*: greyed out while a bow or firearm is equipped.
 
 ### ![](assets/danger_sense_icon.webp) Always Ready *(L2 — Passive · 0.3.6+)*
 Permanent **advantage on Dexterity saving throws** against traps, spells, and visible effects.

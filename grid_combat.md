@@ -30,6 +30,7 @@ Some effects add bonus movement on top.
 - **Melee** attacks reach the 8 squares around you (reach 1).
 - **Touch spells and weapon-delivered spells** are reach 1 too: Heal, Greater Heal, Lay on Hands, Divine Bitch Slap and the smites (Divine Smite, Water Smite and the like).
 - **Ranged weapons and most spells** reach any square. Equipping a bow or firearm turns your basic attack into a ranged attack.
+- **Close-in weapon moves need a melee weapon** *(0.6.1+)*: the fighter's maneuvers, the smites, Heavenfire Blade, Glacial Strike and Reckless Attack are greyed out while a bow or firearm is equipped. Execute Strike and Sneak Attack follow the weapon instead and shoot with a bow or gun.
 - A few breath attacks reach 2 squares.
 
 ## Engagement
